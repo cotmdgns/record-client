@@ -1,0 +1,33 @@
+// 대표 색깔
+$color: #51b6a0;
+
+#footerLine {
+  border-top: 1px solid rgb(189, 189, 189);
+  bottom: 0px;
+  #footerBox {
+    max-width: 1300px;
+    height: 250px;
+    margin: auto;
+    background-color: $color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+#footerBoxBody {
+  max-width: 1300px;
+  height: 50px;
+  margin: auto;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  div {
+    margin-right: 20px;
+    cursor: pointer;
+  }
+}
+#footerBoxFooter {
+  max-width: 1300px;
+  height: 50px;
+  margin: auto;
+}
