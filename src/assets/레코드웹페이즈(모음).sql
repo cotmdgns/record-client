@@ -23,14 +23,23 @@ CREATE TABLE user_table ( /* 유저 테이블 */
     user_id VARCHAR(50) unique,                 -- 아이디
     user_pwd VARCHAR(50),                		-- 패스워드
     user_name VARCHAR(50),               		-- 이름
-    user_gender VARCHAR(1),                     -- 성별
+    user_gender VARCHAR(10),                     -- 성별
 	user_phone VARCHAR(50),                     -- 전화번호
     user_birthdaydata VARCHAR(50),              -- 생년월일
+    user_manager VARCHAR(1) DEFAULT 1,			-- 1 = 사용자 ,2 = 관리자 ,3 = 운영자
     user_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 생성날짜
     user_address VARCHAR(50) default null,      -- 주소
     user_email VARCHAR(50) default null,    	-- 이메일
     user_img BLOB default null                  -- 유저 이미지
 );
+select * from user_table;
+
+insert into user_table (user_id,user_pwd,user_name,user_gender,user_phone,user_birthdaydata)
+values("cotmdgns","123","채승훈","남","01086637996","970109");
+
+UPDATE user_table
+set user_manager = 3
+where user_code = 1;
 
 
 /*
