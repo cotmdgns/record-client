@@ -1,4 +1,4 @@
-const Input = ({ label, type, placeholder, value, change }) => {
+const Input = ({ label, type, placeholder, value, change ,divState,style}) => {
   return (
     <div>
       <label>{label}</label>
@@ -8,6 +8,7 @@ const Input = ({ label, type, placeholder, value, change }) => {
         value={value}
         onChange={change}
       />
+      <div style={style}>{divState}</div>
     </div>
   );
 };
