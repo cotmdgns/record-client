@@ -3,13 +3,14 @@ import { FaRecordVinyl } from "react-icons/fa";
 import Input from "../../components/Input";
 import { useState, useEffect } from "react";
 import { signup } from "../../api/member";
+import { IoMdClose } from "react-icons/io";
 
 let memberBirth = /^\d{2}(0[0-9]|1[0-2])(0[0-9]|(1|2)[0-9]|3[0-1])$/;
 let memberPwd =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,15}$/;
 let memberPhone = /^010\d{8}$/;
 
-const Signup = () => {
+const Signup = ({ close }) => {
   const [member, setMember] = useState({
     userId: "",
     userPwd: "",
@@ -28,10 +29,13 @@ const Signup = () => {
   const styleFalse = {
     color: "red",
   };
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(close);
+  }, []);
 
   useEffect(() => {
     //아이디 체크 (DB에 왔다가서 확인후 널이 아니면 불가능, 널이면 가능)
+
     //비밀번호 체크
     if (member.userPwd != "") {
       if (memberPwd.test(member.userPwd)) {
@@ -74,9 +78,8 @@ const Signup = () => {
   };
 
   const submit = async () => {
-    console.log("일단 됬다?");
     const result = await signup(member);
-    console.log(result);
+    //중복아이디 체크
   };
 
   return (
@@ -91,7 +94,13 @@ const Signup = () => {
           </div>
           <div id="BodyBoxRight">
             <div id="BodyBox">
+              <div id="BodyBoxdiv">
+                <button id="buttonClose" onClick={close}>
+                  <IoMdClose />
+                </button>
+              </div>
               <h1 id="BodyBoxH1">회원가입</h1>
+
               <Input
                 label="ID"
                 placeholder="아이디를 입력해주세요"

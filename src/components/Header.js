@@ -10,28 +10,31 @@ const Header = () => {
   const [toggleSingUp, setToggleSingUp] = useState(false);
 
   const login = () => {
-    setToggleSingUp(!toggleSingUp);
-    setToggleLogin(false);
+    setToggleLogin(true);
   };
   const singUp = () => {
-    setToggleLogin(!toggleLogin);
-    setToggleSingUp(false);
+    setToggleSingUp(true);
   };
 
+  const close = () => {
+    setToggleLogin(false);
+    setToggleSingUp(false);
+  };
   return (
     <>
       <div id="headerBox">
         <div id="headerBoxLogo">Record</div>
         <div id="headerBoxSeach"></div>
         <div id="headerBoxRightBox">
+          {toggleLogin ? <Login /> : null}
+          {toggleSingUp ? <Signup close={close} /> : null}
+
           <button id="headerBoxRightLogin" onClick={login}>
             로그인
           </button>
-          {toggleSingUp ? <Login /> : null}
           <button id="headerBoxRightSignup" onClick={singUp}>
             회원가입
           </button>
-          {toggleLogin ? <Signup /> : null}
           <button id="headerBoxRightShoppingSave">장바구니</button>
           <button id="headerBoxRightProduct">주문조회</button>
           <button id="headerBoxRightMyPage">마이페이지</button>

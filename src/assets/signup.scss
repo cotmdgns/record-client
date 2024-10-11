@@ -43,7 +43,18 @@ $color: #51b6a0;
       #BodyBox {
         width: 100%;
         height: 100%;
-        padding: 50px;
+        padding: 10px 50px;
+        #BodyBoxdiv {
+          height: 30px;
+          display: flex;
+          align-items: end;
+          #buttonClose {
+            display: flex;
+            width: 30px;
+            justify-content: center;
+            align-items: center;
+          }
+        }
         #BodyBoxH1 {
           display: flex;
           justify-content: center;
@@ -51,7 +62,7 @@ $color: #51b6a0;
           font-weight: bold;
           font-size: 30px;
         }
-        #noneInput{
+        #noneInput {
           height: 30px;
         }
         div {
@@ -67,7 +78,7 @@ $color: #51b6a0;
             border-bottom: 1px solid rgb(196, 196, 196);
             padding: 5px;
           }
-          div{
+          div {
             font-size: 10px;
             margin-bottom: 10px;
             padding-left: 6px;

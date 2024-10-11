@@ -4,8 +4,9 @@ const instance = axios.create({
   baseURL: "http://localhost:8080/api/",
 });
 
+//회원가입
 export const signup = async (data) => {
-  return await instance.post("signup/".data);
+  return await instance.post("signup", data);
 };
 
 // export const signup = async (data) => {
