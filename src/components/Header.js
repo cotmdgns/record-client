@@ -16,6 +16,16 @@ const Header = () => {
     setToggleSingUp(true);
   };
 
+  const signUpPage = () => {
+    setToggleSingUp(true);
+    setToggleLogin(false);
+  };
+
+  const loginPage = () => {
+    setToggleSingUp(false);
+    setToggleLogin(true);
+  };
+
   const close = () => {
     setToggleLogin(false);
     setToggleSingUp(false);
@@ -26,8 +36,8 @@ const Header = () => {
         <div id="headerBoxLogo">Record</div>
         <div id="headerBoxSeach"></div>
         <div id="headerBoxRightBox">
-          {toggleLogin ? <Login /> : null}
-          {toggleSingUp ? <Signup close={close} /> : null}
+          {toggleLogin ? <Login close={close} signUpPage={signUpPage} /> : null}
+          {toggleSingUp ? <Signup close={close} loginPage={loginPage} /> : null}
 
           <button id="headerBoxRightLogin" onClick={login}>
             로그인

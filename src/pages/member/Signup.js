@@ -9,8 +9,8 @@ let memberBirth = /^\d{2}(0[0-9]|1[0-2])(0[0-9]|(1|2)[0-9]|3[0-1])$/;
 let memberPwd =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,15}$/;
 let memberPhone = /^010\d{8}$/;
-
-const Signup = ({ close }) => {
+let memberId = /^[a-z0-9]+$/;
+const Signup = ({ close, loginPage }) => {
   const [member, setMember] = useState({
     userId: "",
     userPwd: "",
@@ -36,6 +36,16 @@ const Signup = ({ close }) => {
   useEffect(() => {
     //아이디 체크 (DB에 왔다가서 확인후 널이 아니면 불가능, 널이면 가능)
 
+    //아이디 체크 (정규 표현식)
+    if (member.userId != "") {
+      if (memberId.test(member.userId)) {
+        setId("아아디 합격");
+      } else {
+        setId("영어와 숫자로만 이루어진 아이디를 만들어주세요");
+      }
+    } else {
+      setId("");
+    }
     //비밀번호 체크
     if (member.userPwd != "") {
       if (memberPwd.test(member.userPwd)) {
@@ -43,6 +53,8 @@ const Signup = ({ close }) => {
       } else {
         setPwd("비밀번호 아직 안됨");
       }
+    } else {
+      setPwd("");
     }
     //폰 체크
     if (member.userPhone != "") {
@@ -51,6 +63,8 @@ const Signup = ({ close }) => {
       } else {
         setphone("폰 다시 입력해주세요");
       }
+    } else {
+      setphone("");
     }
     //생년월일 체크
     if (member.userBirthdayData != "") {
@@ -62,6 +76,8 @@ const Signup = ({ close }) => {
       } else {
         setbirthdayData("생년월일 ㅇㅋ 합격");
       }
+    } else {
+      setbirthdayData("");
     }
     // 성별 체크 안했을때
     if (member.userGender == "") {
@@ -88,9 +104,17 @@ const Signup = ({ close }) => {
         <div id="BodySignup">
           <div id="BodyBoxLeft">
             <div>
-              <FaRecordVinyl />
+              <div id="Body1">
+                <FaRecordVinyl />
+                <div>Record</div>
+              </div>
+              <div id="Body2">
+                <div>
+                  기존 회원이신가여?
+                  <button onClick={loginPage}>로그인 페이지로 이동</button>
+                </div>
+              </div>
             </div>
-            <div>Record</div>
           </div>
           <div id="BodyBoxRight">
             <div id="BodyBox">
@@ -99,7 +123,7 @@ const Signup = ({ close }) => {
                   <IoMdClose />
                 </button>
               </div>
-              <h1 id="BodyBoxH1">회원가입</h1>
+              <h1 id="BodyBoxH1">Sign Up</h1>
 
               <Input
                 label="ID"
@@ -108,6 +132,7 @@ const Signup = ({ close }) => {
                 value={member.userId}
                 change={(e) => setMember({ ...member, userId: e.target.value })}
                 divState={id}
+                style={memberId.test(member.userId) ? styleTrue : styleFalse}
               />
               <Input
                 label="PASSWORD"
