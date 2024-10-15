@@ -1,7 +1,7 @@
 import "../../assets/signup.scss";
 import { FaRecordVinyl } from "react-icons/fa";
 import Input from "../../components/Input";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { signup } from "../../api/member";
 import { IoMdClose } from "react-icons/io";
 
@@ -23,6 +23,8 @@ const Signup = ({ close, loginPage }) => {
   const [pwd, setPwd] = useState("");
   const [phone, setphone] = useState("");
   const [birthdayData, setbirthdayData] = useState("");
+  const inputRef = useRef();
+
   const styleTrue = {
     color: "green",
   };
@@ -30,12 +32,22 @@ const Signup = ({ close, loginPage }) => {
     color: "red",
   };
   useEffect(() => {
-    console.log(close);
+    console.log(inputRef.current);
   }, []);
 
   useEffect(() => {
     //아이디 체크 (DB에 왔다가서 확인후 널이 아니면 불가능, 널이면 가능)
+  }, [member]);
 
+  const ManGender = () => {
+    setMember({ ...member, userGender: "남" });
+  };
+
+  const WomanGender = () => {
+    setMember({ ...member, userGender: "여" });
+  };
+
+  const submit = async () => {
     //아이디 체크 (정규 표현식)
     if (member.userId != "") {
       if (memberId.test(member.userId)) {
@@ -83,18 +95,19 @@ const Signup = ({ close, loginPage }) => {
     if (member.userGender == "") {
       console.log("성별체크 나 안됬는데?");
     }
-  }, [member]);
+    // 엔터처리랑
+    if (
+      member.userId.trim != "" &&
+      memberId.test(member.userId) &&
+      member.userPwd.trim != "" &&
+      member.userPhone.trim != "" &&
+      member.userBirthdayData.trim != "" &&
+      member.userName.trim != "" &&
+      member.userGender.trim != ""
+    ) {
+      const result = await signup(member);
+    }
 
-  const ManGender = () => {
-    setMember({ ...member, userGender: "남" });
-  };
-
-  const WomanGender = () => {
-    setMember({ ...member, userGender: "여" });
-  };
-
-  const submit = async () => {
-    const result = await signup(member);
     //중복아이디 체크
   };
 
@@ -126,6 +139,7 @@ const Signup = ({ close, loginPage }) => {
               <h1 id="BodyBoxH1">Sign Up</h1>
 
               <Input
+                ref={inputRef} // 엔터시 경고창 뜨게
                 label="ID"
                 placeholder="아이디를 입력해주세요"
                 type="text"

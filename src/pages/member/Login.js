@@ -35,8 +35,12 @@ const Login = ({ close, signUpPage }) => {
     }
     // 재대로 입력했을때
     if (!member.userId == "" && !member.userPwd == "") {
-      const reusult = await login(member);
-      setBoo(true);
+      try {
+        const result = await login(member);
+        console.log(result.data);
+      } catch {
+        alert("회원정보가 틀립니다.");
+      }
     }
   };
   return (
