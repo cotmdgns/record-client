@@ -1,6 +1,24 @@
 import "../assets/footer.scss";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
+  const noticeBoard = () => {
+    // 게시판
+    navigate("/noticeBoard");
+  };
+  const eventBoard = () => {
+    // 이벤트
+    navigate("/eventBoard");
+  };
+  const productInquiry = () => {
+    // 포토리뷰
+    navigate("/productInquiry");
+  };
+  const oneOneInquiry = () => {
+    // 1:1 문의하기
+    navigate("/oneOneInquiry");
+  };
   return (
     <>
       <div id="footerLine">
@@ -18,12 +36,11 @@ const Footer = () => {
           </div>
           <div>
             <ul>
-              <li>게시판</li>
-              <li>공지사항</li>
-              <li>이벤트</li>
-              <li>상품문의</li>
-              <li>포토리뷰</li>
-              <li>1:1문의하기</li>
+              <li onClick={noticeBoard}>게시판</li>
+              <li onClick={eventBoard}>이벤트</li>
+              <li onClick={productInquiry}>포토리뷰</li>
+              {/* <li onClick={noticeBoard}>포토리뷰</li> */}
+              <li onClick={oneOneInquiry}>1:1문의하기</li>
             </ul>
           </div>
         </div>

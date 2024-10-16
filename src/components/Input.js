@@ -6,13 +6,11 @@ const Input = ({
   change,
   divState,
   style,
-  ref,
 }) => {
   return (
     <div>
       <label>{label}</label>
       <input
-        ref={ref}
         type={type}
         placeholder={placeholder}
         value={value}

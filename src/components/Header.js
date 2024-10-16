@@ -1,13 +1,12 @@
 import "../assets/header.scss";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Signup from "../pages/member/Signup";
 import Login from "../pages/member/Login";
-
+import { useNavigate } from "react-router-dom";
 const Header = () => {
-  const navigate = useNavigate();
   const [toggleLogin, setToggleLogin] = useState(false);
   const [toggleSingUp, setToggleSingUp] = useState(false);
+  const navigate = useNavigate();
 
   const login = () => {
     setToggleLogin(true);
@@ -30,10 +29,16 @@ const Header = () => {
     setToggleLogin(false);
     setToggleSingUp(false);
   };
+
+  const mainpage = () => {
+    navigate("/");
+  };
   return (
     <>
       <div id="headerBox">
-        <div id="headerBoxLogo">Record</div>
+        <div id="headerBoxLogo" onClick={mainpage}>
+          Record
+        </div>
         <div id="headerBoxSeach"></div>
         <div id="headerBoxRightBox">
           {toggleLogin ? <Login close={close} signUpPage={signUpPage} /> : null}

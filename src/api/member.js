@@ -14,6 +14,11 @@ export const login = async (data) => {
   return await instance.post("login", data);
 };
 
+//아이디 중복체크
+export const idCheck = async (id) => {
+  return await instance.get("idCheck/" + id);
+};
+
 // export const signup = async (data) => {
 //   alert(JSON.stringify(data));
 //   return await axios.post("http://localhost:8080/api/signup/", data);

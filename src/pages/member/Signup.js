@@ -1,15 +1,16 @@
 import "../../assets/signup.scss";
 import { FaRecordVinyl } from "react-icons/fa";
 import Input from "../../components/Input";
-import { useState, useEffect, useRef } from "react";
-import { signup } from "../../api/member";
+import { useState, useEffect } from "react";
+import { signup, idCheck } from "../../api/member";
 import { IoMdClose } from "react-icons/io";
 
 let memberBirth = /^\d{2}(0[0-9]|1[0-2])(0[0-9]|(1|2)[0-9]|3[0-1])$/;
 let memberPwd =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,15}$/;
 let memberPhone = /^010\d{8}$/;
-let memberId = /^[a-z0-9]+$/;
+let memberId = /^[a-z0-9]{6,15}$/;
+
 const Signup = ({ close, loginPage }) => {
   const [member, setMember] = useState({
     userId: "",
@@ -23,43 +24,46 @@ const Signup = ({ close, loginPage }) => {
   const [pwd, setPwd] = useState("");
   const [phone, setphone] = useState("");
   const [birthdayData, setbirthdayData] = useState("");
-  const inputRef = useRef();
 
+  // 회원가입 스타일
   const styleTrue = {
     color: "green",
   };
   const styleFalse = {
     color: "red",
   };
-  useEffect(() => {
-    console.log(inputRef.current);
-  }, []);
-
+  // 버튼 스타일
+  const ButtonStyle = {
+    backgroundColor: "rgb(226, 226, 226)",
+  };
+  useEffect(() => {}, []);
+  //id중복체크
+  const Check = async (id) => {
+    const result = await idCheck(id);
+    if (result.data !== "") {
+      setId("존재하는 아이디 입니다.");
+    } else {
+    }
+  };
+  // 아이디 체크 임펙트
   useEffect(() => {
     //아이디 체크 (DB에 왔다가서 확인후 널이 아니면 불가능, 널이면 가능)
-  }, [member]);
-
-  const ManGender = () => {
-    setMember({ ...member, userGender: "남" });
-  };
-
-  const WomanGender = () => {
-    setMember({ ...member, userGender: "여" });
-  };
-
-  const submit = async () => {
     //아이디 체크 (정규 표현식)
-    if (member.userId != "") {
+    if (member.userId !== "") {
       if (memberId.test(member.userId)) {
-        setId("아아디 합격");
+        Check(member.userId);
+        setId("가능한 아이디 입니다.");
       } else {
-        setId("영어와 숫자로만 이루어진 아이디를 만들어주세요");
+        setId("6~15자의 영문 소문자, 숫자로만 이루어진 아이디를 만들어주세요");
       }
     } else {
       setId("");
     }
+  }, [member.userId]);
+  // 비밀번호 체크 임펙트
+  useEffect(() => {
     //비밀번호 체크
-    if (member.userPwd != "") {
+    if (member.userPwd !== "") {
       if (memberPwd.test(member.userPwd)) {
         setPwd("비밀번호 합격");
       } else {
@@ -68,8 +72,11 @@ const Signup = ({ close, loginPage }) => {
     } else {
       setPwd("");
     }
+  }, [member.userPwd]);
+  // 전화번호 체크 임펙트
+  useEffect(() => {
     //폰 체크
-    if (member.userPhone != "") {
+    if (member.userPhone !== "") {
       if (memberPhone.test(member.userPhone)) {
         setphone("폰 합격");
       } else {
@@ -78,8 +85,11 @@ const Signup = ({ close, loginPage }) => {
     } else {
       setphone("");
     }
+  }, [member.userPhone]);
+  // 생년월일 체크 임펙트
+  useEffect(() => {
     //생년월일 체크
-    if (member.userBirthdayData != "") {
+    if (member.userBirthdayData !== "") {
       if (
         member.userBirthdayData.length < 6 ||
         !memberBirth.test(member.userBirthdayData)
@@ -91,26 +101,33 @@ const Signup = ({ close, loginPage }) => {
     } else {
       setbirthdayData("");
     }
+  }, [member.userBirthdayData]);
+
+  const submit = async () => {
     // 성별 체크 안했을때
-    if (member.userGender == "") {
+    if (member.userGender === "") {
       console.log("성별체크 나 안됬는데?");
     }
-    // 엔터처리랑
+    // 다 입력이 되었을때 호출
     if (
-      member.userId.trim != "" &&
+      member.userId.trim !== "" &&
       memberId.test(member.userId) &&
-      member.userPwd.trim != "" &&
-      member.userPhone.trim != "" &&
-      member.userBirthdayData.trim != "" &&
-      member.userName.trim != "" &&
-      member.userGender.trim != ""
+      member.userPwd.trim !== "" &&
+      memberPwd.test(member.userPwd) &&
+      member.userPhone.trim !== "" &&
+      memberPhone.test(member.userPhone) &&
+      member.userBirthdayData.trim !== "" &&
+      memberBirth.test(member.userBirthdayData) &&
+      member.userName.trim !== "" &&
+      member.userGender.trim !== ""
     ) {
-      const result = await signup(member);
+      await signup(member);
+      alert("회원가입 하셨습니다 ㅊㅊ");
+      close();
+    } else {
+      alert("제대로 입력하지 않았습니다.");
     }
-
-    //중복아이디 체크
   };
-
   return (
     <>
       <div id="BodyBack">
@@ -139,7 +156,6 @@ const Signup = ({ close, loginPage }) => {
               <h1 id="BodyBoxH1">Sign Up</h1>
 
               <Input
-                ref={inputRef} // 엔터시 경고창 뜨게
                 label="ID"
                 placeholder="아이디를 입력해주세요"
                 type="text"
@@ -198,11 +214,27 @@ const Signup = ({ close, loginPage }) => {
               />
               <div id="noneInput">
                 <div id="BodyButton">
-                  <button onClick={ManGender}>남</button>
-                  <button onClick={WomanGender}>여</button>
+                  <button
+                    id="ButtonMan"
+                    style={member.userGender === "남" ? ButtonStyle : null}
+                    onClick={() => {
+                      setMember({ ...member, userGender: "남" });
+                    }}
+                  >
+                    남
+                  </button>
+                  <button
+                    id="ButtonWoMan"
+                    style={member.userGender === "여" ? ButtonStyle : null}
+                    onClick={() => {
+                      setMember({ ...member, userGender: "여" });
+                    }}
+                  >
+                    여
+                  </button>
                 </div>
               </div>
-              <div>
+              <div id="BodySubmit">
                 <button onClick={submit}>가입하기</button>
               </div>
             </div>
