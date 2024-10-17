@@ -4,42 +4,42 @@ import { IoMdClose } from "react-icons/io";
 import Input from "../../components/Input";
 import { useEffect, useState } from "react";
 import { login } from "../../api/member";
-
+import { useAuth } from "../../contexts/AuthContext";
 const Login = ({ close, signUpPage }) => {
   const [member, SetMember] = useState({
     userId: "",
     userPwd: "",
   });
   const [Check, SetCheck] = useState("");
-  const [boo, setBoo] = useState(false);
-
-  const styleTrue = {
-    color: "green",
-  };
+  const { login: authLogin } = useAuth();
+  // const styleTrue = {
+  //   color: "green",
+  // };
   const styleFalse = {
     color: "red",
   };
-
-  let memberId = /^[a-z0-9]+$/;
-
   const loginButton = async () => {
     // 아이디 및 비밀번호 입력안했을떄
-    if (member.userId == "" && member.userPwd == "") {
+    if (member.userId === "" && member.userPwd === "") {
       SetCheck("아이디와 비밀번호를 입력해주세요");
-    } else if (member.userId == "" && !member.userPwd == "") {
+    } else if (member.userId === "" && member.userPwd !== "") {
       SetCheck("아이디를 입력해주세요");
-    } else if (!member.userId == "" && member.userPwd == "") {
+    } else if (member.userId !== "" && member.userPwd === "") {
       SetCheck("비밀번호를 입력해주세요");
-    } else if (!member.userId == "" && !member.userPwd == "") {
-      SetCheck("");
     }
     // 재대로 입력했을때
-    if (!member.userId == "" && !member.userPwd == "") {
+    if (member.userId !== "" && member.userPwd !== "") {
       try {
         const result = await login(member);
-        console.log(result.data);
+        if (result.status === 200) {
+          authLogin(result.data);
+          alert("로그인 성공!");
+          SetCheck("");
+          close();
+        }
       } catch {
         alert("회원정보가 틀립니다.");
+        SetCheck("회원정보가 없습니다.");
       }
     }
   };
@@ -89,7 +89,7 @@ const Login = ({ close, signUpPage }) => {
                   }
                 />
               </div>
-              <div id="styleLogin" style={boo ? styleTrue : styleFalse}>
+              <div id="styleLogin" style={styleFalse}>
                 {Check}
               </div>
               <div id="buttonLogin">

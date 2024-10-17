@@ -1,18 +1,51 @@
 import "../assets/header.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Signup from "../pages/member/Signup";
 import Login from "../pages/member/Login";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 const Header = () => {
   const [toggleLogin, setToggleLogin] = useState(false);
   const [toggleSingUp, setToggleSingUp] = useState(false);
+  // 로그아웃
+  const { logout, nullCheck } = useAuth();
   const navigate = useNavigate();
 
+  // 로그인
   const login = () => {
     setToggleLogin(true);
   };
+  // 회원가입
   const singUp = () => {
     setToggleSingUp(true);
+  };
+
+  // 장바구니
+  const shoppingSave = () => {
+    if (!nullCheck()) {
+      alert("로그인 해주세요.");
+      setToggleLogin(true);
+    } else {
+      navigate("/shoppingSaveRoom");
+    }
+  };
+  // 주문조회
+  const product = () => {
+    if (!nullCheck()) {
+      alert("로그인 해주세요.");
+      setToggleLogin(true);
+    } else {
+      navigate("/");
+    }
+  };
+  // 마이페이지
+  const myPage = () => {
+    if (!nullCheck()) {
+      alert("로그인 해주세요.");
+      setToggleLogin(true);
+    } else {
+      navigate("/");
+    }
   };
 
   const signUpPage = () => {
@@ -33,6 +66,7 @@ const Header = () => {
   const mainpage = () => {
     navigate("/");
   };
+
   return (
     <>
       <div id="headerBox">
@@ -43,16 +77,50 @@ const Header = () => {
         <div id="headerBoxRightBox">
           {toggleLogin ? <Login close={close} signUpPage={signUpPage} /> : null}
           {toggleSingUp ? <Signup close={close} loginPage={loginPage} /> : null}
+          {localStorage.getItem("id") === null ? (
+            <>
+              <button id="headerBoxRightLogin" onClick={login}>
+                로그인
+              </button>
+              <button id="headerBoxRightSignup" onClick={singUp}>
+                회원가입
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                id="headerBoxRightLogin"
+                onClick={() => {
+                  logout();
+                  navigate("/");
+                }}
+              >
+                로그아웃
+              </button>
+            </>
+          )}
 
-          <button id="headerBoxRightLogin" onClick={login}>
-            로그인
+          <button id="headerBoxRightShoppingSave" onClick={shoppingSave}>
+            장바구니
           </button>
-          <button id="headerBoxRightSignup" onClick={singUp}>
-            회원가입
+          <button
+            id="headerBoxRightProduct"
+            onClick={() => {
+              product();
+              navigate("/orderInquiry");
+            }}
+          >
+            주문조회
           </button>
-          <button id="headerBoxRightShoppingSave">장바구니</button>
-          <button id="headerBoxRightProduct">주문조회</button>
-          <button id="headerBoxRightMyPage">마이페이지</button>
+          <button
+            id="headerBoxRightMyPage"
+            onClick={() => {
+              myPage();
+              navigate("/myPage");
+            }}
+          >
+            마이페이지
+          </button>
         </div>
       </div>
     </>
