@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:8080/api/",
+  baseURL: "http://localhost:8080/api/userTable",
 });
 
 //회원가입
@@ -14,11 +14,17 @@ export const login = async (data) => {
   return await instance.post("login", data);
 };
 
-//아이디 중복체크 
+//아이디 중복체크
 export const idCheck = async (id) => {
   return await instance.get("idCheck/" + id);
 };
 
+// 탈퇴전에 현재 회원 비밀번호 확인후
+
+// 탈퇴하기
+export const userDelete = async (data) => {
+  return await instance.delete("userDelete", data);
+};
 
 // export const signup = async (data) => {
 //   alert(JSON.stringify(data));

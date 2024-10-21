@@ -56,14 +56,14 @@ const Footer = () => {
       <div id="footerLine">
         <div id="footerBoxFooter">
           <div id="footerInfoList">
-            <div>대표 : 채승훈</div>
+            <div>대표 : 히오스</div>
             <div>사업자등록번호 : 15-87-889-9999-42</div>
           </div>
           <div id="footerInfoList">
             <div>통신판매업신고번호 : 제2099-메트로-4040호</div>
           </div>
           <div id="footerInfoList">
-            <div>개인정보관리자 : 채승훈</div>
+            <div>개인정보관리자 : 히오스</div>
             <div>주소 : 메트로시 마추피추구 온정로 202 아트팩토리</div>
           </div>
           <div id="footerInfoList">

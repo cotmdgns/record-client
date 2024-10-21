@@ -25,6 +25,7 @@ const Header = () => {
     if (!nullCheck()) {
       alert("로그인 해주세요.");
       setToggleLogin(true);
+      navigate("/");
     } else {
       navigate("/shoppingSaveRoom");
     }
@@ -34,8 +35,9 @@ const Header = () => {
     if (!nullCheck()) {
       alert("로그인 해주세요.");
       setToggleLogin(true);
-    } else {
       navigate("/");
+    } else {
+      navigate("/orderInquiry");
     }
   };
   // 마이페이지
@@ -43,8 +45,9 @@ const Header = () => {
     if (!nullCheck()) {
       alert("로그인 해주세요.");
       setToggleLogin(true);
-    } else {
       navigate("/");
+    } else {
+      navigate("/myPage");
     }
   };
 
@@ -107,7 +110,6 @@ const Header = () => {
             id="headerBoxRightProduct"
             onClick={() => {
               product();
-              navigate("/orderInquiry");
             }}
           >
             주문조회
@@ -116,7 +118,6 @@ const Header = () => {
             id="headerBoxRightMyPage"
             onClick={() => {
               myPage();
-              navigate("/myPage");
             }}
           >
             마이페이지

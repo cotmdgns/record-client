@@ -6,6 +6,8 @@ const Input = ({
   change,
   divState,
   style,
+  disabled,
+  click,
 }) => {
   return (
     <div>
@@ -15,6 +17,8 @@ const Input = ({
         placeholder={placeholder}
         value={value}
         onChange={change}
+        onClick={click}
+        disabled={disabled}
       />
       <div style={style}>{divState}</div>
     </div>

@@ -26,10 +26,10 @@ const BodyMiddle = () => {
       <div id="bodyMiddle">
         <div id="bodyMainLp">
           <div>
-            {/* <img
-              src="http://192.168.10.23:8081/ImageMain/Hero_Lifestyle_VSC-750SB-YEL_11_x700.jpg"
+            <img
+              src="http://192.168.10.51:8084/ImageMain/Hero_Lifestyle_VSC-750SB-YEL_11_x700.jpg"
               alt="Hero Lifestyle"
-            /> */}
+            />
             <div>여기는 글씨?</div>
           </div>
           <div>여기는 LP판</div>
@@ -48,10 +48,10 @@ const BodyMiddle = () => {
         </div>
         <div id="bodyMainRecord">
           <div>
-            {/* <img
-              src="http://192.168.10.23:8081/ImageMain/Lifestyle_high_angle_record_on_platter_VTA-270B-ESP__14_600x600.jpg"
+            <img
+              src="http://192.168.10.51:8084/ImageMain/Lifestyle_high_angle_record_on_platter_VTA-270B-ESP__14_600x600.jpg"
               alt="Hero Lifestyle"
-            /> */}
+            />
             <div>여기는 글씨?</div>
           </div>
           <div>여기는 레코드판</div>
@@ -68,20 +68,20 @@ const BodyMiddle = () => {
         </div>
         <div>
           <div id="bodyMainCreate">
-            {/* <img
-              src="http://192.168.10.23:8081/ImageMain/VPT-2000-BLK-ATE-LIFE-3_600x600.jpg"
+            <img
+              src="http://192.168.10.51:8084/ImageMain/VPT-2000-BLK-ATE-LIFE-3_600x600.jpg"
               alt="Hero Lifestyle"
-            /> */}
+            />
             <div>여기는 글씨?</div>
           </div>
           <div>여기는 제작</div>
         </div>
         <div>
           <div id="bodyMainNotice">
-            {/* <img
-              src="http://192.168.10.23:8081/ImageMain/Lifestyle_side_view_cloth_in_use_VA-55-ESP_15_600x600.jpg"
+            <img
+              src="http://192.168.10.51:8084/ImageMain/Lifestyle_side_view_cloth_in_use_VA-55-ESP_15_600x600.jpg"
               alt="Hero Lifestyle"
-            /> */}
+            />
             <div>여기는 글씨?</div>
           </div>
           <div>여기는 공지사항 및 회사소개?</div>

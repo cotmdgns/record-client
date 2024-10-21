@@ -1,4 +1,5 @@
 import { createContext, useState, useContext } from "react";
+import { userDelete } from "../api/member";
 // Context 생성
 const AuthContext = createContext();
 
@@ -24,6 +25,17 @@ export const AuthProvider = ({ children }) => {
     alert("로그아웃 됬습니다");
   };
 
+  // 회원탈퇴했을때
+  const logDelete = (data) => {
+    userDelete(data);
+    // localStorage.removeItem("id");
+    // localStorage.removeItem("name");
+    // setId(null);
+    // setName(null);
+    alert("삭제되었습니다.");
+  };
+
+  // 널체크 (헤더 체크)
   const nullCheck = () => {
     if (localStorage.getItem("id") !== null) {
       return true;
@@ -32,7 +44,16 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ id, name, login, logout, nullCheck }}>
+    <AuthContext.Provider
+      value={{
+        id,
+        name,
+        logDelete,
+        login,
+        logout,
+        nullCheck,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -48,5 +69,4 @@ export const useAuth = () => useContext(AuthContext);
 2. AuthContext.Provider 전역적으로 사용할수있게끔 만들어주면서 벨류값을 받아내고
 3. 프로바이더에서 값을 받고 다시 그 값을 children에 호출하면서
 4. AuthProvider 를 호출함으로써 기능 실행.
-
 */

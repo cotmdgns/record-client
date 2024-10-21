@@ -1,0 +1,21 @@
+#myPageBody {
+  display: flex;
+  height: 100%;
+  background-color: beige;
+  margin: auto;
+  padding: 50px;
+  // 유저 이미지
+  #myPageBodyImgBox {
+    display: flex;
+    flex-direction: column;
+    background-color: red;
+    #myPageImg {
+      border-radius: 50%;
+    }
+  }
+
+  // 유저 정보
+  #myPageBodyInForMation {
+    padding: 0 50px;
+  }
+}

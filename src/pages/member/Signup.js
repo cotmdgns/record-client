@@ -2,14 +2,16 @@ import "../../assets/signup.scss";
 import { FaRecordVinyl } from "react-icons/fa";
 import Input from "../../components/Input";
 import { useState, useEffect } from "react";
-import { signup, idCheck } from "../../api/member";
+import { idCheck } from "../../api/member";
 import { IoMdClose } from "react-icons/io";
+import { useInForMation } from "../../contexts/userContext";
 
 let memberBirth = /^\d{2}(0[0-9]|1[0-2])(0[0-9]|(1|2)[0-9]|3[0-1])$/;
 let memberPwd =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,15}$/;
 let memberPhone = /^010\d{8}$/;
 let memberId = /^[a-z0-9]{6,15}$/;
+let memberEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
 const Signup = ({ close, loginPage }) => {
   const [member, setMember] = useState({
@@ -18,26 +20,28 @@ const Signup = ({ close, loginPage }) => {
     userName: "",
     userPhone: "",
     userBirthdayData: "",
+    userEmail: "",
     userGender: "",
   });
   const [id, setId] = useState("");
   const [pwd, setPwd] = useState("");
   const [phone, setphone] = useState("");
   const [birthdayData, setbirthdayData] = useState("");
+  const [email, setEmail] = useState("");
   const [userIdCheck, setUserIdCheck] = useState(false);
-
-  // 회원가입 스타일
+  const { userSingUp } = useInForMation();
+  // 회원가입,버튼 스타일
   const styleTrue = {
     color: "green",
   };
   const styleFalse = {
     color: "red",
   };
-  // 버튼 스타일
   const ButtonStyle = {
     backgroundColor: "rgb(226, 226, 226)",
   };
-  useEffect(() => {}, []);
+  //
+
   //id중복체크
   const Check = async (id) => {
     const result = await idCheck(id);
@@ -106,8 +110,17 @@ const Signup = ({ close, loginPage }) => {
     }
   }, [member.userBirthdayData]);
 
+  useEffect(() => {
+    if (member.userEmail !== "") {
+      if (memberEmail.test(member.userEmail)) {
+        setEmail("맞는듯?");
+      } else {
+        setEmail("아닌듯???");
+      }
+    }
+  }, [member.userEmail]);
   //회원가입 버튼
-  const submit = async () => {
+  const submit = () => {
     // 성별 체크 안했을때
     if (member.userGender === "") {
       console.log("성별체크 나 안됬는데?");
@@ -116,6 +129,7 @@ const Signup = ({ close, loginPage }) => {
     if (
       member.userId.trim !== "" &&
       memberId.test(member.userId) &&
+      userIdCheck &&
       member.userPwd.trim !== "" &&
       memberPwd.test(member.userPwd) &&
       member.userPhone.trim !== "" &&
@@ -125,9 +139,9 @@ const Signup = ({ close, loginPage }) => {
       member.userName.trim !== "" &&
       member.userGender.trim !== ""
     ) {
-      await signup(member);
+      userSingUp(member);
       alert("회원가입 하셨습니다 ㅊㅊ");
-      // close();
+      close();
     } else {
       alert("제대로 입력하지 않았습니다.");
     }
@@ -218,6 +232,19 @@ const Signup = ({ close, loginPage }) => {
                   memberBirth.test(member.userBirthdayData)
                     ? styleTrue
                     : styleFalse
+                }
+              />
+              <Input
+                label="Email"
+                placeholder="이메일을 입력해주세여"
+                type="text"
+                value={member.userEmail}
+                change={(e) =>
+                  setMember({ ...member, userEmail: e.target.value })
+                }
+                divState={email}
+                style={
+                  memberEmail.test(member.userEmail) ? styleTrue : styleFalse
                 }
               />
               <div id="noneInput">

@@ -23,11 +23,13 @@ const OrderInquiry = () => {
   useEffect(() => {
     userIdInForMation();
     userOrderTable();
+    console.log(user);
   }, []);
   useEffect(() => {
     console.log(userOrder);
   }, [userOrder]);
 
+  /*-- 주문 상태코드 (1이면 주문발송 2이면 배송중 3이면 배송완료 4이면 주문내역 등등..*/
   return (
     <>
       <div id="orderInquiryBody">
@@ -36,6 +38,7 @@ const OrderInquiry = () => {
             나는 상품 정보
             {userOrder.map((order) => (
               <div key={order.orderCode}>
+                <div></div>
                 <div>{order.orderStateCode}여기가 1,2,3,4 상태 코드</div>
                 <div>{order.product.productCode}</div>
                 <div>{order.product.productExplanation}</div>
@@ -53,6 +56,8 @@ const OrderInquiry = () => {
             <div id="">{user.userId}</div>
             <div id="">{user.userCode}</div>
             <div id="">{user.userEmail}</div>
+            <div id="">{user.userImg}</div>
+            <img src={user.userImg}></img>
           </div>
         </div>
       </div>
