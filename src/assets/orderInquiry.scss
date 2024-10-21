@@ -1,0 +1,19 @@
+#orderInquiryBody {
+  max-width: 1300px;
+  height: 100%;
+  background-color: white;
+  margin: auto;
+  display: flex;
+  position: relative;
+  #Bodyleft {
+    width: 100%;
+    height: 100%;
+  }
+  #BodyRight {
+    background-color: orange;
+    width: 50%;
+    height: 100%;
+    position: sticky;
+    top: 0px;
+  }
+}
