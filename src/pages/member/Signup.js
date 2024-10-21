@@ -24,6 +24,7 @@ const Signup = ({ close, loginPage }) => {
   const [pwd, setPwd] = useState("");
   const [phone, setphone] = useState("");
   const [birthdayData, setbirthdayData] = useState("");
+  const [userIdCheck, setUserIdCheck] = useState(false);
 
   // 회원가입 스타일
   const styleTrue = {
@@ -42,7 +43,9 @@ const Signup = ({ close, loginPage }) => {
     const result = await idCheck(id);
     if (result.data !== "") {
       setId("존재하는 아이디 입니다.");
+      setUserIdCheck(false);
     } else {
+      setUserIdCheck(true);
     }
   };
   // 아이디 체크 임펙트
@@ -103,6 +106,7 @@ const Signup = ({ close, loginPage }) => {
     }
   }, [member.userBirthdayData]);
 
+  //회원가입 버튼
   const submit = async () => {
     // 성별 체크 안했을때
     if (member.userGender === "") {
@@ -123,7 +127,7 @@ const Signup = ({ close, loginPage }) => {
     ) {
       await signup(member);
       alert("회원가입 하셨습니다 ㅊㅊ");
-      close();
+      // close();
     } else {
       alert("제대로 입력하지 않았습니다.");
     }
@@ -162,7 +166,11 @@ const Signup = ({ close, loginPage }) => {
                 value={member.userId}
                 change={(e) => setMember({ ...member, userId: e.target.value })}
                 divState={id}
-                style={memberId.test(member.userId) ? styleTrue : styleFalse}
+                style={
+                  memberId.test(member.userId) && userIdCheck
+                    ? styleTrue
+                    : styleFalse
+                }
               />
               <Input
                 label="PASSWORD"
