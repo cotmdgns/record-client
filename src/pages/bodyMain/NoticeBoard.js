@@ -1,8 +1,13 @@
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
 //게시판
 const NoticeBoard = () => {
   return (
     <>
-      <div>나는 게시판</div>
+      <div>
+        <ReactQuill theme="snow" />
+      </div>
     </>
   );
 };
