@@ -19,11 +19,21 @@ export const idCheck = async (id) => {
   return await instance.get("idCheck/" + id);
 };
 
-// 탈퇴전에 현재 회원 비밀번호 확인후
-
+/* 삭제 */
 // 탈퇴하기
-export const userDelete = async (data) => {
-  return await instance.delete("userDelete", data);
+export const userDelete = async (code) => {
+  console.log(code);
+  return await instance.delete(`userDelete/${code}`);
+};
+
+/* 업데이트 */
+// 회원 정보 수정하기
+export const userUpDatePut = async (data) => {
+  try {
+    return await instance.put("upDataController", data);
+  } catch (error) {
+    return error.response;
+  }
 };
 
 // export const signup = async (data) => {

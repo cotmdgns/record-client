@@ -26,12 +26,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   // 회원탈퇴했을때
-  const logDelete = (data) => {
-    userDelete(data);
-    // localStorage.removeItem("id");
-    // localStorage.removeItem("name");
-    // setId(null);
-    // setName(null);
+  const logDelete = (code) => {
+    userDelete(code);
+    localStorage.removeItem("id");
+    localStorage.removeItem("name");
+    setId(null);
+    setName(null);
     alert("삭제되었습니다.");
   };
 

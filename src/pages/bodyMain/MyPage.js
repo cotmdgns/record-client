@@ -1,17 +1,23 @@
 import { useState, useEffect } from "react";
-import { idCheck, userDelete } from "../../api/member";
+import { idCheck, userUpDatePut } from "../../api/member";
 import "../../assets/myPage.scss";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import Input from "../../components/Input";
 
 const MyPage = () => {
+  // 비밀번호 체크
+  const [pwdDefualt, setPwdDefualt] = useState("");
+  const [pwdUpdata, setPwdUpdata] = useState("");
+  const [pwdUpdataTrue, setPwdUpdataTrue] = useState("");
   const [member, setMember] = useState([]);
+
   const [page, setPage] = useState(1);
-  const [userUpdate, setUserUpdate] = useState(false);
-  const [userDelete, setUserDelete] = useState(false);
+  const [checkPwd, setCheckPwd] = useState("");
+  // 인풋 disabled 처리
   const navigate = useNavigate();
   const { logDelete } = useAuth();
+
   const id = localStorage.getItem("id");
 
   const maPageMember = async () => {
@@ -20,33 +26,33 @@ const MyPage = () => {
   };
   useEffect(() => {
     maPageMember();
-    console.log(member);
   }, []);
 
   useEffect(() => {
     console.log(member);
   }, [member]);
 
-  useEffect(() => {
-    console.log(page);
-  }, [page]);
-
-  // 수정, 삭제 모달창 두개 띄우면서 찐찐막 확인하기
   // 업데이트 페이지 이동
   const memberUpdate = () => {
     setPage(2);
   };
   // 업데이트 수정 완료
   const memberUpdateSuccess = () => {
-    if (window.confirm("수정하시겠습니까?")) {
-      setPage(1);
-    } else {
-      setPage(2);
-    }
-  };
-  const memberUpdateBack = () => {
+    // if (window.confirm("수정하시겠습니까?")) {
+    //   alert("수정되었습니다.");
+    //   setPage(1);
+    // } else {
+    //   setPage(2);
+    // }
     setPage(1);
   };
+  // const memberUpdateBack = () => {
+  //   if (window.confirm("수정한 정보가 사라집니다.")) {
+  //     setPage(1);
+  //   } else {
+  //     setPage(2);
+  //   }
+  // };
 
   // 삭제
   const memberDelete = () => {
@@ -55,13 +61,19 @@ const MyPage = () => {
     setPage(3);
   };
   const memberDeleteSuccess = () => {
-    if (window.confirm("정말로 회원탈퇴 하시겠습니까?")) {
-      logDelete(member);
-      //   navigate("/");
-      //   logDelete();
+    if (member.userPwd === checkPwd) {
+      if (window.confirm("정말로 회원탈퇴 하시겠습니까?")) {
+        logDelete(member.userCode);
+        navigate("/");
+      } else {
+        setPage(1);
+      }
     } else {
-      setPage(1);
+      alert("회원정보가 틀립니다");
     }
+  };
+  const memberDeleteBack = () => {
+    setPage(1);
   };
 
   // 이미지 업데이트
@@ -74,50 +86,104 @@ const MyPage = () => {
     // 그러면 이미지 수정버튼을눌렀을때 그냥 해당 디폴트값 사진 위에 올려놓고 수정안하기했을때 다시 놀린사진은 없애버리기
     alert("이미지 수정하기!");
   };
+
+  /* 수정하기 버튼 모음 */
+  //  pwdDefualt   ,pwdUpdata  ,pwdUpdataTrue
+  const pwdBtn = async () => {
+    if (pwdUpdata === pwdUpdataTrue) {
+      const response = await userUpDatePut({
+        userCode: member.userCode,
+        userId: member.userId,
+        userPwd: pwdUpdataTrue,
+        oldUserPwd: pwdDefualt,
+      });
+      if (response.status === 401) {
+        alert(response.data);
+      }
+    } else {
+      alert("새 비밀번호와 새 비밀번호 확인이 다릅니다.");
+    }
+  };
   return (
     <>
       <div id="myPageBody" key={member.userCode}>
         <div id="myPageBodyImgBox">
           <img src={member.userImg} id="myPageImg"></img>
-          {page === 2 ? (
-            <>
-              <Input type="file" />
-            </>
-          ) : null}
         </div>
         <div id="myPageBodyInForMation">
           {page === 1 ? (
-            <div>
-              <div>
-                <div>ID : {member.userId}</div>
-                <div>PASSWORD : {member.userPwd}</div>
-                <div>NAME : {member.userName}</div>
-                <div>GENDER : {member.userGender}</div>
-                <div>EMAIL : {member.userEmail}</div>
-                <div>PHONE {member.userPhone}</div>
-                <div>BIRTHDAYDATE : {member.userBirthdayData}</div>
+            <div id="OnePage">
+              <div id="OnePageProfile">
+                <div>이름 : {member.userName}</div>
+                <div>성별 : {member.userGender}</div>
+                <div>이메일 : {member.userEmail}</div>
+                <div>휴대번호 {member.userPhone}</div>
+                <div>생년월일 : {member.userBirthdayData}</div>
               </div>
-              <div>
+              <div id="myPageButton">
                 <button onClick={memberUpdate}>수정하기</button>
                 <button onClick={memberDelete}>회원탈퇴</button>
               </div>
             </div>
           ) : page === 2 ? (
             <div id="myPageBodyUpdate">
-              <div>수정페이지롱</div>
-              <Input label="ID : " type="text" placeholder={member.userId} />
-              <Input label="기존 비밀번호 : " type="password" />
-              <Input label="수정할 비밀번호 : " type="password" />
-              <Input type="text" />
-              <Input type="text" />
-              <Input type="text" />
+              <div id="">
+                <div>비밀번호 수정</div>
+                <div>
+                  <Input
+                    placeholder="현재 비밀번호"
+                    type="password"
+                    value={pwdDefualt}
+                    change={(e) => setPwdDefualt(e.target.value)}
+                  />
+                  <Input
+                    placeholder="새 비밀번호"
+                    type="password"
+                    value={pwdUpdata}
+                    change={(e) => setPwdUpdata(e.target.value)}
+                  />
+                  <Input
+                    placeholder="새 비밀번호 확인"
+                    type="password"
+                    value={pwdUpdataTrue}
+                    change={(e) => setPwdUpdataTrue(e.target.value)}
+                  />
+                  <button id="myPageButton" onClick={pwdBtn}>
+                    수정하기
+                  </button>
+                </div>
+              </div>
+              <div id="">
+                <div>이메일 등록하기</div>
+                <div>
+                  <Input placeholder="이메일 등록하기" type="text" />
+                  <button id="myPageButton">수정하기</button>
+                </div>
+              </div>
+              <div id="">
+                <div>프로필 이미지 변경하기</div>
+                <div>
+                  <Input type="file" />
+                  <button id="myPageButton">수정하기</button>
+                </div>
+              </div>
               <button onClick={memberUpdateSuccess}>수정완료</button>
-              <button onClick={memberUpdateBack}>뒤로가기</button>
+              {/* <button onClick={memberUpdateBack}>뒤로가기</button> */}
             </div>
           ) : (
             <div>
-              <Input label="현재 비밀번호" type="password" />
-              <button onClick={memberDeleteSuccess}>누른다?</button>
+              <Input
+                label="현재 비밀번호 : "
+                type="password"
+                value={checkPwd}
+                change={(e) => setCheckPwd(e.target.value)}
+              />
+              <button id="myPageButton" onClick={memberDeleteSuccess}>
+                탈퇴하기
+              </button>
+              <button id="myPageButton" onClick={memberDeleteBack}>
+                뒤로가기
+              </button>
             </div>
           )}
         </div>
