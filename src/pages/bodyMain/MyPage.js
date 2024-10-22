@@ -10,13 +10,14 @@ const MyPage = () => {
   const [pwdDefualt, setPwdDefualt] = useState("");
   const [pwdUpdata, setPwdUpdata] = useState("");
   const [pwdUpdataTrue, setPwdUpdataTrue] = useState("");
+  // 이메일 입력란
+  const [emailUpdata, setEmailUpdata] = useState("");
   const [member, setMember] = useState([]);
-
   const [page, setPage] = useState(1);
   const [checkPwd, setCheckPwd] = useState("");
   // 인풋 disabled 처리
   const navigate = useNavigate();
-  const { logDelete } = useAuth();
+  const { logDelete, logout } = useAuth();
 
   const id = localStorage.getItem("id");
 
@@ -37,7 +38,7 @@ const MyPage = () => {
     setPage(2);
   };
   // 업데이트 수정 완료
-  const memberUpdateSuccess = () => {
+  const memberUpdateBack = () => {
     // if (window.confirm("수정하시겠습니까?")) {
     //   alert("수정되었습니다.");
     //   setPage(1);
@@ -46,13 +47,6 @@ const MyPage = () => {
     // }
     setPage(1);
   };
-  // const memberUpdateBack = () => {
-  //   if (window.confirm("수정한 정보가 사라집니다.")) {
-  //     setPage(1);
-  //   } else {
-  //     setPage(2);
-  //   }
-  // };
 
   // 삭제
   const memberDelete = () => {
@@ -88,20 +82,47 @@ const MyPage = () => {
   };
 
   /* 수정하기 버튼 모음 */
-  //  pwdDefualt   ,pwdUpdata  ,pwdUpdataTrue
   const pwdBtn = async () => {
-    if (pwdUpdata === pwdUpdataTrue) {
+    if (
+      pwdUpdata === pwdUpdataTrue &&
+      pwdUpdata !== null &&
+      pwdUpdataTrue !== null
+    ) {
       const response = await userUpDatePut({
         userCode: member.userCode,
         userId: member.userId,
         userPwd: pwdUpdataTrue,
         oldUserPwd: pwdDefualt,
       });
-      if (response.status === 401) {
-        alert(response.data);
+      let state = response.data;
+      console.log(state);
+      switch (state) {
+        case 1:
+          alert("새 비밀번호와 같습니다.");
+          break;
+        case 2:
+          // 성공적으로 변경되면 자동으로 로그아웃되게
+          alert("비밀번호가 성공적으로 변경습니다!");
+          navigate("/");
+          logout();
+          break;
+        case 3:
+          alert("현재 비밀번호와 다릅니다!");
+          break;
       }
     } else {
-      alert("새 비밀번호와 새 비밀번호 확인이 다릅니다.");
+      alert("변경된 비밀번호가 다릅니다.");
+    }
+  };
+
+  const emailBtn = async () => {
+    if (emailUpdata !== null && emailUpdata !== "") {
+      const result = await userUpDatePut({
+        userCode: member.userCode,
+        userEmail: emailUpdata,
+      });
+    } else {
+      alert("입력해주세요.");
     }
   };
   return (
@@ -156,8 +177,15 @@ const MyPage = () => {
               <div id="">
                 <div>이메일 등록하기</div>
                 <div>
-                  <Input placeholder="이메일 등록하기" type="text" />
-                  <button id="myPageButton">수정하기</button>
+                  <Input
+                    placeholder="이메일 등록하기"
+                    type="text"
+                    value={emailUpdata}
+                    change={(e) => setEmailUpdata(e.target.value)}
+                  />
+                  <button id="myPageButton" onClick={emailBtn}>
+                    수정하기
+                  </button>
                 </div>
               </div>
               <div id="">
@@ -167,8 +195,7 @@ const MyPage = () => {
                   <button id="myPageButton">수정하기</button>
                 </div>
               </div>
-              <button onClick={memberUpdateSuccess}>수정완료</button>
-              {/* <button onClick={memberUpdateBack}>뒤로가기</button> */}
+              <button onClick={memberUpdateBack}>뒤로가기</button>
             </div>
           ) : (
             <div>

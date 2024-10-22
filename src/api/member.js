@@ -29,12 +29,16 @@ export const userDelete = async (code) => {
 /* 업데이트 */
 // 회원 정보 수정하기
 export const userUpDatePut = async (data) => {
-  try {
-    return await instance.put("upDataController", data);
-  } catch (error) {
-    return error.response;
-  }
+  return await instance.put("upDataController", data);
 };
+// 에러 처리할떄
+// export const userUpDatePut = async (data) => {
+//   try {
+//     return await instance.put("upDataController", data);
+//   } catch (error) {
+//     return error.response;
+//   }
+// };
 
 // export const signup = async (data) => {
 //   alert(JSON.stringify(data));

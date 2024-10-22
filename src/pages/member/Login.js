@@ -7,7 +7,6 @@ import { login } from "../../api/member";
 import { useAuth } from "../../contexts/AuthContext";
 
 const Login = ({ close, signUpPage }) => {
-  
   const [member, SetMember] = useState({
     userId: "",
     userPwd: "",
@@ -45,7 +44,7 @@ const Login = ({ close, signUpPage }) => {
       }
     }
   };
-  
+
   // 엔터처리 (3번이 실행이됨 한번만 했으면 좋겠는데)
   // document.addEventListener('keydown', function(event) {
   //   if(window.event.keyCode === 13){
