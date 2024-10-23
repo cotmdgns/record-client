@@ -118,10 +118,14 @@ const Signup = ({ close, loginPage }) => {
       }
     }
   }, [member.userEmail]);
+
+  useEffect(() => {
+    console.log(member.userGender);
+  }, [member.userGender]);
   //회원가입 버튼
   const submit = () => {
     // 성별 체크 안했을때
-    if (member.userGender === "") {
+    if (member.userGender === "" || member.userGender === null) {
       console.log("성별체크 나 안됬는데?");
     }
     // 다 입력이 되었을때 호출
@@ -136,7 +140,7 @@ const Signup = ({ close, loginPage }) => {
       member.userBirthdayData.trim !== "" &&
       memberBirth.test(member.userBirthdayData) &&
       member.userName.trim !== "" &&
-      member.userGender.trim !== ""
+      member.userGender !== ""
     ) {
       signup(member);
       alert("회원가입 하셨습니다 ㅊㅊ");

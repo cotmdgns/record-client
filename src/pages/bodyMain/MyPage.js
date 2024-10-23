@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { idCheck, userUpDatePut } from "../../api/member";
 import "../../assets/myPage.scss";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import Input from "../../components/Input";
+import Address from "../../components/address";
 
 const MyPage = () => {
   // 비밀번호 체크
@@ -12,6 +13,9 @@ const MyPage = () => {
   const [pwdUpdataTrue, setPwdUpdataTrue] = useState("");
   // 이메일 입력란
   const [emailUpdata, setEmailUpdata] = useState("");
+  // 이미지 변경
+  const [preview, setPreview] = useState("");
+
   const [member, setMember] = useState([]);
   const [page, setPage] = useState(1);
   const [checkPwd, setCheckPwd] = useState("");
@@ -70,15 +74,15 @@ const MyPage = () => {
     setPage(1);
   };
 
-  // 이미지 업데이트
-  const memberImgUpdate = () => {
-    // 기본적으로 회원가입을 했을경우 해당 유저의 이미지는 디폴트값으로 설정되있으면서
-    // 수정하기 눌렀을경우
-    // 1. 해당유저 폴더가 있는지 확인한 후
-    // 2. 해당 유저의 프로필 폴더를 만들어주기
-    // 하단버튼에 수정완료를 눌렀을때 변경되기
-    // 그러면 이미지 수정버튼을눌렀을때 그냥 해당 디폴트값 사진 위에 올려놓고 수정안하기했을때 다시 놀린사진은 없애버리기
-    alert("이미지 수정하기!");
+  // 이미지 업데이트 (프리뷰)
+  const imgPreview = (e) => {
+    const file = e.target.files[0];
+    const imageUrl = URL.createObjectURL(file);
+    setPreview(imageUrl);
+  };
+  // 프리뷰 이미지 삭제하기
+  const imgPreviewDeleteBtn = () => {
+    setPreview("");
   };
 
   /* 수정하기 버튼 모음 */
@@ -115,21 +119,60 @@ const MyPage = () => {
     }
   };
 
+  // 이메일 변경
   const emailBtn = async () => {
     if (emailUpdata !== null && emailUpdata !== "") {
       const result = await userUpDatePut({
         userCode: member.userCode,
         userEmail: emailUpdata,
       });
+      member.userEmail = result.data;
+      alert("이메일이 변경되었습니다!");
+      setEmailUpdata("");
     } else {
       alert("입력해주세요.");
     }
   };
+  const imgUpdataBtn = async () => {
+    if (preview !== "" && preview !== null) {
+      const formData = new FormData();
+      formData.append("userCode", member.userCode);
+      formData.append("userImg", preview);
+      const result = await userUpDatePut(formData);
+    } else {
+      alert("ss");
+    }
+  };
+
   return (
     <>
       <div id="myPageBody" key={member.userCode}>
         <div id="myPageBodyImgBox">
-          <img src={member.userImg} id="myPageImg"></img>
+          {preview == "" ? (
+            <img src={member.userImg} id="myPageImg"></img>
+          ) : (
+            <img src={preview} id="myPageImg"></img>
+          )}
+          {page === 2 ? (
+            <div id="">
+              <div>프로필 이미지 변경하기</div>
+              <div>
+                <label>
+                  이미지 업로드
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    change={imgPreview}
+                    styleInput={{ display: "none" }}
+                  />
+                </label>
+                <button id="myPageButton" onClick={imgPreviewDeleteBtn}>
+                  이미지 되돌리기
+                </button>
+              </div>
+              <button onClick={imgUpdataBtn}>수정하기</button>
+            </div>
+          ) : null}
         </div>
         <div id="myPageBodyInForMation">
           {page === 1 ? (
@@ -140,6 +183,7 @@ const MyPage = () => {
                 <div>이메일 : {member.userEmail}</div>
                 <div>휴대번호 {member.userPhone}</div>
                 <div>생년월일 : {member.userBirthdayData}</div>
+                <div>이미지 주소 : {member.userImg}</div>
               </div>
               <div id="myPageButton">
                 <button onClick={memberUpdate}>수정하기</button>
@@ -188,12 +232,9 @@ const MyPage = () => {
                   </button>
                 </div>
               </div>
-              <div id="">
-                <div>프로필 이미지 변경하기</div>
-                <div>
-                  <Input type="file" />
-                  <button id="myPageButton">수정하기</button>
-                </div>
+              <div>
+                <Address />
+                <button onClick={memberUpdateBack}>수정하기</button>
               </div>
               <button onClick={memberUpdateBack}>뒤로가기</button>
             </div>

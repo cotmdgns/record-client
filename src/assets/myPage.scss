@@ -8,8 +8,10 @@
   #myPageBodyImgBox {
     display: flex;
     flex-direction: column;
-
+    background-color: white;
     #myPageImg {
+      width: 250px;
+      height: 250px;
       border-radius: 50%;
     }
   }
