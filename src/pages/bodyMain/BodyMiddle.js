@@ -25,46 +25,52 @@ const BodyMiddle = () => {
     <>
       <div id="bodyMiddle">
         <div id="bodyMainLp">
-          <div>
+          <div id="bodyMainLpImg">
             <img
               src="http://192.168.10.51:8084/ImageMain/Hero_Lifestyle_VSC-750SB-YEL_11_x700.jpg"
               alt="Hero Lifestyle"
             />
             <div>여기는 글씨?</div>
           </div>
-          <div>여기는 LP판</div>
-          <div>
+          <div id="bodyMainLps">
             {mainLps.map((mainLp) => (
-              <a key={mainLp.productCode}>
-                <div>{mainLp.productName}</div>
-                <div>{mainLp.productPrice}</div>
-                <div>{mainLp.productExplanation}</div>
-              </a>
+              <div id="MainLp">
+                <a key={mainLp.productCode}>
+                  <div>{mainLp.productName}</div>
+                  <div>{mainLp.productPrice}</div>
+                  <div>{mainLp.productExplanation}</div>
+                  <div>{mainLp.productQuantity}</div>
+                  <div>{mainLp.productImg}</div>
+                </a>
+              </div>
             ))}
-            <div>
-              <button>페이지로 이동</button>
-            </div>
+          </div>
+          <div id="MainButton">
+            <button id="MainButton">페이지로 이동</button>
           </div>
         </div>
         <div id="bodyMainRecord">
-          <div>
+          <div id="bodyMainRecordImg">
             <img
               src="http://192.168.10.51:8084/ImageMain/Lifestyle_high_angle_record_on_platter_VTA-270B-ESP__14_600x600.jpg"
               alt="Hero Lifestyle"
             />
             <div>여기는 글씨?</div>
           </div>
-          <div>여기는 레코드판</div>
-          <div>
+          <div id="bodyMainRecords">
             {mainRecords.map((mainRecord) => (
-              <a key={mainRecord.productCode}>
-                <div>{mainRecord.productName}</div>
-                <div>{mainRecord.productPrice}</div>
-                <div>{mainRecord.productExplanation}</div>
-              </a>
+              <div id="Record">
+                <a key={mainRecord.productCode}>
+                  <div>{mainRecord.productName}</div>
+                  <div>{mainRecord.productPrice}</div>
+                  <div>{mainRecord.productExplanation}</div>
+                  <div>{mainRecord.productQuantity}</div>
+                  <div>{mainRecord.productImg}</div>
+                </a>
+              </div>
             ))}
-            <button>페이지로 이동</button>
           </div>
+          <button id="RecordButton">페이지로 이동</button>
         </div>
         <div>
           <div id="bodyMainCreate">
@@ -82,9 +88,8 @@ const BodyMiddle = () => {
               src="http://192.168.10.51:8084/ImageMain/Lifestyle_side_view_cloth_in_use_VA-55-ESP_15_600x600.jpg"
               alt="Hero Lifestyle"
             />
-            <div>여기는 글씨?</div>
+            <div>여기는 애매하다.</div>
           </div>
-          <div>여기는 공지사항 및 회사소개?</div>
         </div>
       </div>
       <div> 장바구니 </div>
