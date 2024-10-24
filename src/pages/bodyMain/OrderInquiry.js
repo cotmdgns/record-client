@@ -57,7 +57,14 @@ const OrderInquiry = () => {
             <div id="">{user.userCode}</div>
             <div id="">{user.userEmail}</div>
             <div id="">{user.userImg}</div>
-            <img src={user.userImg}></img>
+            <img
+              src={
+                "http://192.168.10.51:8084/userFolder/" +
+                user.userId +
+                "/userProfile/" +
+                user.userImg
+              }
+            ></img>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { idCheck, userUpDatePut } from "../../api/member";
+import { idCheck, userUpDatePut, userImgUpDatePut } from "../../api/member";
 import "../../assets/myPage.scss";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
@@ -15,6 +15,7 @@ const MyPage = () => {
   const [emailUpdata, setEmailUpdata] = useState("");
   // 이미지 변경
   const [preview, setPreview] = useState("");
+  const [file, setFile] = useState(null); // 서버에 보낼 파일
 
   const [member, setMember] = useState([]);
   const [page, setPage] = useState(1);
@@ -76,13 +77,10 @@ const MyPage = () => {
 
   // 이미지 업데이트 (프리뷰)
   const imgPreview = (e) => {
-    const file = e.target.files[0];
-    const imageUrl = URL.createObjectURL(file);
-    setPreview(imageUrl);
-  };
-  // 프리뷰 이미지 삭제하기
-  const imgPreviewDeleteBtn = () => {
-    setPreview("");
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile); // 파일 상태 업데이트
+    const url = URL.createObjectURL(selectedFile); // 미리보기 URL 생성
+    setPreview(url); // 미리보기 상태 업데이트
   };
 
   /* 수정하기 버튼 모음 */
@@ -137,10 +135,11 @@ const MyPage = () => {
     if (preview !== "" && preview !== null) {
       const formData = new FormData();
       formData.append("userCode", member.userCode);
-      formData.append("userImg", preview);
-      const result = await userUpDatePut(formData);
+      formData.append("userImg", file);
+      await userImgUpDatePut(formData);
+      alert("변경되었습니다!");
     } else {
-      alert("ss");
+      alert("사진은 삽입해주세요.");
     }
   };
 
@@ -149,9 +148,18 @@ const MyPage = () => {
       <div id="myPageBody" key={member.userCode}>
         <div id="myPageBodyImgBox">
           {preview == "" ? (
-            <img src={member.userImg} id="myPageImg"></img>
+            <img
+              src={
+                "http://192.168.10.51:8084/userFolder/" +
+                member.userId +
+                "/userProfile/" +
+                member.userImg
+              }
+              id="myPageImg"
+            ></img>
           ) : (
             <img src={preview} id="myPageImg"></img>
+            // <img src={preview} id="myPageImg"></img>
           )}
           {page === 2 ? (
             <div id="">
@@ -166,9 +174,6 @@ const MyPage = () => {
                     styleInput={{ display: "none" }}
                   />
                 </label>
-                <button id="myPageButton" onClick={imgPreviewDeleteBtn}>
-                  이미지 되돌리기
-                </button>
               </div>
               <button onClick={imgUpdataBtn}>수정하기</button>
             </div>
@@ -184,6 +189,7 @@ const MyPage = () => {
                 <div>휴대번호 {member.userPhone}</div>
                 <div>생년월일 : {member.userBirthdayData}</div>
                 <div>이미지 주소 : {member.userImg}</div>
+                <div>아이디 : {member.userId}</div>
               </div>
               <div id="myPageButton">
                 <button onClick={memberUpdate}>수정하기</button>

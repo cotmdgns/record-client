@@ -34,12 +34,13 @@ export const userUpDatePut = async (data) => {
 
 // 회원 이미지 수정하기
 export const userImgUpDatePut = async (data) => {
-  return await instance.post("upDataImgController", data, {
+  return await instance.put("upDataImgController", data, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
 };
+
 // 에러 처리할떄
 // export const userUpDatePut = async (data) => {
 //   try {

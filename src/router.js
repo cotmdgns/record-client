@@ -8,7 +8,9 @@ import ProductInquiry from "./pages/bodyMain/ProductInquiry";
 import ShoppingSaveRoom from "./pages/bodyMain/ShoppingSaveRoom";
 import OrderInquiry from "./pages/bodyMain/OrderInquiry";
 import MyPage from "./pages/bodyMain/MyPage";
-
+import MainLpPage from "./pages/bodyMain/MainLpPage";
+import CreateProduct from "./pages/detail/CreateProduct";
+import DetailLpPage from "./pages/detail/DetailLpPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -51,6 +53,23 @@ const router = createBrowserRouter([
       {
         path: "/myPage",
         element: <MyPage />,
+      },
+      {
+        path: "/createProduct",
+        element: <CreateProduct />,
+      },
+      {
+        path: "/mainLpPage",
+        children: [
+          {
+            index: true,
+            element: <MainLpPage />,
+          },
+          {
+            path: "detailLpPage/:productCode",
+            element: <DetailLpPage />,
+          },
+        ],
       },
     ],
   },

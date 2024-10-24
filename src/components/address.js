@@ -15,7 +15,7 @@ const Address = () => {
 
   const sample4_execDaumPostcode = () => {
     new window.daum.Postcode({
-      oncomplete: function (data) {
+      onte: function (data) {
         const roadAddr = data.roadAddress; // 도로명 주소
         let extraRoadAddr = ""; // 참고 항목
 

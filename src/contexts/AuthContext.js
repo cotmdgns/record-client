@@ -1,5 +1,5 @@
-import { createContext, useState, useContext } from "react";
-import { userDelete } from "../api/member";
+import { createContext, useState, useContext, useEffect } from "react";
+import { userDelete, idCheck } from "../api/member";
 // Context 생성
 const AuthContext = createContext();
 
@@ -43,11 +43,22 @@ export const AuthProvider = ({ children }) => {
     return false;
   };
 
+  //주말에 로그인하면 해당정보 AuthContext에서 들고다니면서 뿌려주기
+  const [member, setMember] = useState([]);
+  const Member = async () => {
+    const result = await idCheck(id);
+    setMember(result.data);
+  };
+  useEffect(() => {
+    Member();
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
         id,
         name,
+        member,
         logDelete,
         login,
         logout,

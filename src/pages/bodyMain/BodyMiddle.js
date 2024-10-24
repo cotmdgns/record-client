@@ -1,19 +1,27 @@
 import "../../assets/bodyMiddle.scss";
 import { MainLP, MainRecord } from "../../api/porduct";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 //메인페이지
 //imageBox 까지가 8081
 
 const BodyMiddle = () => {
   const [mainLps, setMainLps] = useState([]);
   const [mainRecords, setMainRecords] = useState([]);
+  const navigate = useNavigate();
+
+  // 서버에서 가져온 상품
   const mainlps = async () => {
     const result = await MainLP();
     setMainLps(result.data);
   };
+  // 서버에서 가져온 상품
   const mianRecode = async () => {
     const result = await MainRecord();
     setMainRecords(result.data);
+  };
+  const MainLpPage = () => {
+    navigate("/mainLpPage");
   };
 
   useEffect(() => {
@@ -34,8 +42,8 @@ const BodyMiddle = () => {
           </div>
           <div id="bodyMainLps">
             {mainLps.map((mainLp) => (
-              <div id="MainLp">
-                <a key={mainLp.productCode}>
+              <div id="MainLp" key={mainLp.productCode}>
+                <a>
                   <div>{mainLp.productName}</div>
                   <div>{mainLp.productPrice}</div>
                   <div>{mainLp.productExplanation}</div>
@@ -46,7 +54,9 @@ const BodyMiddle = () => {
             ))}
           </div>
           <div id="MainButton">
-            <button id="MainButton">페이지로 이동</button>
+            <button id="MainButton" onClick={MainLpPage}>
+              페이지로 이동
+            </button>
           </div>
         </div>
         <div id="bodyMainRecord">
@@ -59,8 +69,8 @@ const BodyMiddle = () => {
           </div>
           <div id="bodyMainRecords">
             {mainRecords.map((mainRecord) => (
-              <div id="Record">
-                <a key={mainRecord.productCode}>
+              <div id="Record" key={mainRecord.productCode}>
+                <a>
                   <div>{mainRecord.productName}</div>
                   <div>{mainRecord.productPrice}</div>
                   <div>{mainRecord.productExplanation}</div>

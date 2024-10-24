@@ -4,11 +4,12 @@ import Signup from "../pages/member/Signup";
 import Login from "../pages/member/Login";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+
 const Header = () => {
   const [toggleLogin, setToggleLogin] = useState(false);
   const [toggleSingUp, setToggleSingUp] = useState(false);
   // 로그아웃
-  const { logout, nullCheck } = useAuth();
+  const { logout, nullCheck, member } = useAuth();
   const navigate = useNavigate();
 
   // 로그인
@@ -50,25 +51,34 @@ const Header = () => {
       navigate("/myPage");
     }
   };
-
+  //회원가입
   const signUpPage = () => {
     setToggleSingUp(true);
     setToggleLogin(false);
   };
-
+  // 로그인
   const loginPage = () => {
     setToggleSingUp(false);
     setToggleLogin(true);
   };
-
+  // 닫기
   const close = () => {
     setToggleLogin(false);
     setToggleSingUp(false);
   };
-
+  //메인 페이지
   const mainpage = () => {
     navigate("/");
   };
+
+  //관리자 페이지
+  const managerPage = () => {
+    navigate("/createProduct");
+  };
+
+  useEffect(() => {
+    console.log(member);
+  }, [member]);
 
   return (
     <>
@@ -80,6 +90,9 @@ const Header = () => {
         <div id="headerBoxRightBox">
           {toggleLogin ? <Login close={close} signUpPage={signUpPage} /> : null}
           {toggleSingUp ? <Signup close={close} loginPage={loginPage} /> : null}
+          {member.userManager == 3 || member.userManager == 2 ? (
+            <button onClick={managerPage}>관리자 페이지</button>
+          ) : null}
           {localStorage.getItem("id") === null ? (
             <>
               <button id="headerBoxRightLogin" onClick={login}>
