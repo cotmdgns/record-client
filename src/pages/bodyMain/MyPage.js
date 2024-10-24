@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { idCheck, userUpDatePut, userImgUpDatePut } from "../../api/member";
 import "../../assets/myPage.scss";
+import "../../assets/orderInquiry.scss";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import Input from "../../components/Input";
 import Address from "../../components/address";
+import { userId } from "../../api/orderInquiry";
 
 const MyPage = () => {
   // 비밀번호 체크
@@ -18,6 +20,7 @@ const MyPage = () => {
   const [file, setFile] = useState(null); // 서버에 보낼 파일
 
   const [member, setMember] = useState([]);
+  const [userOrder, setUserOrder] = useState([]);
   const [page, setPage] = useState(1);
   const [checkPwd, setCheckPwd] = useState("");
   // 인풋 disabled 처리
@@ -30,13 +33,22 @@ const MyPage = () => {
     const result = await idCheck(id);
     setMember(result.data);
   };
+
+  // 해당 유저 구매내역 및 주문조회
+  const userOrderTable = async () => {
+    const result = await userId(id);
+    setUserOrder(result.data);
+  };
+
   useEffect(() => {
+    userOrderTable();
     maPageMember();
   }, []);
 
   useEffect(() => {
     console.log(member);
-  }, [member]);
+    console.log(userOrder);
+  }, [member, userOrder]);
 
   // 업데이트 페이지 이동
   const memberUpdate = () => {
@@ -44,19 +56,11 @@ const MyPage = () => {
   };
   // 업데이트 수정 완료
   const memberUpdateBack = () => {
-    // if (window.confirm("수정하시겠습니까?")) {
-    //   alert("수정되었습니다.");
-    //   setPage(1);
-    // } else {
-    //   setPage(2);
-    // }
     setPage(1);
   };
 
   // 삭제
   const memberDelete = () => {
-    // 눌렀을경우 모달창이 뜨면서 정말로 삭제하시겠습니까?
-    // 다시한번 삭제하겠습니다 누르면 모든 정보 삭제시키기
     setPage(3);
   };
   const memberDeleteSuccess = () => {
@@ -177,10 +181,7 @@ const MyPage = () => {
               </div>
               <button onClick={imgUpdataBtn}>수정하기</button>
             </div>
-          ) : null}
-        </div>
-        <div id="myPageBodyInForMation">
-          {page === 1 ? (
+          ) : (
             <div id="OnePage">
               <div id="OnePageProfile">
                 <div>이름 : {member.userName}</div>
@@ -189,15 +190,41 @@ const MyPage = () => {
                 <div>휴대번호 {member.userPhone}</div>
                 <div>생년월일 : {member.userBirthdayData}</div>
                 <div>이미지 주소 : {member.userImg}</div>
-                <div>아이디 : {member.userId}</div>
               </div>
               <div id="myPageButton">
                 <button onClick={memberUpdate}>수정하기</button>
                 <button onClick={memberDelete}>회원탈퇴</button>
               </div>
             </div>
+          )}
+        </div>
+        <div id="myPageBodyInForMation">
+          {page === 1 ? (
+            <div id="orderInquiryBody">
+              <div id="Bodyleft">
+                내 주문 내역
+                <div id="">
+                  나는 상품 정보
+                  {userOrder.map((order, index) => (
+                    <div key={order.orderCode || index}>
+                      <div>프라이머리 : {order.orderCode}</div>
+                      <div>상태코드 : {order.orderStateCode}</div>
+                      <div>코드 : {order.product.productCode}</div>
+                      <div>
+                        노래 제목 정보 : {order.product.productExplanation}
+                      </div>
+                      <div>노래 제목 : {order.product.productName}</div>
+                      <div>가격 : {order.product.productPrice}</div>
+                      <div>종류 : {order.product.productType}</div>
+                      <div>생성날짜 : {order.userOrderCreated}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           ) : page === 2 ? (
             <div id="myPageBodyUpdate">
+              <div>마이 페이지 수정</div>
               <div id="">
                 <div>비밀번호 수정</div>
                 <div>

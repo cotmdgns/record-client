@@ -6,7 +6,6 @@ import EventBoard from "./pages/bodyMain/EventBoard";
 import OneOneInquiry from "./pages/bodyMain/OneOneInquiry";
 import ProductInquiry from "./pages/bodyMain/ProductInquiry";
 import ShoppingSaveRoom from "./pages/bodyMain/ShoppingSaveRoom";
-import OrderInquiry from "./pages/bodyMain/OrderInquiry";
 import MyPage from "./pages/bodyMain/MyPage";
 import MainLpPage from "./pages/bodyMain/MainLpPage";
 import CreateProduct from "./pages/detail/CreateProduct";
@@ -45,10 +44,6 @@ const router = createBrowserRouter([
       {
         path: "/shoppingSaveRoom",
         element: <ShoppingSaveRoom />,
-      },
-      {
-        path: "/orderInquiry",
-        element: <OrderInquiry />,
       },
       {
         path: "/myPage",

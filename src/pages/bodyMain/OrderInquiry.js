@@ -50,23 +50,6 @@ const OrderInquiry = () => {
             ))}
           </div>
         </div>
-        <div id="BodyRight">
-          <div ket={user.userCode}>
-            <div id="">{user.userName}</div>
-            <div id="">{user.userId}</div>
-            <div id="">{user.userCode}</div>
-            <div id="">{user.userEmail}</div>
-            <div id="">{user.userImg}</div>
-            <img
-              src={
-                "http://192.168.10.51:8084/userFolder/" +
-                user.userId +
-                "/userProfile/" +
-                user.userImg
-              }
-            ></img>
-          </div>
-        </div>
       </div>
     </>
   );
