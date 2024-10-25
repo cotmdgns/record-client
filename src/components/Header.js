@@ -99,7 +99,7 @@ const Header = () => {
         <div id="headerBoxRightBox">
           {toggleLogin ? <Login close={close} signUpPage={signUpPage} /> : null}
           {toggleSingUp ? <Signup close={close} loginPage={loginPage} /> : null}
-          {member.userManager == 3 || member.userManager == 2 ? (
+          {member?.userManager == 3 || member?.userManager == 2 ? (
             <button onClick={managerPage}>관리자 페이지</button>
           ) : null}
           {localStorage.getItem("id") === null ? (

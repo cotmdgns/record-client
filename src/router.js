@@ -8,7 +8,7 @@ import ProductInquiry from "./pages/bodyMain/ProductInquiry";
 import ShoppingSaveRoom from "./pages/bodyMain/ShoppingSaveRoom";
 import MyPage from "./pages/bodyMain/MyPage";
 import MainLpPage from "./pages/bodyMain/MainLpPage";
-import CreateProduct from "./pages/detail/CreateProduct";
+import CreateProduct from "./pages/bodyMain/CreateProduct";
 import DetailLpPage from "./pages/detail/DetailLpPage";
 const router = createBrowserRouter([
   {

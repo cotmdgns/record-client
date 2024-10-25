@@ -11,6 +11,7 @@ let memberPwd =
 let memberPhone = /^010\d{8}$/;
 let memberId = /^[a-z0-9]{6,15}$/;
 let memberEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+let memberName = /^$/;
 
 const Signup = ({ close, loginPage }) => {
   const [member, setMember] = useState({

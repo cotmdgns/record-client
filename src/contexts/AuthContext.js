@@ -7,14 +7,26 @@ export const AuthProvider = ({ children }) => {
   // 로그인 상태
   const [id, setId] = useState(localStorage.getItem("id"));
   const [name, setName] = useState(localStorage.getItem("name"));
+  const [member, setMember] = useState(null);
+
+  const Member = async () => {
+    const result = await idCheck(id);
+    setMember(result.data);
+  };
 
   //로그인
   const login = (data) => {
     localStorage.setItem("id", data.userId);
     localStorage.setItem("name", data.userName);
-    setId(data.id);
-    setName(data.name);
+    setId(data.userId);
+    setName(data.userName);
   };
+
+  useEffect(() => {
+    if (id !== null) {
+      Member();
+    }
+  }, [id]);
 
   // 로그아웃
   const logout = () => {
@@ -22,6 +34,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("name");
     setId(null);
     setName(null);
+    setMember(null);
     alert("로그아웃 됬습니다");
   };
 
@@ -32,6 +45,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("name");
     setId(null);
     setName(null);
+    setMember(null);
     alert("삭제되었습니다.");
   };
 
@@ -44,14 +58,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   //주말에 로그인하면 해당정보 AuthContext에서 들고다니면서 뿌려주기
-  const [member, setMember] = useState([]);
-  const Member = async () => {
-    const result = await idCheck(id);
-    setMember(result.data);
-  };
-  useEffect(() => {
-    Member();
-  }, []);
 
   return (
     <AuthContext.Provider

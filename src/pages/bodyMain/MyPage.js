@@ -19,7 +19,7 @@ const MyPage = () => {
   const [preview, setPreview] = useState("");
   const [file, setFile] = useState(null); // 서버에 보낼 파일
 
-  const [member, setMember] = useState([]);
+  const [member, setMember] = useState(null);
   const [userOrder, setUserOrder] = useState([]);
   const [page, setPage] = useState(1);
   const [checkPwd, setCheckPwd] = useState("");
@@ -149,20 +149,20 @@ const MyPage = () => {
 
   return (
     <>
-      <div id="myPageBody" key={member.userCode}>
+      <div id="myPageBody" key={member?.userCode}>
         <div id="myPageBodyImgBox">
-          {preview == "" ? (
+          {preview === "" && member !== null ? (
             <img
               src={
                 "http://192.168.10.51:8084/userFolder/" +
-                member.userId +
+                member?.userId +
                 "/userProfile/" +
-                member.userImg
+                member?.userImg
               }
               id="myPageImg"
-            ></img>
+            />
           ) : (
-            <img src={preview} id="myPageImg"></img>
+            <img src={preview} id="myPageImg" />
             // <img src={preview} id="myPageImg"></img>
           )}
           {page === 2 ? (
@@ -184,12 +184,11 @@ const MyPage = () => {
           ) : (
             <div id="OnePage">
               <div id="OnePageProfile">
-                <div>이름 : {member.userName}</div>
-                <div>성별 : {member.userGender}</div>
-                <div>이메일 : {member.userEmail}</div>
-                <div>휴대번호 {member.userPhone}</div>
-                <div>생년월일 : {member.userBirthdayData}</div>
-                <div>이미지 주소 : {member.userImg}</div>
+                <div>이름 : {member?.userName}</div>
+                <div>성별 : {member?.userGender}</div>
+                <div>이메일 : {member?.userEmail}</div>
+                {/* <div>휴대번호 {member.userPhone}</div> */}
+                <div>생년월일 : {member?.userBirthdayData}</div>
               </div>
               <div id="myPageButton">
                 <button onClick={memberUpdate}>수정하기</button>
@@ -210,6 +209,7 @@ const MyPage = () => {
                       <div>프라이머리 : {order.orderCode}</div>
                       <div>상태코드 : {order.orderStateCode}</div>
                       <div>코드 : {order.product.productCode}</div>
+                      <div>이밎 : {order.product.productImg}</div>
                       <div>
                         노래 제목 정보 : {order.product.productExplanation}
                       </div>

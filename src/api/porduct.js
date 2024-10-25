@@ -31,3 +31,12 @@ export const AllViewRecord = async () => {
 export const DetailViewRecord = async (code) => {
   return await instance.get("DetailViewLp" + code);
 };
+
+// LP,Record 생성하기
+export const CreateLpRecordProduct = async (data) => {
+  return await instance.post("CreateLpRecordProduct", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
