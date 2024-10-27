@@ -9,9 +9,10 @@ const Input = ({
   styleInput,
   disabled,
   click,
+  id,
 }) => {
   return (
-    <div>
+    <div id={id}>
       <label>{label}</label>
       <input
         type={type}

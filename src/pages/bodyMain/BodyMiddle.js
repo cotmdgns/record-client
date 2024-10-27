@@ -102,7 +102,6 @@ const BodyMiddle = () => {
           </div>
         </div>
       </div>
-      <div> 장바구니 </div>
     </>
   );
 };

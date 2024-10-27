@@ -15,8 +15,38 @@
     }
   }
 
-  // 유저 정보
+  // 주문 내역 상태
   #myPageBodyInForMation {
-    padding: 0 50px;
+    padding: 0 0 0 50px;
+    // 주문내역 바디
+    width: 100%;
+    #orderInquiryBody {
+      background-color: red;
+      // 바디 안쪽
+      #orderInquiryBodyOrder {
+        width: 100%;
+        // 바디 제목
+        #orderInquiryBodyOrderH1 {
+          font-size: 40px;
+          font-weight: bold;
+          padding-bottom: 50px;
+        }
+        // 안쪽 product
+        #orderInquiryProductOrder {
+          background-color: yellow;
+          // 상태코드 정보란
+          #mapageOrderProduct {
+            #mapageOrderProductStateH1 {
+              font-size: 30px;
+              font-weight: bold;
+              padding-bottom: 20px;
+            }
+            #mapageOrderProductState {
+              background-color: gray;
+            }
+          }
+        }
+      }
+    }
   }
 }

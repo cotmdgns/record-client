@@ -46,7 +46,6 @@ const MyPage = () => {
   }, []);
 
   useEffect(() => {
-    console.log(member);
     console.log(userOrder);
   }, [member, userOrder]);
 
@@ -200,25 +199,96 @@ const MyPage = () => {
         <div id="myPageBodyInForMation">
           {page === 1 ? (
             <div id="orderInquiryBody">
-              <div id="Bodyleft">
-                내 주문 내역
-                <div id="">
-                  나는 상품 정보
-                  {userOrder.map((order, index) => (
-                    <div key={order.orderCode || index}>
-                      <div>프라이머리 : {order.orderCode}</div>
-                      <div>상태코드 : {order.orderStateCode}</div>
-                      <div>코드 : {order.product.productCode}</div>
-                      <div>이밎 : {order.product.productImg}</div>
-                      <div>
-                        노래 제목 정보 : {order.product.productExplanation}
-                      </div>
-                      <div>노래 제목 : {order.product.productName}</div>
-                      <div>가격 : {order.product.productPrice}</div>
-                      <div>종류 : {order.product.productType}</div>
-                      <div>생성날짜 : {order.userOrderCreated}</div>
-                    </div>
-                  ))}
+              <div id="orderInquiryBodyOrder">
+                <h1 id="orderInquiryBodyOrderH1">내 주문 내역</h1>
+                <div id="orderInquiryProductOrder">
+                  {/* 조인된 값이 없을경우엔 "아무것도 없다는걸 알려주기" */}
+                  <div id="mapageOrderProductState">
+                    {userOrder.length === 0 && <divg>gdgd</divg>}
+                  </div>
+                  {/* 조인된 값이 있을경우엔 map이 정상적으로 작동됨 */}
+                  <div id="mapageOrderProduct">
+                    <h1 id="mapageOrderProductStateH1">주문 확인중</h1>
+                    {userOrder
+                      .filter((order) => order.orderStateCode === 1)
+                      .map((order, index) => (
+                        <div key={order.orderCode || index}>
+                          {order.orderStateCode === 1 && (
+                            <div id="mapageOrderProductState">
+                              <div>
+                                <div>이미지 : {order.product.productImg}</div>
+                                <div>
+                                  노래 제목 정보 :
+                                  {order.product.productExplanation}
+                                </div>
+                                <div>
+                                  노래 제목 : {order.product.productName}
+                                </div>
+                                <div>가격 : {order.product.productPrice}</div>
+                                <div>종류 : {order.product.productType}</div>
+                                <div>주문날짜 : {order.userOrderCreated}</div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                  </div>
+                  <div id="mapageOrderProduct">
+                    <h1 id="mapageOrderProductStateH1">주문 배송중</h1>
+                    {userOrder
+                      .filter((order) => order.orderStateCode === 2)
+                      .map((order, index) => (
+                        <div key={order.orderCode || index}>
+                          {order.orderStateCode === 2 && (
+                            <div id="mapageOrderProductState">
+                              <div>
+                                <div>상태코드 : {order.orderStateCode}</div>
+                                <div>코드 : {order.product.productCode}</div>
+                                <div>이밎 : {order.product.productImg}</div>
+                                <div>
+                                  노래 제목 정보 :
+                                  {order.product.productExplanation}
+                                </div>
+                                <div>
+                                  노래 제목 : {order.product.productName}
+                                </div>
+                                <div>가격 : {order.product.productPrice}</div>
+                                <div>종류 : {order.product.productType}</div>
+                                <div>생성날짜 : {order.userOrderCreated}</div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                  </div>
+                  <div id="mapageOrderProduct">
+                    <h1 id="mapageOrderProductStateH1">주문 완료</h1>
+                    {userOrder
+                      .filter((order) => order.orderStateCode === 3)
+                      .map((order, index) => (
+                        <div key={order.orderCode || index}>
+                          {order.orderStateCode === 3 && (
+                            <div id="mapageOrderProductState">
+                              <div>
+                                <div>상태코드 : {order.orderStateCode}</div>
+                                <div>코드 : {order.product.productCode}</div>
+                                <div>이밎 : {order.product.productImg}</div>
+                                <div>
+                                  노래 제목 정보 :
+                                  {order.product.productExplanation}
+                                </div>
+                                <div>
+                                  노래 제목 : {order.product.productName}
+                                </div>
+                                <div>가격 : {order.product.productPrice}</div>
+                                <div>종류 : {order.product.productType}</div>
+                                <div>생성날짜 : {order.userOrderCreated}</div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                  </div>
                 </div>
               </div>
             </div>

@@ -6,7 +6,7 @@ import { forEach } from "lodash";
 
 const CreateProduct = () => {
   const [lpProduct, setLpProduct] = useState({
-    productType: "LP",
+    productType: "",
     productName: "", // 이름
     productPrice: "", // 가격
     productExplanation: "", // 정보
@@ -26,6 +26,14 @@ const CreateProduct = () => {
     );
     setLpImgPre(lpUrl);
   };
+
+  const btnRecord = () => {
+    setLpProduct({ ...lpProduct, productType: "레코드" });
+  };
+  const btnLp = () => {
+    setLpProduct({ ...lpProduct, productType: "LP" });
+  };
+
   const createFile = async () => {
     const formDataLp = new FormData();
     formDataLp.append("productType", lpProduct.productType);
@@ -48,39 +56,44 @@ const CreateProduct = () => {
   };
   return (
     <div id="createProductBody">
-      <div>괸라자 페이지</div>
       {/*LP추가*/}
-      <div>
-        <div>LP 추가</div>
+      <div id="createProduct">
         {/* 인풋 영역 */}
-        <div>
+        <div id="FreeView">
           {/* 이미지 영역 */}
-          <div id="FreeViewImgLp">
-            <img src="" />
-            {/*클릭했을때 프리뷰 변경*/}
-            {lpImgPre.map((pre, index) => (
-              <div key={index} id="createFreeViewBox">
-                <img
-                  id="createFreeView"
-                  src={pre}
-                  alt={`preview ${index}`}
-                  onClick={a}
-                />
-              </div>
-            ))}
+          <div id="FreeViewImgs">
+            <div id="FreeViewImg">
+              <img
+                src={
+                  !lpImgPre || lpImgPre.length === 0
+                    ? "/free-icon-no-pictures.png"
+                    : lpImgPre[0]
+                }
+              />
+            </div>
+            <div id="createFreeViewBoxs">
+              {/*클릭했을때 프리뷰 변경*/}
+              {lpImgPre.map((pre, index) => (
+                <div key={index} id="createFreeViewBox">
+                  <img
+                    id="createFreeView"
+                    src={pre}
+                    alt={`preview ${index}`}
+                    onClick={a}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
           {/*LP타입은 default 값으로 주기*/}
-          <div>
+          <div id="createProducts">
+            <div id="createProductBox">
+              <h1 id="createProductH1">LP,레코드 생성</h1>
+              <div id="createProductDiv">*양식에 맞게 입력해주세요*</div>
+            </div>
             <Input
-              label="LP 제목 : "
-              type="text"
-              value={lpProduct.productPrice}
-              change={(e) =>
-                setLpProduct({ ...lpProduct, productPrice: e.target.value })
-              }
-            />
-            <Input
-              label="LP 가격 : "
+              id="createProduct"
+              label="LP 제목"
               type="text"
               value={lpProduct.productName}
               change={(e) =>
@@ -88,7 +101,17 @@ const CreateProduct = () => {
               }
             />
             <Input
-              label="LP 정보들 : "
+              id="createProduct"
+              label="LP 가격"
+              type="text"
+              value={lpProduct.productPrice}
+              change={(e) =>
+                setLpProduct({ ...lpProduct, productPrice: e.target.value })
+              }
+            />
+            <Input
+              id="createProduct"
+              label="LP 정보들"
               type="text"
               value={lpProduct.productExplanation}
               change={(e) =>
@@ -99,13 +122,18 @@ const CreateProduct = () => {
               }
             />
             <Input
-              label="LP 수량 : "
+              id="createProduct"
+              label="LP 수량 "
               type="text"
               value={lpProduct.productQuantity}
               change={(e) =>
                 setLpProduct({ ...lpProduct, productQuantity: e.target.value })
               }
             />
+            <div>
+              <button onClick={btnLp}>LP</button>
+              <button onClick={btnRecord}>레코드</button>
+            </div>
             {/*이것만 컴포넌트 뺀건 멀티플때문에*/}
             <input
               label="이미지 생성 : "
@@ -114,27 +142,13 @@ const CreateProduct = () => {
               onChange={imgs}
               multiple
             />
-          </div>
-        </div>
-        <button onClick={createFile}>파일 전송</button>
-      </div>
-      {/*레코드 추가*/}
-      <div>
-        <div>레코드 추가</div>
-        <div>
-          <div>
-            <img src="" />
-          </div>
-          {/*LP타입은 default 값으로 주기*/}
-          <div>
-            <div>레코드 제목</div>
-            <div>레코드 가격</div>
-            <div>레코드 정보들</div>
-            <div>레코드 수량</div>
-            <div>input으로 이미지를 여러개 받을수 있게끔 만들기</div>
+            <div>
+              <button onClick={createFile}>파일 전송</button>
+            </div>
           </div>
         </div>
       </div>
+
       {/*운영자 추가*/}
       <div>
         <div>운영자 명단</div>
