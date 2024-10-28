@@ -22,7 +22,7 @@ const MainLpPage = () => {
 
   useEffect(() => {
     LpPlayer();
-    console.log(Lps.productCode);
+    console.log(Lps);
   }, []);
 
   const DetailPage = (productCode) => {
@@ -31,15 +31,27 @@ const MainLpPage = () => {
 
   return (
     <div id="mainLpPage">
-      <div>
+      <div id="mainLpPageBox">
         {Lps.map((Lp) => (
-          <div key={Lp.productCode}>
+          <div key={Lp.productCode} id="mainLp">
             <a onClick={() => DetailPage(Lp.productCode)}>
-              <div>{Lp.productName}</div>
-              <div>{Lp.productPrice}</div>
-              <div>{Lp.productExplanation}</div>
-              <div>{Lp.productQuantity}</div>
-              <div>{Lp.productImg}</div>
+              <div>
+                <img
+                  id="mainLpImg"
+                  src={
+                    "http://192.168.10.51:8084/Product/" +
+                    Lp.productType +
+                    "/" +
+                    Lp.productName +
+                    "/" +
+                    Lp.productImgOne
+                  }
+                />
+              </div>
+              <div>이름 : {Lp.productName}</div>
+              <div>가격 : {Lp.productPrice}</div>
+              <div>정보 : {Lp.productExplanation}</div>
+              <div>수량 : {Lp.productQuantity}</div>
             </a>
           </div>
         ))}

@@ -85,10 +85,6 @@ const Header = () => {
     navigate("/createProduct");
   };
 
-  useEffect(() => {
-    console.log(member);
-  }, [member]);
-
   return (
     <>
       <div id="headerBox">

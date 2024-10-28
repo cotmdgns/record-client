@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { CreateLpRecordProduct } from "../../api/porduct";
 import Input from "../../components/Input";
 import "../../assets/createProduct.scss";
-import { forEach } from "lodash";
+
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import ReactModule from "../../components/ReactModule";
 
 const CreateProduct = () => {
   const [lpProduct, setLpProduct] = useState({
@@ -12,6 +15,7 @@ const CreateProduct = () => {
     productExplanation: "", // 정보
     productQuantity: "", // 수량
     productImg: null, // 이미지
+    productLongText: "", // 에디터 부분 문자
   });
   // 이미지 프리뷰
   const [lpImgPre, setLpImgPre] = useState([]);
@@ -26,6 +30,14 @@ const CreateProduct = () => {
     );
     setLpImgPre(lpUrl);
   };
+  // 실험용 구간
+  const QuillongText = (text) => {
+    setLpProduct({ ...lpProduct, productLongText: text });
+  };
+  useEffect(() => {
+    console.log(lpProduct);
+  }, [lpProduct]);
+  //
 
   const btnRecord = () => {
     setLpProduct({ ...lpProduct, productType: "레코드" });
@@ -41,6 +53,8 @@ const CreateProduct = () => {
     formDataLp.append("productPrice", lpProduct.productPrice);
     formDataLp.append("productExplanation", lpProduct.productExplanation);
     formDataLp.append("productQuantity", lpProduct.productQuantity);
+    formDataLp.append("productLongtext", lpProduct.productLongText);
+
     // 배열이긴하나 한번에 못받아서 포문돌려서 하나씩 보내줘야함
     for (const file of lpProduct.productImg) {
       formDataLp.append("productImg", file);
@@ -48,12 +62,45 @@ const CreateProduct = () => {
 
     await CreateLpRecordProduct(formDataLp);
   };
+  // 이거는 미리보기 변경할수있는 기능
   useEffect(() => {
     console.log(lpProduct);
   }, [lpProduct]);
   const a = (e) => {
     const x = e;
   };
+
+  // 퀼 에디터
+  const formats: string[] = [
+    "header",
+    "size",
+    "font",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "color",
+    "background",
+    "align",
+    "script",
+    "code-block",
+    "clean",
+  ];
+  const modules: {} = useMemo(
+    () => ({
+      toolbar: {
+        container: "#toolBar",
+      },
+    }),
+    []
+  );
+
   return (
     <div id="createProductBody">
       {/*LP추가*/}
@@ -142,10 +189,23 @@ const CreateProduct = () => {
               onChange={imgs}
               multiple
             />
-            <div>
-              <button onClick={createFile}>파일 전송</button>
-            </div>
           </div>
+        </div>
+        <div>
+          <div id="toolBar">
+            <ReactModule />
+          </div>
+          <ReactQuill
+            theme="snow"
+            modules={modules}
+            formats={formats}
+            style={{ height: "1000px" }}
+            value={lpProduct.productLongText}
+            onChange={QuillongText}
+          />
+        </div>
+        <div>
+          <button onClick={createFile}>파일 전송</button>
         </div>
       </div>
 
