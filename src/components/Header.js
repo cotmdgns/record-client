@@ -117,6 +117,7 @@ const Header = () => {
           </button>
         </div>
       </div>
+      <div id="paddingBottom"></div>
     </>
   );
 };

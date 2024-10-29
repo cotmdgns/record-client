@@ -21,6 +21,7 @@ const Footer = () => {
   };
   return (
     <>
+      <div id="paddingTop"></div>
       <div id="footerLine">
         <div id="footerBox">
           <div>

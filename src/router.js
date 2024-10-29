@@ -11,6 +11,10 @@ import MainLpPage from "./pages/bodyMain/MainLpPage";
 import CreateProduct from "./pages/bodyMain/CreateProduct";
 import DetailLpPage from "./pages/detail/DetailLpPage";
 import OneOneInquiryWriting from "./pages/bodyMain/OneOneInquiryWriting";
+import DetailOneOnePage from "./pages/detail/DetailOneOnePage";
+import NoticeBoardWriting from "./pages/bodyMain/NoticeBoardWriting";
+import DetailNoticBorad from "./pages/detail/DetailNoticBorad";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,13 +26,20 @@ const router = createBrowserRouter([
       },
       {
         path: "/noticeBoard",
-        element: <NoticeBoard />,
-        // children: [  // ex> 게시판 안에 게시글 보게 된다면
-        //   {
-        //     path: "/detail", // localhost:8080/noticeBoard/detail
-        //     element: <NoticeBoardDetail />,
-        //   },
-        // ],
+        children: [
+          {
+            index: true,
+            element: <NoticeBoard />,
+          },
+          {
+            path: "noticeBoardWriting",
+            element: <NoticeBoardWriting />,
+          },
+          {
+            paht: "detailNoticBorad/:noticBoradCode",
+            element: <DetailNoticBorad />,
+          },
+        ],
       },
       {
         path: "/eventBoard",
@@ -38,10 +49,6 @@ const router = createBrowserRouter([
         path: "/productInquiry",
         element: <ProductInquiry />,
       },
-      // {
-      //   path: "/oneOneInquiry",
-      //   element: <OneOneInquiry />,
-      // },
       {
         path: "/oneOneInquiry",
         children: [
@@ -52,6 +59,10 @@ const router = createBrowserRouter([
           {
             path: "oneOneInquiryWriting",
             element: <OneOneInquiryWriting />,
+          },
+          {
+            path: "detailOneOnePage/:OneOneCode",
+            element: <DetailOneOnePage />,
           },
         ],
       },

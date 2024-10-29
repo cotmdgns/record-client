@@ -203,9 +203,9 @@ const MyPage = () => {
                 <h1 id="orderInquiryBodyOrderH1">내 주문 내역</h1>
                 <div id="orderInquiryProductOrder">
                   {/* 조인된 값이 없을경우엔 "아무것도 없다는걸 알려주기" */}
-                  <div id="mapageOrderProductState">
+                  {/* <div id="mapageOrderProductState">
                     {userOrder.length === 0 && <divg>gdgd</divg>}
-                  </div>
+                  </div> */}
                   {/* 조인된 값이 있을경우엔 map이 정상적으로 작동됨 */}
                   <div id="mapageOrderProduct">
                     <h1 id="mapageOrderProductStateH1">주문 확인중</h1>

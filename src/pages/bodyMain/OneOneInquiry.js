@@ -17,15 +17,26 @@ const OneOneInquiry = () => {
   }, []);
   const navigate = useNavigate();
 
+  // 글쓰기 페이지 이동
   const createOneOneInquiry = () => {
     navigate("oneOneInquiryWriting");
   };
+
+  // 디테일 페이지 이동하기
+  const DetailOneOnePage = (code) => {
+    navigate(`detailOneOnePage/${code}`);
+  };
+
   return (
     <div id="oneOneInquiry">
       <div>
         <div>1:1 문의하기</div>
+        <button onClick={createOneOneInquiry}>글쓰기</button>
         {allViewOneOne.map((viewOneOne) => (
-          <a key={viewOneOne.oneOneInquiryCode}>
+          <a
+            key={viewOneOne.oneOneInquiryCode}
+            onClick={() => DetailOneOnePage(viewOneOne.oneOneInquiryCode)}
+          >
             <div>
               <div>
                 생성날짜 :{" "}
@@ -43,7 +54,6 @@ const OneOneInquiry = () => {
           </a>
         ))}
       </div>
-      <button onClick={createOneOneInquiry}>글쓰기</button>
     </div>
   );
 };

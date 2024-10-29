@@ -13,6 +13,12 @@ export const createOneOneInquiry = async (data) => {
   });
 };
 
+// 1:1 문의 전체보기
 export const AllViewOneOneInquiry = async () => {
   return await instance.get("AllViewOneOneInquiry");
+};
+
+// 1:1 문의 디테일 보기
+export const DetailOneOneView = async (code) => {
+  return await instance.get("DetailOneOneView/", code);
 };
