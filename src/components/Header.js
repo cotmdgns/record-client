@@ -31,24 +31,6 @@ const Header = () => {
       navigate("/shoppingSaveRoom");
     }
   };
-  // 주문조회
-  //   const product = () => {
-  //     if (!nullCheck()) {
-  //       alert("로그인 해주세요.");
-  //       setToggleLogin(true);
-  //       navigate("/");
-  //     } else {
-  //       navigate("/orderInquiry");
-  //     }
-  //   };
-  //   <button
-  //   id="headerBoxRightProduct"
-  //   onClick={() => {
-  //     product();
-  //   }}
-  // >
-  //   주문조회
-  // </button>
 
   // 마이페이지
   const myPage = () => {

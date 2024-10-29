@@ -1,0 +1,20 @@
+#detailPageBox {
+  width: 100%;
+  height: 600px;
+  padding-bottom: 50px;
+  display: flex;
+  // 이미지 구간
+  #detailImg {
+    background-color: aqua;
+    width: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  // 텍스트 구간
+  #detailText {
+    background-color: antiquewhite;
+    width: 100%;
+  }
+}

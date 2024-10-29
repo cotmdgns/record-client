@@ -2,6 +2,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useMemo } from "react";
 import ReactModule from "../../components/ReactModule";
+import Input from "../../components/Input";
 //게시판
 const NoticeBoard = () => {
   const formats: string[] = [
@@ -36,16 +37,20 @@ const NoticeBoard = () => {
   );
 
   return (
-    <div>
-      <div id="toolBar">
-        <ReactModule />
+    <div id="oneOneInquiryWriting">
+      <div id="oneOneInquiryWritingH1">1:1 문의하기</div>
+      <div>
+        <Input label="문의 제목* : " type="text" />
+        <div>
+          <div>문의 내용* :</div>
+          <textarea id="oneOneInquiryTextarea"></textarea>
+        </div>
+        <div>
+          <div>문의 파일 : </div>
+          <input label="이미지 생성 : " type="file" accept="image/*" multiple />
+        </div>
       </div>
-      <ReactQuill
-        theme="snow"
-        modules={modules}
-        formats={formats}
-        style={{ height: "300px", width: "850px" }}
-      />
+      <button>문의 하기</button>
     </div>
   );
 };

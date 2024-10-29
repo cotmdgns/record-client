@@ -10,6 +10,7 @@ import MyPage from "./pages/bodyMain/MyPage";
 import MainLpPage from "./pages/bodyMain/MainLpPage";
 import CreateProduct from "./pages/bodyMain/CreateProduct";
 import DetailLpPage from "./pages/detail/DetailLpPage";
+import OneOneInquiryWriting from "./pages/bodyMain/OneOneInquiryWriting";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -37,9 +38,22 @@ const router = createBrowserRouter([
         path: "/productInquiry",
         element: <ProductInquiry />,
       },
+      // {
+      //   path: "/oneOneInquiry",
+      //   element: <OneOneInquiry />,
+      // },
       {
         path: "/oneOneInquiry",
-        element: <OneOneInquiry />,
+        children: [
+          {
+            index: true,
+            element: <OneOneInquiry />,
+          },
+          {
+            path: "oneOneInquiryWriting",
+            element: <OneOneInquiryWriting />,
+          },
+        ],
       },
       {
         path: "/shoppingSaveRoom",

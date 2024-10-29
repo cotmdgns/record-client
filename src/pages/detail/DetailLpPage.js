@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { DetailViewLp } from "../../api/porduct";
+import "../../assets/detailPage.scss";
 
 const DetailLpPage = () => {
   const { productCode } = useParams();
-  const [detail, setDetail] = useState([]);
+  const [detail, setDetail] = useState(null);
   const detailPage = async () => {
     const result = await DetailViewLp(productCode);
     setDetail(result.data);
   };
 
   useEffect(() => {
-    if (productCode !== 0) {
-      detailPage();
-    }
-    console.log(detail);
+    detailPage();
   }, []);
-
   // 이코드로
 
   // url에 저장된 코드를 가져와서
@@ -39,14 +36,31 @@ const DetailLpPage = () => {
   // 진짜 미치겠다
   useEffect(() => {}, []);
   return (
-    <div class="quill" id="detailPage">
-      <div class="ql-container ql-snow">
-        <div
-          class="ql-editor"
-          dangerouslySetInnerHTML={{ __html: detail.productLongtext }}
-        ></div>
+    <>
+      <div id="detailPageBox">
+        <div id="detailImg">
+          <img
+            src={
+              "http://192.168.10.51:8084/Product/" +
+              detail?.productType +
+              "/" +
+              detail?.productName +
+              "/" +
+              detail?.productImgAll[0].productImgAddress
+            }
+          />
+        </div>
+        <div id="detailText"></div>
       </div>
-    </div>
+      <div className="quill" id="detailPage">
+        <div className="ql-container ql-snow">
+          <div
+            className="ql-editor"
+            dangerouslySetInnerHTML={{ __html: detail?.productLongtext }}
+          ></div>
+        </div>
+      </div>
+    </>
   );
 };
 export default DetailLpPage;
