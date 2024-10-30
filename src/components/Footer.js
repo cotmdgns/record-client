@@ -18,6 +18,7 @@ const Footer = () => {
   const oneOneInquiry = () => {
     // 1:1 문의하기
     navigate("/oneOneInquiry");
+    window.location.href = "/oneOneInquiry";
   };
   return (
     <>

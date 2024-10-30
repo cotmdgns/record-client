@@ -18,9 +18,7 @@ const OneOneInquiryWriting = () => {
 
   useEffect(() => {
     setUserMember(member);
-    console.log(userMember);
-    console.log(oneOneInquiry);
-  }, []);
+  }, [oneOneInquiry.oneOneInquiryText]);
   const img = (e) => {
     const result = e.target.files[0];
     setOneOneInquiry({ ...oneOneInquiry, oneOneInquiryFile: result });
@@ -84,10 +82,13 @@ const OneOneInquiryWriting = () => {
             onChange={(e) =>
               setOneOneInquiry({
                 ...oneOneInquiry,
-                oneOneInquiryText: e.target.value,
+                oneOneInquiryText: e.target.value.substring(0, 500),
               })
             }
           ></textarea>
+          <div>
+            문자 수 제한 : {oneOneInquiry.oneOneInquiryText.length} / 500
+          </div>
         </div>
         <div>
           <div>문의 파일 : </div>

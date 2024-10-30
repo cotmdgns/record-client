@@ -1,8 +1,7 @@
 import "../../assets/mainLpPage.scss";
-import { AllViewLp } from "../../api/porduct";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { idCheck } from "../../api/member";
+import { AllViewLp, TotalPage } from "../../api/porduct";
 // 상단에 관리자는 추가할 수 있게끔 만들기
 
 // 그리고 수량이 0개이면 살수없게끔 만들면서 클릭못하게 만들기
@@ -13,20 +12,32 @@ import { idCheck } from "../../api/member";
 const MainLpPage = () => {
   const [Lps, setLps] = useState([]);
   const navigate = useNavigate();
-
   const LpPlayer = async () => {
-    const result = await AllViewLp();
+    const result = await AllViewLp(0);
     setLps(result.data);
     console.log(result.data);
   };
 
+  // 페이지 버튼처리
+  const [page, setPage] = useState(0);
+
+  const pageCount = async () => {
+    const result = await TotalPage();
+    setPage(result.data);
+  };
+
   useEffect(() => {
     LpPlayer();
-    console.log(Lps);
+    pageCount();
   }, []);
 
   const DetailPage = (productCode) => {
     navigate(`detailLpPage/${productCode}`);
+  };
+
+  const selectPage = async (no) => {
+    const a = await AllViewLp((no - 1) * 4);
+    setLps(a.data);
   };
 
   return (
@@ -56,15 +67,11 @@ const MainLpPage = () => {
           </div>
         ))}
       </div>
-
-      {/* <div>
-        설명란
-        <div>1. 상품들 이쁘게 정렬하기</div>
-        <div>2. 페이징 처리는 무한페이징으로</div>
-        <div>3. 상품 누르면 디테일로 들어가게끔 만들기</div>
-        <div>4. 다크모드는 안쓸꺼임</div>
-        <div>5. 한줄에 5개정도 들어갈수있게끔 만들꺼임</div>
-      </div> */}
+      {Array.from({ length: Math.ceil(page / 4) }, (_, index) => (
+        <button key={index} onClick={() => selectPage(index + 1)}>
+          {index + 1}
+        </button>
+      ))}
     </div>
   );
 };

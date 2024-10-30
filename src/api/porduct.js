@@ -16,9 +16,14 @@ export const MainRecord = async () => {
 
 //////////////////////////////
 // LP페이지에 모든 정보 보여주기
-export const AllViewLp = async () => {
-  return await instance.get("AllViewLp");
+export const AllViewLp = async (no) => {
+  return await instance.get("AllViewLp/" + no);
 };
+// LP페이지 카운트
+export const TotalPage = async () => {
+  return await instance.get("TotalPage");
+};
+
 // LP디테일 페이지 보여주기
 export const DetailViewLp = async (code) => {
   return await instance.get("DetailViewLp/" + code);

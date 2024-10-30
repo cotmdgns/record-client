@@ -20,5 +20,5 @@ export const AllViewOneOneInquiry = async () => {
 
 // 1:1 문의 디테일 보기
 export const DetailOneOneView = async (code) => {
-  return await instance.get("DetailOneOneView/", code);
+  return await instance.get("DetailOneOneView/" + code);
 };
