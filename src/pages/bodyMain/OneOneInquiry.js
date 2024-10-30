@@ -16,7 +16,6 @@ const OneOneInquiry = () => {
 
   useEffect(() => {
     console.log(allViewOneOne);
-    console.log(member);
   }, [allViewOneOne]);
 
   // 글쓰기 페이지 이동
@@ -59,7 +58,8 @@ const OneOneInquiry = () => {
             >
               <th>{viewOneOne.oneOneInquiryCode}</th>
               <td>
-                {viewOneOne.userTable.userManager === member?.userManager
+                {viewOneOne.userTable.userManager == member?.userManager ||
+                member?.userManager == 3
                   ? viewOneOne.oneOneInquiryH1
                   : "비밀 답변입니다."}
               </td>

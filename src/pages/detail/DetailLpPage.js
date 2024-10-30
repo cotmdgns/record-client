@@ -11,8 +11,14 @@ const DetailLpPage = () => {
     setDetail(result.data);
   };
 
+  const [shoppingSave, setShoppingSave] = useState({
+    productCode: "",
+    userCode: "",
+  });
+
   useEffect(() => {
     detailPage();
+    console.log(detail);
   }, []);
   // 이코드로
 
@@ -34,6 +40,9 @@ const DetailLpPage = () => {
   // 에디터로 이쁘게 작성하고
   // 그걸 네이버처럼 상점페이지 밑에 들어갈수있게끔
   // 진짜 미치겠다
+
+  const productSave = () => {};
+
   useEffect(() => {}, []);
   return (
     <>
@@ -50,7 +59,10 @@ const DetailLpPage = () => {
             }
           />
         </div>
-        <div id="detailText"></div>
+        <div id="detailText">
+          <button onClick={productSave}>찜하기</button>
+          <button>결제하기</button>
+        </div>
       </div>
       <div className="quill" id="detailPage">
         <div className="ql-container ql-snow">

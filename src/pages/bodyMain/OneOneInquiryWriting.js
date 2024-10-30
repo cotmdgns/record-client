@@ -1,4 +1,3 @@
-import Editer from "../../components/Editer";
 import "../../assets/oneOneInquiry.scss";
 import Input from "../../components/Input";
 import { useEffect, useState } from "react";
