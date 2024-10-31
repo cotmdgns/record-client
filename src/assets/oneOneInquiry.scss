@@ -90,13 +90,35 @@
     padding: 20px;
     height: 500px;
     border-bottom: 1px solid rgb(221, 221, 221);
-    margin-bottom: 10px;
   }
+  #detailOneOnePageUserComment {
+    border-bottom: 1px solid rgb(221, 221, 221);
+    padding: 10px;
+    #detailOneOnePageUserCommentH1 {
+      padding: 15px;
+      background-color: rgb(236, 236, 236);
+      display: flex;
 
+      div {
+        padding-right: 50px;
+      }
+    }
+    #detailOneOnePageUserCommentText {
+      padding: 15px;
+    }
+  }
   #detailOneOnePageComment {
-    #detailOneOnePageTextarea {
+    #detailOneOnePageCommentText {
       width: 100%;
-      height: 180px;
+      height: auto;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      resize: none;
+      border-bottom: 1px solid rgb(216, 216, 216);
+      white-space: pre-wrap;
+      resize: none;
+      overflow: hidden;
     }
   }
 }

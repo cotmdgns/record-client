@@ -22,3 +22,12 @@ export const AllViewOneOneInquiry = async () => {
 export const DetailOneOneView = async (code) => {
   return await instance.get("DetailOneOneView/" + code);
 };
+//////////////////////
+// 1:1 문의 댓글 만들기
+export const CreateComment = async (data) => {
+  return await instance.post("CreateComment", data);
+};
+// 해당 문의 댓글 보여주기
+export const ViewComment = async (code) => {
+  return await instance.get("ViewComment/" + code);
+};

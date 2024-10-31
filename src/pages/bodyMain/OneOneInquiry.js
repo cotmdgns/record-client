@@ -14,9 +14,7 @@ const OneOneInquiry = () => {
   }, []);
   const { member } = useAuth();
 
-  useEffect(() => {
-    console.log(allViewOneOne);
-  }, [allViewOneOne]);
+  useEffect(() => {}, [allViewOneOne]);
 
   // 글쓰기 페이지 이동
   const createOneOneInquiry = () => {
@@ -25,7 +23,6 @@ const OneOneInquiry = () => {
 
   // 디테일 페이지 이동하기
   const DetailOneOnePage = (code) => {
-    console.log("gd", code);
     if (member?.userManager == 3) {
       navigate(`detailOneOnePage/${code.oneOneInquiryCode}`);
     } else if (member?.userCode === code.userTable.userCode) {

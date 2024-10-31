@@ -92,15 +92,6 @@ const BodyMiddle = () => {
           </div>
           <div>여기는 제작</div>
         </div>
-        <div>
-          <div id="bodyMainNotice">
-            <img
-              src="http://192.168.10.51:8084/ImageMain/Lifestyle_side_view_cloth_in_use_VA-55-ESP_15_600x600.jpg"
-              alt="Hero Lifestyle"
-            />
-            <div>여기는 애매하다.</div>
-          </div>
-        </div>
       </div>
     </>
   );

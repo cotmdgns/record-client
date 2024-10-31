@@ -34,6 +34,7 @@ const Editer = () => {
     }),
     []
   );
+
   return (
     <div id="EditerBox">
       <div id="toolBar" style={{ background: "white" }}>

@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [name, setName] = useState(localStorage.getItem("name"));
   const [member, setMember] = useState(null);
 
-  const Member = async () => {
+  const userMember = async () => {
     const result = await idCheck(id);
     setMember(result.data);
   };
@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (id !== null) {
-      Member();
+      userMember();
     }
   }, [id]);
 
@@ -69,6 +69,7 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         nullCheck,
+        userMember,
       }}
     >
       {children}
