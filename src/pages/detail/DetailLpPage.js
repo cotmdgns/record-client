@@ -1,74 +1,91 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { DetailViewLp } from "../../api/porduct";
 import "../../assets/detailPage.scss";
 import { useAuth } from "../../contexts/AuthContext";
-import { createShoppingSave } from "../../api/shoppingSave";
+import {
+  createShoppingSave,
+  pageSaveCheck,
+  deleteShoppingSave,
+} from "../../api/shoppingSave";
 
 const DetailLpPage = () => {
+  // 페이지 정보 코드
   const { productCode } = useParams();
+  // 내정보
   const { member } = useAuth();
   const [detail, setDetail] = useState(null);
-  // 디테일 페이지
+
+  // 디테일 페이지 정보
   const detailPage = async () => {
-    const result = await DetailViewLp(productCode);
+    const result = await DetailViewLp({
+      productCode: productCode,
+      userCode: member?.userCode,
+    });
     setDetail(result.data);
   };
 
-  // 쇼핑 세이브
-  const [shoppingSave, setShoppingSave] = useState({
-    productCode: "",
-    userCode: "",
-  });
-
   // 쇼핑 세이브 저장 API
   const productSave = async () => {
-    await createShoppingSave(shoppingSave);
+    const result = await createShoppingSave({
+      productCode: productCode,
+      userCode: member?.userCode,
+    });
+    if (result.status === 200) {
+      alert("추가 되었습니다!");
+    }
+  };
+
+  const productDelete = async () => {
+    // const result = await deleteShoppingSave({
+    //   productCode: productCode,
+    //   userCode: member?.userCode,
+    // });
+    // if (result.status === 200) {
+    //   alert("삭제되었습니다!.");
+    // }
   };
 
   useEffect(() => {
-    detailPage();
-    console.log(detail);
-    console.log(member);
-  }, []);
+    if (member !== null) detailPage();
+  }, [member]);
 
-  useEffect(() => {
-    setShoppingSave({
-      ...shoppingSave,
-      productCode: detail?.productCode,
-      userCode: member?.userCode,
-    });
-  }, [detail]);
-
-  useEffect(() => {}, []);
   return (
     <>
-      <div id="detailPageBox">
-        <div id="detailImg">
-          <img
-            src={
-              "http://192.168.10.51:8084/Product/" +
-              detail?.productType +
-              "/" +
-              detail?.productName +
-              "/" +
-              detail?.productImgAll[0].productImgAddress
-            }
-          />
-        </div>
-        <div id="detailText">
-          <button onClick={productSave}>찜하기</button>
-          <button>결제하기</button>
-        </div>
-      </div>
-      <div className="quill" id="detailPage">
-        <div className="ql-container ql-snow">
-          <div
-            className="ql-editor"
-            dangerouslySetInnerHTML={{ __html: detail?.productLongtext }}
-          ></div>
-        </div>
-      </div>
+      {detail !== null && (
+        <>
+          <div id="detailPageBox">
+            <div id="detailImg">
+              <img
+                src={
+                  "http://192.168.10.51:8084/Product/" +
+                  detail.productType +
+                  "/" +
+                  detail.productName +
+                  "/" +
+                  detail.productImgAll[0].productImgAddress
+                }
+              />
+            </div>
+            <div id="detailText">
+              {detail.pageCheck ? (
+                <button onClick={productDelete}>장바구니삭제</button>
+              ) : (
+                <button onClick={productSave}>장바구니추가</button>
+              )}
+              <button>결제하기</button>
+            </div>
+          </div>
+          <div className="quill" id="detailPage">
+            <div className="ql-container ql-snow">
+              <div
+                className="ql-editor"
+                dangerouslySetInnerHTML={{ __html: detail.productLongtext }}
+              ></div>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

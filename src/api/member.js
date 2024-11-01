@@ -40,17 +40,3 @@ export const userImgUpDatePut = async (data) => {
     },
   });
 };
-
-// 에러 처리할떄
-// export const userUpDatePut = async (data) => {
-//   try {
-//     return await instance.put("upDataController", data);
-//   } catch (error) {
-//     return error.response;
-//   }
-// };
-
-// export const signup = async (data) => {
-//   alert(JSON.stringify(data));
-//   return await axios.post("http://localhost:8080/api/signup/", data);
-// };

@@ -25,8 +25,10 @@ export const TotalPage = async () => {
 };
 
 // LP디테일 페이지 보여주기
-export const DetailViewLp = async (code) => {
-  return await instance.get("DetailViewLp/" + code);
+export const DetailViewLp = async (data) => {
+  return await instance.get(
+    `DetailViewLp/${data.productCode}?userCode=${data.userCode}`
+  );
 };
 
 //////////////////////////////

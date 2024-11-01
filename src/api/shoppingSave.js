@@ -4,12 +4,30 @@ const instance = axios.create({
   baseURL: "http://localhost:8080/api/shoppingSave/",
 });
 
-// 찜하기 만들기
+// 유저 장바구니 만들기
 export const createShoppingSave = async (data) => {
   return await instance.post("createShoppingSave", data);
 };
 
-// 전체보여주기
+// 유저 장바구니 삭제
+export const deleteShoppingSave = async (data) => {
+  return await instance.delete(
+    `deleteShoppingSave?userCode=${data.userCode}&productCode=${data.productCode}`
+  );
+};
+
+// 전체보여주기 (장바구니에서 사용)
 export const allViewShoppingSave = async (code) => {
   return await instance.get("allViewShoppingSave/" + code);
+};
+
+// 페이지 들어가서 유저가 구독했는지
+export const pageSaveCheck = async (data) => {
+  console.log(data.userCode);
+  console.log(data.productCode);
+  console.log(data);
+  return await instance.get(
+    `pageSaveCheck/${data.userCode}/${data.productCode}`,
+    data
+  );
 };

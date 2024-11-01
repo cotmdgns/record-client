@@ -29,6 +29,10 @@ const BodyMiddle = () => {
     mianRecode();
   }, []);
 
+  useEffect(() => {
+    console.log(mainLps);
+  }, [mainLps]);
+
   return (
     <>
       <div id="bodyMiddle">
@@ -48,7 +52,7 @@ const BodyMiddle = () => {
                   <div>{mainLp.productPrice}</div>
                   <div>{mainLp.productExplanation}</div>
                   <div>{mainLp.productQuantity}</div>
-                  <div>{mainLp.productImg}</div>
+                  <div>{mainLp.productImgOne}</div>
                 </a>
               </div>
             ))}
