@@ -1,15 +1,16 @@
-import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { DetailViewLp } from "../../api/porduct";
 import "../../assets/detailPage.scss";
 import { useAuth } from "../../contexts/AuthContext";
 import {
   createShoppingSave,
-  pageSaveCheck,
   deleteShoppingSave,
+  createShoppingSaveOrder,
 } from "../../api/shoppingSave";
 
 const DetailLpPage = () => {
+  const navigate = useNavigate();
   // 페이지 정보 코드
   const { productCode } = useParams();
   // 내정보
@@ -35,19 +36,34 @@ const DetailLpPage = () => {
       alert("추가 되었습니다!");
     }
   };
-
+  // 쇼핑 세이브 삭제하기 API
   const productDelete = async () => {
-    // const result = await deleteShoppingSave({
-    //   productCode: productCode,
-    //   userCode: member?.userCode,
-    // });
-    // if (result.status === 200) {
-    //   alert("삭제되었습니다!.");
-    // }
+    const result = await deleteShoppingSave({
+      productCode: productCode,
+      userCode: member?.userCode,
+    });
+    if (result.status === 200) {
+      alert("삭제되었습니다!.");
+    }
+  };
+
+  // 쇼핑 결제하기
+  const CreateCode = 1;
+  const productOrder = () => {
+    CreateSaveOrder();
+    navigate("/createOrder", { state: { CreateCode } });
+  };
+
+  const CreateSaveOrder = async () => {
+    await createShoppingSaveOrder({
+      productCode: productCode,
+      userCode: member?.userCode,
+    });
   };
 
   useEffect(() => {
     if (member !== null) detailPage();
+    console.log(detail);
   }, [member]);
 
   return (
@@ -73,7 +89,11 @@ const DetailLpPage = () => {
               ) : (
                 <button onClick={productSave}>장바구니추가</button>
               )}
-              <button>결제하기</button>
+              <button onClick={productOrder}>결제하기</button>
+              {/* <div>
+                <div>{detail.productSub}</div>
+                <button>추천하기</button>
+              </div> */}
             </div>
           </div>
           <div className="quill" id="detailPage">

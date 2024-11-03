@@ -1,8 +1,9 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useMemo } from "react";
+import { useMemo, useEffect, useState } from "react";
 import ReactModule from "../../components/ReactModule";
 import Input from "../../components/Input";
+
 //게시판
 const NoticeBoardWriting = () => {
   const formats: string[] = [

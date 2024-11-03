@@ -14,6 +14,7 @@ import OneOneInquiryWriting from "./pages/bodyMain/OneOneInquiryWriting";
 import DetailOneOnePage from "./pages/detail/DetailOneOnePage";
 import NoticeBoardWriting from "./pages/bodyMain/NoticeBoardWriting";
 import DetailNoticBorad from "./pages/detail/DetailNoticBorad";
+import CreateOrder from "./pages/bodyMain/CreateOrder";
 
 const router = createBrowserRouter([
   {
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
             element: <DetailLpPage />,
           },
         ],
+      },
+      {
+        path: "/createOrder",
+        element: <CreateOrder />,
       },
     ],
   },
