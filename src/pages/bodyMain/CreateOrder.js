@@ -4,6 +4,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import {
   createShoppingSaveOrderDelete,
   createShoppingSaveOrderView,
+  CreateProductOrder,
 } from "../../api/shoppingSave";
 
 const CreateOrder = () => {
@@ -23,7 +24,15 @@ const CreateOrder = () => {
   const saveOrderClean = async () => {
     await createShoppingSaveOrderDelete({
       userCode: member?.userCode,
-      productCode: viewProduct?.productCode,
+      productCode: viewProduct?.product.productCode,
+    });
+  };
+
+  // 결제하기 버튼 눌렀을 떄 상황
+  const createOrderBtn = async () => {
+    await CreateProductOrder({
+      userCode: member?.userCode,
+      productCode: viewProduct?.product.productCode,
     });
   };
   ////////////////////////////////////////////////////////////
@@ -35,11 +44,15 @@ const CreateOrder = () => {
   // 결제하기 누르면 만들어지면서 마이페이지에 나오게끔 만들기
   ////////////////////////////////////////////////////////////
 
+  useEffect(() => {}, []);
+
   useEffect(() => {
     if (member != null) {
       viewSaveProduct();
     }
-  }, []);
+    console.log(viewProduct);
+    console.log(member);
+  }, [member]);
 
   // 언마운트
   useEffect(() => {
@@ -51,16 +64,22 @@ const CreateOrder = () => {
     <div id="createOrderBody">
       {/* 바로 결제페이지 */}
       {CreateCode === 1 && (
-        <div>
-          디테일 페이지에서 왔어요
-          <div>1. 이러쿵 저러쿵</div>
-          <div>1. 이러쿵 저러쿵</div>
-          <div>1. 이러쿵 저러쿵</div>
-          <div>1. 이러쿵 저러쿵</div>
-          <div>1. 이러쿵 저러쿵</div>
-          <button>결제하기</button>
-          <button onClick={saveOrderClean}>결제취소</button>
-        </div>
+        <>
+          <div>
+            <div>배송지 선택하기</div>
+          </div>
+          <div>
+            <div>주문 상품</div>
+            <div>
+              <div>{viewProduct?.product.productName}</div>
+              <div>{viewProduct?.product.productPrice}</div>
+              <div>{viewProduct?.product.productExplanation}</div>
+              <div>{viewProduct?.productImg}</div>
+            </div>
+            <button onClick={createOrderBtn}>결제하기</button>
+            <button onClick={saveOrderClean}>결제취소</button>
+          </div>
+        </>
       )}
       {/* 장바구니 결제페이지 */}
       {CreateCode === 2 && (

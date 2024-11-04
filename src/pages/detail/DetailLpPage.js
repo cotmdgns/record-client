@@ -57,7 +57,6 @@ const DetailLpPage = () => {
   const CreateSaveOrder = async () => {
     await createShoppingSaveOrder({
       productCode: productCode,
-      userCode: member?.userCode,
     });
   };
 
