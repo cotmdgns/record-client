@@ -48,11 +48,21 @@ const BodyMiddle = () => {
             {mainLps.map((mainLp) => (
               <div id="MainLp" key={mainLp.productCode}>
                 <a>
+                  <img
+                    id="bodyMainLpImg"
+                    src={
+                      "http://192.168.10.51:8084/Product/" +
+                      mainLp.productType +
+                      "/" +
+                      mainLp.productName +
+                      "/" +
+                      mainLp.productImgOne
+                    }
+                  />
                   <div>{mainLp.productName}</div>
                   <div>{mainLp.productPrice}</div>
                   <div>{mainLp.productExplanation}</div>
                   <div>{mainLp.productQuantity}</div>
-                  <div>{mainLp.productImgOne}</div>
                 </a>
               </div>
             ))}

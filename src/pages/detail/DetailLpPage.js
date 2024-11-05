@@ -26,7 +26,7 @@ const DetailLpPage = () => {
     setDetail(result.data);
   };
 
-  // 쇼핑 세이브 저장 API
+  // 쇼핑 세이브 저장 API ( 디테일 페이지에서 )
   const productSave = async () => {
     const result = await createShoppingSave({
       productCode: productCode,
@@ -36,7 +36,12 @@ const DetailLpPage = () => {
       alert("추가 되었습니다!");
     }
   };
-  // 쇼핑 세이브 삭제하기 API
+
+  // 나중을 위해
+  // useEffect(() => {
+  //   detailPage();
+  // }, [productSave]);
+  // 쇼핑 세이브 삭제하기 API ( 디테일 페이지에서 )
   const productDelete = async () => {
     const result = await deleteShoppingSave({
       productCode: productCode,
@@ -57,6 +62,7 @@ const DetailLpPage = () => {
   const CreateSaveOrder = async () => {
     await createShoppingSaveOrder({
       productCode: productCode,
+      userCode: member?.userCode,
     });
   };
 
@@ -89,10 +95,10 @@ const DetailLpPage = () => {
                 <button onClick={productSave}>장바구니추가</button>
               )}
               <button onClick={productOrder}>결제하기</button>
-              {/* <div>
+              <div>
                 <div>{detail.productSub}</div>
                 <button>추천하기</button>
-              </div> */}
+              </div>
             </div>
           </div>
           <div className="quill" id="detailPage">

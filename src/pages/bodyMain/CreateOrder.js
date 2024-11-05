@@ -8,6 +8,7 @@ import {
 } from "../../api/shoppingSave";
 
 const CreateOrder = () => {
+  const navigate = useNavigate();
   const { member } = useAuth();
   const location = useLocation();
   const { CreateCode } = location.state || {};
@@ -16,8 +17,12 @@ const CreateOrder = () => {
   const [viewProduct, setViewProduct] = useState(null);
   // 해당상품 보여주기
   const viewSaveProduct = async () => {
-    const result = await createShoppingSaveOrderView(member?.userCode);
-    setViewProduct(result.data);
+    try {
+      const result = await createShoppingSaveOrderView(member?.userCode);
+      setViewProduct(result.data);
+    } catch (error) {
+      navigate("/");
+    }
   };
 
   // 나가면 자동으로 삭제하기
@@ -27,14 +32,46 @@ const CreateOrder = () => {
       productCode: viewProduct?.product.productCode,
     });
   };
-
+  // 유저가 결제 취소했을때 과정
+  const createOrderCleanBtn = async () => {
+    await createShoppingSaveOrderDelete({
+      userCode: member?.userCode,
+      productCode: viewProduct?.product.productCode,
+    });
+    alert("결제가 취소되었습니다.");
+    navigate(`/mainLpPage/detailLpPage/${viewProduct?.product.productCode}`);
+  };
   // 결제하기 버튼 눌렀을 떄 상황
   const createOrderBtn = async () => {
     await CreateProductOrder({
       userCode: member?.userCode,
       productCode: viewProduct?.product.productCode,
     });
+    alert("결제가 완료되었습니다.");
+    navigator("/");
   };
+
+  useEffect(() => {
+    // try {
+    if (member != null) {
+      if (CreateCode == 1) {
+        viewSaveProduct();
+      }
+    }
+    // } catch (error) {
+    //   alert("정상적인 경로가 아닙니다.");
+    //   navigate("/");
+    // }
+  }, [member]);
+
+  // 언마운트
+  useEffect(() => {
+    if (viewProduct != null) {
+      return () => {
+        saveOrderClean();
+      };
+    }
+  }, [viewProduct]);
   ////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////// 2 ( 장바구니에서 결제페이지 넘어갔을때 상황 )
 
@@ -46,20 +83,6 @@ const CreateOrder = () => {
 
   useEffect(() => {}, []);
 
-  useEffect(() => {
-    if (member != null) {
-      viewSaveProduct();
-    }
-    console.log(viewProduct);
-    console.log(member);
-  }, [member]);
-
-  // 언마운트
-  useEffect(() => {
-    // return () => {
-    //   saveOrderClean();
-    // };
-  }, []);
   return (
     <div id="createOrderBody">
       {/* 바로 결제페이지 */}
@@ -77,7 +100,7 @@ const CreateOrder = () => {
               <div>{viewProduct?.productImg}</div>
             </div>
             <button onClick={createOrderBtn}>결제하기</button>
-            <button onClick={saveOrderClean}>결제취소</button>
+            <button onClick={createOrderCleanBtn}>결제취소</button>
           </div>
         </>
       )}
