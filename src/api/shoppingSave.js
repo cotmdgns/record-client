@@ -34,6 +34,7 @@ export const createShoppingSaveOrderDelete = async (data) => {
   );
 };
 ////////////
+
 //////////// ( 장바구니에서 결제페이지 들어갈때 상황)
 // 전체보여주기
 export const createShoppingSaveView = async (code) => {
@@ -48,6 +49,10 @@ export const createShoppingSaveDelete = async (data) => {
   return await instance.delete(
     `createShoppingSaveDelete?shoppingCode=${data.shoppingCode}`
   );
+};
+// 장바구니에서 총합 결제 금액 보여주기
+export const viewOrderPrice = async (code) => {
+  return await instance.get(`viewOrderPrice?userCode=${code}`);
 };
 ////////////
 

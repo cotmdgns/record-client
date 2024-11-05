@@ -5,6 +5,8 @@ import {
   createShoppingSaveOrderDelete,
   createShoppingSaveOrderView,
   CreateProductOrder,
+  allViewShoppingSave,
+  viewOrderPrice,
 } from "../../api/shoppingSave";
 
 const CreateOrder = () => {
@@ -12,6 +14,8 @@ const CreateOrder = () => {
   const { member } = useAuth();
   const location = useLocation();
   const { CreateCode } = location.state || {};
+  // 버튼 상태 관리하기
+  const [activeButton, setActiveButton] = useState(null);
 
   //////////////////////////////////////////////////////////// 1 ( 바로 결제하기 했을때 상황들 )
   const [viewProduct, setViewProduct] = useState(null);
@@ -74,6 +78,35 @@ const CreateOrder = () => {
   }, [viewProduct]);
   ////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////// 2 ( 장바구니에서 결제페이지 넘어갔을때 상황 )
+  const [userSaveProduct, setUserSaveProduct] = useState([]);
+  const [orderPrice, setOrderPrice] = useState(0);
+  const productSave = async () => {
+    const result = await allViewShoppingSave(member?.userCode);
+    setUserSaveProduct(result.data);
+  };
+  const price = async () => {
+    const result = await viewOrderPrice(member?.userCode);
+    setOrderPrice(result.data);
+  };
+
+  useEffect(() => {
+    if (member != null) {
+      if (CreateCode == 2) {
+        productSave();
+        price();
+      }
+    }
+    console.log(userSaveProduct);
+  }, [member]);
+
+  const createBtn = () => {
+    alert("결제할떄 주소까지 넣어서 만들어라");
+  };
+
+  const createBackBtn = () => {
+    alert("결제가 취소되었습니다.");
+    navigate("/shoppingSaveRoom");
+  };
 
   // 현재 진행상황
   // 들어오면 삭제 완료 나가면 삭제완료
@@ -85,12 +118,12 @@ const CreateOrder = () => {
 
   return (
     <div id="createOrderBody">
+      <div>
+        <div>배송지 선택하기</div>
+      </div>
       {/* 바로 결제페이지 */}
       {CreateCode === 1 && (
-        <>
-          <div>
-            <div>배송지 선택하기</div>
-          </div>
+        <div>
           <div>
             <div>주문 상품</div>
             <div>
@@ -99,19 +132,35 @@ const CreateOrder = () => {
               <div>{viewProduct?.product.productExplanation}</div>
               <div>{viewProduct?.productImg}</div>
             </div>
+            <div>
+              <div>현재 금액: </div>
+              <div>{viewProduct?.product.productPrice}</div>
+            </div>
+
             <button onClick={createOrderBtn}>결제하기</button>
             <button onClick={createOrderCleanBtn}>결제취소</button>
           </div>
-        </>
+        </div>
       )}
       {/* 장바구니 결제페이지 */}
       {CreateCode === 2 && (
         <div>
-          장바구니에서 왔어요 <div>1. 이러쿵 저러쿵</div>
-          <div>2. 이러쿵 저러쿵</div>
-          <div>2. 이러쿵 저러쿵</div>
-          <div>2. 이러쿵 저러쿵</div>
-          <div>2. 이러쿵 저러쿵</div>
+          <div>
+            <div>주문 상품</div>
+            {userSaveProduct?.map((product) => (
+              <div key={product.product.productCode}>
+                <div>{product.product.productName}</div>
+                <div>{product.product.productPrice}</div>
+                <div>{product.product.productExplanation}</div>
+                <div>{product.productImg}</div>
+              </div>
+            ))}
+          </div>
+          <div>
+            <div>현재 금액: {orderPrice}</div>
+          </div>
+          <button onClick={createBtn}>결제하기</button>
+          <button onClick={createBackBtn}>결제취소</button>
         </div>
       )}
     </div>
