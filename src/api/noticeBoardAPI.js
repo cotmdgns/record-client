@@ -5,11 +5,11 @@ export const instance = axios.create({
 });
 
 // 게시판 생성하기
-const createNoticeBoard = async (data) => {
+export const createNoticeBoard = async (data) => {
   await instance.post("createNoticeBoard", data);
 };
 
 // 게시판 보여주기
-const viewBoard = async () => {
+export const viewBoard = async () => {
   await instance.get("viewBoard");
 };

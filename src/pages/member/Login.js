@@ -13,12 +13,11 @@ const Login = ({ close, signUpPage }) => {
   });
   const [Check, SetCheck] = useState("");
   const { login: authLogin } = useAuth();
-  // const styleTrue = {
-  //   color: "green",
-  // };
   const styleFalse = {
     color: "red",
   };
+
+  let enterBoo = true;
   const loginButton = async () => {
     // 아이디 및 비밀번호 입력안했을떄
     if (member.userId === "" && member.userPwd === "") {
@@ -32,25 +31,25 @@ const Login = ({ close, signUpPage }) => {
     if (member.userId !== "" && member.userPwd !== "") {
       try {
         const result = await login(member);
-        if (result.status === 200) {
-          authLogin(result.data);
-          alert("로그인 성공!");
-          SetCheck("");
-          close();
-        }
+
+        authLogin(result.data);
+        alert("로그인 성공했당게여");
+        SetCheck("");
+        close();
       } catch {
         alert("회원정보가 틀립니다.");
-        SetCheck("회원정보가 없습니다.");
       }
     }
   };
 
   // 엔터처리 (3번이 실행이됨 한번만 했으면 좋겠는데)
-  // document.addEventListener('keydown', function(event) {
-  //   if(window.event.keyCode === 13){
-  //     loginButton();
-  //   }
-  // });
+
+  document.addEventListener("keydown", function (event) {
+    if (window.event.keyCode === 13 && enterBoo) {
+      loginButton();
+    }
+    enterBoo = false;
+  });
 
   return (
     <>

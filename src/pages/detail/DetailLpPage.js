@@ -10,6 +10,12 @@ import {
 } from "../../api/shoppingSave";
 
 const DetailLpPage = () => {
+  let a = new Date();
+  const aaa = 2;
+  a.setDate(a.getDate() + aaa);
+  const days = ["일", "월", "화", "수", "목", "금", "토"];
+  //.substring(5, 10)
+  //////
   const navigate = useNavigate();
   // 페이지 정보 코드
   const { productCode } = useParams();
@@ -82,13 +88,31 @@ const DetailLpPage = () => {
                   "http://192.168.10.51:8084/Product/" +
                   detail.productType +
                   "/" +
-                  detail.productName +
+                  detail.productCode +
                   "/" +
                   detail.productImgAll[0].productImgAddress
                 }
               />
             </div>
             <div id="detailText">
+              <div id="detailTextName">{detail.productName}</div>
+              <div>노래 정보 : {detail.productExplanation}</div>
+              <div>가격 : {detail.productPrice}</div>
+              <div>남은 수량 : {detail.productQuantity}</div>
+              <div>
+                <div>배송안내 : </div>
+                <div>
+                  {a.getMonth() +
+                    1 +
+                    "/" +
+                    a.getDate() +
+                    "(" +
+                    days[a.getDay()] +
+                    ")"}
+                  발송예정(예약판매) 배송비 : 무료 배송비 안내 예정일 이후 1~2일
+                  이내 수령
+                </div>
+              </div>
               {detail.pageCheck ? (
                 <button onClick={productDelete}>장바구니삭제</button>
               ) : (

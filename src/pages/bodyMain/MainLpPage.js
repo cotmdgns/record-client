@@ -36,7 +36,7 @@ const MainLpPage = () => {
   };
 
   const selectPage = async (no) => {
-    const a = await AllViewLp((no - 1) * 4);
+    const a = await AllViewLp((no - 1) * 16);
     setLps(a.data);
   };
 
@@ -53,25 +53,35 @@ const MainLpPage = () => {
                     "http://192.168.10.51:8084/Product/" +
                     Lp.productType +
                     "/" +
-                    Lp.productName +
+                    Lp.productCode +
                     "/" +
                     Lp.productImgOne
                   }
                 />
               </div>
-              <div>이름 : {Lp.productName}</div>
-              <div>가격 : {Lp.productPrice}</div>
-              <div>정보 : {Lp.productExplanation}</div>
-              <div>수량 : {Lp.productQuantity}</div>
+              <div id="mainLpBoxs">
+                <div id="mainLpName">{Lp.productName}</div>
+                <div id="mainLpExplanation">정보 : {Lp.productExplanation}</div>
+                <div id="mainLpBox">
+                  <div id="mainLpPrice">가격 : {Lp.productPrice}</div>
+                  <div id="mainLpQuantity">수량 : {Lp.productQuantity}</div>
+                </div>
+              </div>
             </a>
           </div>
         ))}
       </div>
-      {Array.from({ length: Math.ceil(page / 4) }, (_, index) => (
-        <button key={index} onClick={() => selectPage(index + 1)}>
-          {index + 1}
-        </button>
-      ))}
+      <div id="buttons">
+        {Array.from({ length: Math.ceil(page / 16) }, (_, index) => (
+          <button
+            id="pageButton"
+            key={index}
+            onClick={() => selectPage(index + 1)}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

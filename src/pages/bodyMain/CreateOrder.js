@@ -56,16 +56,11 @@ const CreateOrder = () => {
   };
 
   useEffect(() => {
-    // try {
     if (member != null) {
       if (CreateCode == 1) {
         viewSaveProduct();
       }
     }
-    // } catch (error) {
-    //   alert("정상적인 경로가 아닙니다.");
-    //   navigate("/");
-    // }
   }, [member]);
 
   // 언마운트
@@ -120,6 +115,7 @@ const CreateOrder = () => {
     <div id="createOrderBody">
       <div>
         <div>배송지 선택하기</div>
+        <div> 추가하기 </div>
       </div>
       {/* 바로 결제페이지 */}
       {CreateCode === 1 && (

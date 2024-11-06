@@ -2,6 +2,7 @@ import "../../assets/bodyMiddle.scss";
 import { MainLP, MainRecord } from "../../api/porduct";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 //메인페이지
 //imageBox 까지가 8081
 
@@ -16,17 +17,20 @@ const BodyMiddle = () => {
     setMainLps(result.data);
   };
   // 서버에서 가져온 상품
-  const mianRecode = async () => {
-    const result = await MainRecord();
-    setMainRecords(result.data);
-  };
+  // const mianRecode = async () => {
+  //   const result = await MainRecord();
+  //   setMainRecords(result.data);
+  // };
   const MainLpPage = () => {
+    navigate("/mainLpPage");
+  };
+  const DetailLpPageMove = () => {
     navigate("/mainLpPage");
   };
 
   useEffect(() => {
     mainlps();
-    mianRecode();
+    // mianRecode();
   }, []);
 
   useEffect(() => {
@@ -39,14 +43,23 @@ const BodyMiddle = () => {
         <div id="bodyMainLp">
           <div id="bodyMainLpImg">
             <img
+              id="bodyMainLpImgBox"
               src="http://192.168.10.51:8084/ImageMain/Hero_Lifestyle_VSC-750SB-YEL_11_x700.jpg"
               alt="Hero Lifestyle"
             />
-            <div>여기는 글씨?</div>
+            <div id="bodyMainLpBox">
+              <div id="bodyMainLpBoxImg1"></div>
+              <div id="bodyMainLpBoxImg2"></div>
+              <div id="bodyMainLpBoxImg3"></div>
+            </div>
           </div>
           <div id="bodyMainLps">
             {mainLps.map((mainLp) => (
-              <div id="MainLp" key={mainLp.productCode}>
+              <div
+                id="MainLp"
+                key={mainLp.productCode}
+                onClick={DetailLpPageMove}
+              >
                 <a>
                   <img
                     id="bodyMainLpImg"
@@ -54,15 +67,18 @@ const BodyMiddle = () => {
                       "http://192.168.10.51:8084/Product/" +
                       mainLp.productType +
                       "/" +
-                      mainLp.productName +
+                      mainLp.productCode +
                       "/" +
                       mainLp.productImgOne
                     }
                   />
-                  <div>{mainLp.productName}</div>
-                  <div>{mainLp.productPrice}</div>
-                  <div>{mainLp.productExplanation}</div>
-                  <div>{mainLp.productQuantity}</div>
+                  <div id="bodyMainLpName">{mainLp.productName}</div>
+                  <div id="bodyMainLpBox">
+                    <div id="bodyMainLpPrice">{mainLp.productPrice}원</div>
+                    <div id="bodyMainLpQuantity">
+                      남은 수량 : {mainLp.productQuantity}개
+                    </div>
+                  </div>
                 </a>
               </div>
             ))}

@@ -2,12 +2,13 @@ import { useState, useEffect, useMemo } from "react";
 import { CreateLpRecordProduct } from "../../api/porduct";
 import Input from "../../components/Input";
 import "../../assets/createProduct.scss";
-
+import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ReactModule from "../../components/ReactModule";
 
 const CreateProduct = () => {
+  const navigate = useNavigate();
   const [lpProduct, setLpProduct] = useState({
     productType: "",
     productName: "", // 이름
@@ -59,8 +60,10 @@ const CreateProduct = () => {
     for (const file of lpProduct.productImg) {
       formDataLp.append("productImg", file);
     }
-
     await CreateLpRecordProduct(formDataLp);
+
+    alert("추가되었습니다");
+    navigate("/");
   };
   // 이거는 미리보기 변경할수있는 기능
   useEffect(() => {
