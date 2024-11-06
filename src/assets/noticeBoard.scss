@@ -1,0 +1,53 @@
+#noticeBordePage {
+  #noticeBordeH1 {
+    font-size: 40px;
+    font-weight: bold;
+    padding-bottom: 30px;
+  }
+  #noticeBordePageTable {
+    width: 100%;
+    margin-bottom: 50px;
+
+    #noticeBordePageTheadTr th {
+      padding: 10px 20px;
+      border-bottom: 1px solid rgb(145, 145, 145);
+    }
+    #noticeBordePageTheadTr th:nth-child(1) {
+      width: 5%;
+    }
+    #noticeBordePageTheadTr th:nth-child(2) {
+      width: 40%;
+    }
+    #noticeBordePageTheadTr th:nth-child(3) {
+      width: 8.5%;
+    }
+    #noticeBordePageTheadTr th:nth-child(4) {
+      width: 4%;
+    }
+
+    #noticeBordePageTbody {
+      cursor: pointer;
+      #noticeBordePageTr {
+        border-bottom: 1px solid rgb(231, 231, 231);
+      }
+      #noticeBordePageTr td:nth-child(1) {
+        text-align: center;
+      }
+      #noticeBordePageTr td {
+        padding: 20px;
+      }
+    }
+  }
+  #creatBtn {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    button {
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  }
+}
+
+// 생성페이지

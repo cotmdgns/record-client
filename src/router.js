@@ -37,7 +37,7 @@ const router = createBrowserRouter([
             element: <NoticeBoardWriting />,
           },
           {
-            paht: "detailNoticBorad/:noticBoradCode",
+            path: "detailNoticBorad/:noticBoradCode",
             element: <DetailNoticBorad />,
           },
         ],

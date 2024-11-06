@@ -6,6 +6,7 @@ const Footer = () => {
   const noticeBoard = () => {
     // 게시판
     navigate("/noticeBoard");
+    window.location.href = "/noticeBoard";
   };
   const eventBoard = () => {
     // 이벤트
