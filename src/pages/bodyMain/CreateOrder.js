@@ -8,6 +8,9 @@ import {
   allViewShoppingSave,
   viewOrderPrice,
 } from "../../api/shoppingSave";
+import "../../assets/createOrder.scss";
+import AddressModal from "../../components/AddressModal";
+import { allAddress } from "../../api/addressAPI";
 
 const CreateOrder = () => {
   const navigate = useNavigate();
@@ -52,9 +55,8 @@ const CreateOrder = () => {
       productCode: viewProduct?.product.productCode,
     });
     alert("결제가 완료되었습니다.");
-    navigator("/");
+    navigate("/");
   };
-
   useEffect(() => {
     if (member != null) {
       if (CreateCode == 1) {
@@ -91,7 +93,6 @@ const CreateOrder = () => {
         price();
       }
     }
-    console.log(userSaveProduct);
   }, [member]);
 
   const createBtn = () => {
@@ -103,52 +104,97 @@ const CreateOrder = () => {
     navigate("/shoppingSaveRoom");
   };
 
-  // 현재 진행상황
-  // 들어오면 삭제 완료 나가면 삭제완료
-  // 해당 정보 가져와서 화면단에 보여주기
-  // 결제하기 누르면 만들어지면서 마이페이지에 나오게끔 만들기
-  ////////////////////////////////////////////////////////////
-
-  useEffect(() => {}, []);
+  ////////// ( 주소 api 모달창 )
+  const [modalAddress, setModalAddress] = useState(false); // boolean으로 모달창 나올지안나올지 확인
+  const close = () => {
+    setModalAddress(false);
+  };
+  const [addressData, setAddressData] = useState([]); // 화면 조건 처리 (false이면 추가해달라 true이면 값들 나오게)
+  const addressBtn = () => {
+    setModalAddress(!modalAddress);
+  };
+  const allMemberAddressList = async () => {
+    const result = await allAddress(member?.userCode);
+    setAddressData(result.data);
+  };
+  useEffect(() => {
+    if (member?.userCode != null) {
+      allMemberAddressList();
+    }
+    console.log(addressData);
+  }, []);
+  //////////
 
   return (
     <div id="createOrderBody">
-      <div>
-        <div>배송지 선택하기</div>
-        <div> 추가하기 </div>
+      <div id="createOrderH1">결제 페이지</div>
+      <div id="createOrderAddressBox">
+        <div id="createOrderH1Page">배송지 선택하기</div>
+        {/* 상태코드가 바뀌게끔 만들어야지 각각 달라짐 */}
+        {/* api 두개를 가져와서 하나는 코드로 찾는거 하나는*/}
+        {addressData.length === 0 ? (
+          <div>정보가 없으면 결제를 하실 수 없습니다.</div>
+        ) : (
+          <div>있으니 반복문 돌려달라</div>
+        )}
       </div>
+      {modalAddress ? <AddressModal close={close} /> : null}
+      <button onClick={addressBtn}>변경</button>
+      {/* 모달창이 뜨면서 그 안에서 주소 api가 나오고  */}
       {/* 바로 결제페이지 */}
       {CreateCode === 1 && (
         <div>
+          <div id="createOrderH1Page">주문 상품</div>
           <div>
-            <div>주문 상품</div>
+            <div>{viewProduct?.product.productName}</div>
+            <div>{viewProduct?.product.productPrice}</div>
+            <div>{viewProduct?.product.productExplanation}</div>
             <div>
-              <div>{viewProduct?.product.productName}</div>
-              <div>{viewProduct?.product.productPrice}</div>
-              <div>{viewProduct?.product.productExplanation}</div>
-              <div>{viewProduct?.productImg}</div>
+              <img
+                id="createOrderImg"
+                src={
+                  "http://192.168.10.51:8084/Product/" +
+                  viewProduct?.product.productType +
+                  "/" +
+                  viewProduct?.product.productCode +
+                  "/" +
+                  viewProduct?.product.productImg
+                }
+              />
             </div>
-            <div>
-              <div>현재 금액: </div>
-              <div>{viewProduct?.product.productPrice}</div>
-            </div>
-
-            <button onClick={createOrderBtn}>결제하기</button>
-            <button onClick={createOrderCleanBtn}>결제취소</button>
           </div>
+          <div>
+            <div>현재 금액: </div>
+            <div>{viewProduct?.product.productPrice}</div>
+          </div>
+
+          <button onClick={createOrderBtn}>결제하기</button>
+          <button onClick={createOrderCleanBtn}>결제취소</button>
         </div>
       )}
       {/* 장바구니 결제페이지 */}
       {CreateCode === 2 && (
         <div>
           <div>
-            <div>주문 상품</div>
+            <div id="createOrderH1Page">주문 상품</div>
             {userSaveProduct?.map((product) => (
-              <div key={product.product.productCode}>
-                <div>{product.product.productName}</div>
-                <div>{product.product.productPrice}</div>
-                <div>{product.product.productExplanation}</div>
-                <div>{product.productImg}</div>
+              <div id="createOrderBox" key={product.product.productCode}>
+                <img
+                  id="createOrderImg"
+                  src={
+                    "http://192.168.10.51:8084/Product/" +
+                    product.product.productType +
+                    "/" +
+                    product.product.productCode +
+                    "/" +
+                    product.productImg
+                  }
+                />
+                <div>
+                  <div>{product.product.productName}</div>
+                  <div>{product.product.productExplanation}</div>
+                  <div>{product.product.productPrice}</div>
+                </div>
               </div>
             ))}
           </div>

@@ -1,0 +1,19 @@
+#createOrderH1Page {
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 30px;
+}
+#createOrderBody {
+  #createOrderH1 {
+    font-size: 40px;
+    font-weight: bold;
+    padding-bottom: 30px;
+  }
+}
+#createOrderBox {
+  display: flex;
+  align-items: center;
+  #createOrderImg {
+    width: 100px;
+  }
+}

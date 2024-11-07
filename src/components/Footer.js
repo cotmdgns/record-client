@@ -25,6 +25,14 @@ const Footer = () => {
     <>
       <div id="paddingTop"></div>
       <div id="footerLine">
+        <div id="footerBoxBody">
+          <div>회사소개</div>
+          <div>이용약관</div>
+          <div>개인정보처리방침</div>
+          <div>이용안내</div>
+        </div>
+      </div>
+      <div id="footerLine">
         <div id="footerBox">
           <div>
             <ul>
@@ -37,7 +45,7 @@ const Footer = () => {
               <li>오늘도 푸르게푸르게 두산생명</li>
             </ul>
           </div>
-          <div>
+          <div id="footerBoxLeft">
             <ul>
               <li onClick={noticeBoard}>게시판</li>
               <li onClick={eventBoard}>이벤트</li>
@@ -48,28 +56,18 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div id="footerLine">
-        <div id="footerBoxBody">
-          <div>회사소개</div>
-          <div>이용약관</div>
-          <div>개인정보처리방침</div>
-          <div>이용안내</div>
-        </div>
-      </div>
+
       <div id="footerLine">
         <div id="footerBoxFooter">
+          <div id="footerInfoListH1">
+            <h1>Record</h1>
+          </div>
           <div id="footerInfoList">
             <div>대표 : 히오스</div>
             <div>사업자등록번호 : 15-87-889-9999-42</div>
-          </div>
-          <div id="footerInfoList">
             <div>통신판매업신고번호 : 제2099-메트로-4040호</div>
-          </div>
-          <div id="footerInfoList">
             <div>개인정보관리자 : 히오스</div>
             <div>주소 : 메트로시 마추피추구 온정로 202 아트팩토리</div>
-          </div>
-          <div id="footerInfoList">
             <div>메일 : cotmdgns@naver.com</div>
             <div>호스팅 제공 : 엔에이치앤커머스(주)</div>
           </div>

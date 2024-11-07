@@ -100,6 +100,9 @@ const DetailLpPage = () => {
               <div>가격 : {detail.productPrice}</div>
               <div>남은 수량 : {detail.productQuantity}</div>
               <div>
+                <button></button>
+              </div>
+              <div>
                 <div>배송안내 : </div>
                 <div>
                   {a.getMonth() +

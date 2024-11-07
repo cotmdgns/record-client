@@ -39,10 +39,20 @@ const ShoppingSaveRoom = () => {
       <div>장바구니</div>
       {userSaveProduct.map((product) => (
         <div key={product.shoppingCode}>
+          <img
+            id="createOrderImg"
+            src={
+              "http://192.168.10.51:8084/Product/" +
+              product.product.productType +
+              "/" +
+              product.product.productCode +
+              "/" +
+              product.productImg
+            }
+          />
           <div>{product.product.productName}</div>
           <div>{product.product.productExplanation}</div>
           <div>{product.product.productPrice}</div>
-          <div>{product.product.productType}</div>
           <button onClick={() => deleteShoppingSave(product.shoppingCode)}>
             삭제하기
           </button>

@@ -14,7 +14,7 @@ export const deleteShoppingSave = async (data) => {
     `deleteShoppingSave?userCode=${data.userCode}&productCode=${data.productCode}`
   );
 };
-///////////// ( 바로 결제페이지 들어갈떄 상황 )
+///////////// ( 바로 결제페이지 들어갈떄 상황 )2
 // 결제 페이지 넘어갈때 생성하기
 export const createShoppingSaveOrder = async (data) => {
   return await instance.post("createShoppingSaveOrder", data);
