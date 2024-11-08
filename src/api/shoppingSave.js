@@ -70,6 +70,11 @@ export const pageSaveCheck = async (data) => {
 };
 
 ////////// ( 최종 결제 )
+/// 1. 바로 결제할때
 export const CreateProductOrder = async (data) => {
   return await instance.post("createProductOrder", data);
+};
+/// 2. 장바구니에서 결제할때
+export const CreateProductOrders = async (data) => {
+  return await instance.post("createProductOrders", data);
 };

@@ -5,20 +5,77 @@ import {
   createShoppingSaveOrderDelete,
   createShoppingSaveOrderView,
   CreateProductOrder,
+  CreateProductOrders,
   allViewShoppingSave,
   viewOrderPrice,
 } from "../../api/shoppingSave";
 import "../../assets/createOrder.scss";
 import AddressModal from "../../components/AddressModal";
-import { allAddress } from "../../api/addressAPI";
+import { allAddress, viewAddress } from "../../api/addressAPI";
 
+let primryKey = 0;
 const CreateOrder = () => {
   const navigate = useNavigate();
   const { member } = useAuth();
   const location = useLocation();
   const { CreateCode } = location.state || {};
   // 버튼 상태 관리하기
-  const [activeButton, setActiveButton] = useState(null);
+  // const [activeButton, setActiveButton] = useState(null);
+  // //////////////////////////////////////////////////////////// ( 주소 관리 )
+  // const [allView, setAllView] = useState([]);
+  // const [addressState, setAddressState] = useState({
+  //   userCode: "",
+  //   addressUserState: "",
+  // });
+
+  ////////// ( 주소 api 모달창 )
+  const [modalAddress, setModalAddress] = useState(false); // boolean으로 모달창 나올지안나올지 확인
+  const close = () => {
+    setModalAddress(false);
+  };
+  const [addressData, setAddressData] = useState([]); // 화면 조건 처리 (false이면 추가해달라 true이면 값들 나오게)
+  const addressBtn = () => {
+    setModalAddress(!modalAddress);
+  };
+
+  const allMemberAddressList = async () => {
+    const result = await allAddress(member?.userCode);
+    setAddressData(result.data);
+  };
+
+  const putAddressView = (data) => {
+    setAddressData(data);
+  };
+
+  useEffect(() => {
+    if (member?.userCode != null) {
+      allMemberAddressList();
+    }
+  }, [member]);
+
+  useEffect(() => {
+    for (let i = 0; i < addressData.length; i++) {
+      if (addressData[i].addressUserStartCode == 1) {
+        primryKey = addressData[i].addressCode;
+      }
+    }
+  }, [addressData]);
+
+  const addressUserState = (data) => {
+    switch (data) {
+      case 1:
+        return "집";
+      case 2:
+        return "회사";
+      case 3:
+        return "학교";
+      case 4:
+        return "친구";
+      case 5:
+        return "가족";
+    }
+  };
+  //////////
 
   //////////////////////////////////////////////////////////// 1 ( 바로 결제하기 했을때 상황들 )
   const [viewProduct, setViewProduct] = useState(null);
@@ -34,6 +91,7 @@ const CreateOrder = () => {
 
   // 나가면 자동으로 삭제하기
   const saveOrderClean = async () => {
+    // 여기는 정보가 하나라서 이렇게 보내줄잇지만 주소같은경우는 따로 또 가져와야하나 쉽내
     await createShoppingSaveOrderDelete({
       userCode: member?.userCode,
       productCode: viewProduct?.product.productCode,
@@ -52,7 +110,8 @@ const CreateOrder = () => {
   const createOrderBtn = async () => {
     await CreateProductOrder({
       userCode: member?.userCode,
-      productCode: viewProduct?.product.productCode,
+      productCodes: viewProduct?.product.productCode,
+      address: primryKey,
     });
     alert("결제가 완료되었습니다.");
     navigate("/");
@@ -81,6 +140,7 @@ const CreateOrder = () => {
     const result = await allViewShoppingSave(member?.userCode);
     setUserSaveProduct(result.data);
   };
+  // 종합 금액
   const price = async () => {
     const result = await viewOrderPrice(member?.userCode);
     setOrderPrice(result.data);
@@ -94,51 +154,54 @@ const CreateOrder = () => {
       }
     }
   }, [member]);
-
-  const createBtn = () => {
-    alert("결제할떄 주소까지 넣어서 만들어라");
+  const productCodes =
+    userSaveProduct?.map((product) => product.product.productCode) || [];
+  const createBtn = async () => {
+    await CreateProductOrders({
+      userCode: member?.userCode,
+      productCode: productCodes,
+      addressCode: primryKey,
+    });
+    alert("결제가 완료되었습니다.");
+    navigate("/");
   };
-
   const createBackBtn = () => {
     alert("결제가 취소되었습니다.");
     navigate("/shoppingSaveRoom");
   };
-
-  ////////// ( 주소 api 모달창 )
-  const [modalAddress, setModalAddress] = useState(false); // boolean으로 모달창 나올지안나올지 확인
-  const close = () => {
-    setModalAddress(false);
-  };
-  const [addressData, setAddressData] = useState([]); // 화면 조건 처리 (false이면 추가해달라 true이면 값들 나오게)
-  const addressBtn = () => {
-    setModalAddress(!modalAddress);
-  };
-  const allMemberAddressList = async () => {
-    const result = await allAddress(member?.userCode);
-    setAddressData(result.data);
-  };
-  useEffect(() => {
-    if (member?.userCode != null) {
-      allMemberAddressList();
-    }
-    console.log(addressData);
-  }, []);
-  //////////
 
   return (
     <div id="createOrderBody">
       <div id="createOrderH1">결제 페이지</div>
       <div id="createOrderAddressBox">
         <div id="createOrderH1Page">배송지 선택하기</div>
-        {/* 상태코드가 바뀌게끔 만들어야지 각각 달라짐 */}
-        {/* api 두개를 가져와서 하나는 코드로 찾는거 하나는*/}
         {addressData.length === 0 ? (
           <div>정보가 없으면 결제를 하실 수 없습니다.</div>
         ) : (
-          <div>있으니 반복문 돌려달라</div>
+          <div>
+            {addressData.map((data) => (
+              <div key={data.addressCode}>
+                {data.addressUserStartCode === 1 && (
+                  <div>
+                    <div>도로명 : {data.zonecode}</div>
+                    <div>
+                      주소 : {data.jibunAddress} ( {data.roadAddress} )
+                    </div>
+                    <div>전화번호 : {data.addressPhone}</div>
+                    <div>상세정보 : {data.addressDetail}</div>
+                    <div>
+                      기본 설정지 : {addressUserState(data.addressUserState)}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         )}
       </div>
-      {modalAddress ? <AddressModal close={close} /> : null}
+      {modalAddress ? (
+        <AddressModal close={close} putAddressView={putAddressView} />
+      ) : null}
       <button onClick={addressBtn}>변경</button>
       {/* 모달창이 뜨면서 그 안에서 주소 api가 나오고  */}
       {/* 바로 결제페이지 */}
