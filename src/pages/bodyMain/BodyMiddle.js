@@ -17,25 +17,32 @@ const BodyMiddle = () => {
     setMainLps(result.data);
   };
   // 서버에서 가져온 상품
-  // const mianRecode = async () => {
-  //   const result = await MainRecord();
-  //   setMainRecords(result.data);
-  // };
+  const mianRecode = async () => {
+    const result = await MainRecord();
+    setMainRecords(result.data);
+  };
   const MainLpPage = () => {
     navigate("/mainLpPage");
   };
+  const MainRecordPage = () => {
+    navigate("/mainRecordPage");
+  };
+
   const DetailLpPageMove = () => {
     navigate("/mainLpPage");
+  };
+  const DetailRecordPageMove = () => {
+    navigate("/mainRecordPage");
   };
 
   useEffect(() => {
     mainlps();
-    // mianRecode();
+    mianRecode();
   }, []);
 
   useEffect(() => {
-    console.log(mainLps);
-  }, [mainLps]);
+    console.log(mainRecords);
+  }, [mainRecords]);
 
   return (
     <>
@@ -89,28 +96,54 @@ const BodyMiddle = () => {
             </button>
           </div>
         </div>
-        <div id="bodyMainRecord">
-          <div id="bodyMainRecordImg">
+        <div id="bodyMainLp">
+          <div id="bodyMainLpImg">
             <img
-              src="http://192.168.10.51:8084/ImageMain/Lifestyle_high_angle_record_on_platter_VTA-270B-ESP__14_600x600.jpg"
+              id="bodyMainLpImgBox"
+              src="http://192.168.10.51:8084/ImageMain/Hero_Lifestyle_VSC-750SB-YEL_11_x700.jpg"
               alt="Hero Lifestyle"
             />
-            <div>여기는 글씨?</div>
+            <div id="bodyMainLpBox">
+              <div id="bodyMainLpBoxImg1"></div>
+              <div id="bodyMainLpBoxImg2"></div>
+              <div id="bodyMainLpBoxImg3"></div>
+            </div>
           </div>
-          <div id="bodyMainRecords">
+          <div id="bodyMainLps">
             {mainRecords.map((mainRecord) => (
-              <div id="Record" key={mainRecord.productCode}>
+              <div
+                id="MainLp"
+                key={mainRecord.productCode}
+                onClick={DetailRecordPageMove}
+              >
                 <a>
-                  <div>{mainRecord.productName}</div>
-                  <div>{mainRecord.productPrice}</div>
-                  <div>{mainRecord.productExplanation}</div>
-                  <div>{mainRecord.productQuantity}</div>
-                  <div>{mainRecord.productImg}</div>
+                  <img
+                    id="bodyMainLpImg"
+                    src={
+                      "http://192.168.10.51:8084/Product/" +
+                      mainRecord.productType +
+                      "/" +
+                      mainRecord.productCode +
+                      "/" +
+                      mainRecord.productImgOne
+                    }
+                  />
+                  <div id="bodyMainLpName">{mainRecord.productName}</div>
+                  <div id="bodyMainLpBox">
+                    <div id="bodyMainLpPrice">{mainRecord.productPrice}원</div>
+                    <div id="bodyMainLpQuantity">
+                      남은 수량 : {mainRecord.productQuantity}개
+                    </div>
+                  </div>
                 </a>
               </div>
             ))}
           </div>
-          <button id="RecordButton">페이지로 이동</button>
+          <div id="MainButton">
+            <button id="MainButton" onClick={MainRecordPage}>
+              페이지로 이동
+            </button>
+          </div>
         </div>
         <div>
           <div id="bodyMainCreate">

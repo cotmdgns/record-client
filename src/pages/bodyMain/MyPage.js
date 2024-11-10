@@ -43,6 +43,7 @@ const MyPage = () => {
   useEffect(() => {
     userOrderTable();
     maPageMember();
+    console.log(userOrder);
   }, []);
 
   useEffect(() => {
@@ -216,7 +217,9 @@ const MyPage = () => {
                           {order.orderStateCode === 1 && (
                             <div id="mapageOrderProductState">
                               <div>
-                                <div>이미지 : {order.product.productImg}</div>
+                                <div>
+                                  이미지 : {order.productImg.productImgAddress}
+                                </div>
                                 <div>
                                   노래 제목 정보 :
                                   {order.product.productExplanation}
@@ -227,6 +230,11 @@ const MyPage = () => {
                                 <div>가격 : {order.product.productPrice}</div>
                                 <div>종류 : {order.product.productType}</div>
                                 <div>주문날짜 : {order.userOrderCreated}</div>
+                                <div>
+                                  해당 주소 : {order.address.zonecode},
+                                  {order.address.jibunAddress},
+                                  {order.address.roadAddress}
+                                </div>
                               </div>
                             </div>
                           )}

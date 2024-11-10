@@ -8,8 +8,10 @@ import ProductInquiry from "./pages/bodyMain/ProductInquiry";
 import ShoppingSaveRoom from "./pages/bodyMain/ShoppingSaveRoom";
 import MyPage from "./pages/bodyMain/MyPage";
 import MainLpPage from "./pages/bodyMain/MainLpPage";
+import MainRecodePage from "./pages/bodyMain/MainRecordPage";
 import CreateProduct from "./pages/bodyMain/CreateProduct";
 import DetailLpPage from "./pages/detail/DetailLpPage";
+import DetailRecordPage from "./pages/detail/DetailRecordPage";
 import OneOneInquiryWriting from "./pages/bodyMain/OneOneInquiryWriting";
 import DetailOneOnePage from "./pages/detail/DetailOneOnePage";
 import NoticeBoardWriting from "./pages/bodyMain/NoticeBoardWriting";
@@ -85,6 +87,19 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <MainLpPage />,
+          },
+          {
+            path: "detailLpPage/:productCode",
+            element: <DetailLpPage />,
+          },
+        ],
+      },
+      {
+        path: "/mainRecordPage",
+        children: [
+          {
+            index: true,
+            element: <MainRecodePage />,
           },
           {
             path: "detailLpPage/:productCode",

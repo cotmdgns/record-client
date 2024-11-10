@@ -37,5 +37,21 @@ $color: #51b6a0;
 }
 
 #paddingBottom {
-  padding-bottom: 50px;
+  padding-bottom: 40px;
+}
+#headerBoxRightShoppingSave {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  div {
+    font-size: 10px;
+    margin-left: 5px;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    border-radius: 50%;
+    justify-items: center;
+    background-color: red;
+    color: rgb(255, 255, 255);
+  }
 }

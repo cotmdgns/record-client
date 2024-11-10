@@ -4,12 +4,14 @@ import Signup from "../pages/member/Signup";
 import Login from "../pages/member/Login";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useSaveListAuth } from "../contexts/UserSaveListContext";
 
 const Header = () => {
   const [toggleLogin, setToggleLogin] = useState(false);
   const [toggleSingUp, setToggleSingUp] = useState(false);
   // 로그아웃
   const { logout, nullCheck, member } = useAuth();
+  const { orderList } = useSaveListAuth();
   const navigate = useNavigate();
 
   // 로그인
@@ -67,6 +69,8 @@ const Header = () => {
     navigate("/createProduct");
   };
 
+  // 카운트 함수
+
   return (
     <>
       <div id="headerBox">
@@ -104,7 +108,7 @@ const Header = () => {
           )}
 
           <button id="headerBoxRightShoppingSave" onClick={shoppingSave}>
-            장바구니
+            장바구니 <div>{orderList}</div>
           </button>
 
           <button

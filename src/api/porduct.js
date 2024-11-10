@@ -16,29 +16,21 @@ export const MainRecord = async () => {
 
 //////////////////////////////
 // LP페이지에 모든 정보 보여주기
-export const AllViewLp = async (no) => {
-  return await instance.get("AllViewLp/" + no);
+export const AllView = async (data) => {
+  return await instance.get(
+    `AllView?no=${data.no}&productType=${data.productType}`
+  );
 };
 // LP페이지 카운트
-export const TotalPage = async () => {
-  return await instance.get("TotalPage");
+export const TotalPage = async (type) => {
+  return await instance.get("TotalPage/" + type);
 };
 
 // LP디테일 페이지 보여주기
-export const DetailViewLp = async (data) => {
+export const DetailView = async (data) => {
   return await instance.get(
-    `DetailViewLp/${data.productCode}?userCode=${data.userCode}`
+    `DetailView/${data.productCode}?userCode=${data.userCode}`
   );
-};
-
-//////////////////////////////
-// 레코드페이지에 모든 정보 보여주기
-export const AllViewRecord = async () => {
-  return await instance.get("AllViewRecord");
-};
-// 레코드디테일 페이지로 이동하기
-export const DetailViewRecord = async (code) => {
-  return await instance.get("DetailViewRecord" + code);
 };
 
 // LP,Record 생성하기

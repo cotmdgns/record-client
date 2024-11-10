@@ -11,7 +11,7 @@ export const createShoppingSave = async (data) => {
 // 유저 장바구니 삭제
 export const deleteShoppingSave = async (data) => {
   return await instance.delete(
-    `deleteShoppingSave?userCode=${data.userCode}&productCode=${data.productCode}`
+    `deleteShoppingSave?userCode=${data.userCode}&productCode=${data.productCode}&productType=${data.productType}`
   );
 };
 ///////////// ( 바로 결제페이지 들어갈떄 상황 )2
@@ -36,13 +36,9 @@ export const createShoppingSaveOrderDelete = async (data) => {
 ////////////
 
 //////////// ( 장바구니에서 결제페이지 들어갈때 상황)
-// 전체보여주기
-export const createShoppingSaveView = async (code) => {
-  try {
-    return await instance.get("createShoppingSaveView/" + code);
-  } catch (error) {
-    alert("정상적인 접근방식이 아닙니다.");
-  }
+// 장바구니 옆에 숫자 뜨게만들기
+export const createShoppingSaveViewList = async (code) => {
+  return await instance.get("createShoppingSaveViewList/" + code);
 };
 // 장바구니에서 삭제할때 상황
 export const createShoppingSaveDelete = async (data) => {

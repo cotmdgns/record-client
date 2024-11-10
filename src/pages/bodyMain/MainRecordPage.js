@@ -9,13 +9,13 @@ import { AllView, TotalPage } from "../../api/porduct";
 // 유저가 장바구니에 추가하면 인설트 되면서 장바구니 옆에 1 뜨게 만들기
 
 // 만약 유저가 구매하면 쿼리문에서 1을 빼주고 주문내역에 나오게끔 만들기
-const MainLpPage = () => {
+const MainRecodePage = () => {
   const [Lps, setLps] = useState([]);
   const navigate = useNavigate();
 
   const LpPlayer = async () => {
     // 페이징 처리때문에 0 보내기
-    const result = await AllView({ no: 0, productType: "LP" });
+    const result = await AllView({ no: 0, productType: "레코드" });
     setLps(result.data);
     console.log(result.data);
   };
@@ -24,7 +24,7 @@ const MainLpPage = () => {
   const [page, setPage] = useState(0);
 
   const pageCount = async () => {
-    const result = await TotalPage("LP");
+    const result = await TotalPage();
     setPage(result.data);
   };
 
@@ -38,7 +38,7 @@ const MainLpPage = () => {
   };
 
   const selectPage = async (no) => {
-    const a = await AllView({ no: (no - 1) * 16, productType: "LP" });
+    const a = await AllView({ no: (no - 1) * 16, productType: "레코드" });
     setLps(a.data);
   };
 
@@ -87,4 +87,4 @@ const MainLpPage = () => {
     </div>
   );
 };
-export default MainLpPage;
+export default MainRecodePage;

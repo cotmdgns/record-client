@@ -1,3 +1,6 @@
+// 대표 색깔
+$color: #51b6a0;
+
 #detailPageBox {
   width: 100%;
   height: 600px;
@@ -16,14 +19,68 @@
   #detailText {
     border: 1px solid rgb(204, 204, 204);
     width: 100%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     #detailTextName {
       font-size: 30px;
       font-weight: bold;
-      padding: 10px;
+      padding: 40px 40px 10px 40px;
+    }
+    #detailTextBody {
+      padding: 20px 40px;
+      #detailTextExplanation {
+        height: 170px;
+      }
+      #detailTextAddress1 {
+        font-size: 15px;
+        padding: 5px 0px;
+        #detailTextAddressDiv1 {
+          padding-bottom: 10px;
+        }
+        #detailTextAddressDiv2 {
+          color: rgb(145, 145, 145);
+          padding-bottom: 10px;
+        }
+      }
+      #detailTextAddress2 {
+      }
+    }
+    #detailTextPrice {
+      padding: 0px 40px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 15px;
+      font-weight: bold;
+      align-items: center;
+
+      span {
+        font-size: 25px;
+        color: rgb(209, 0, 0);
+        margin-left: 10px;
+      }
+    }
+    #detailbutton {
+      padding: 10px 40px;
+      display: flex;
+
+      #detailbuttonDelete {
+        border: 1px solid $color;
+        background-color: white;
+      }
+      #detailbuttonPut {
+        background-color: white;
+      }
+      #detailbuttonCreate {
+        background-color: $color;
+      }
+      button {
+        padding: 10px;
+        width: 100%;
+        border: 1px solid rgb(207, 207, 207);
+        margin: 2px;
+        font-weight: bold;
+        font-size: 17px;
+
+        cursor: pointer;
+      }
     }
   }
 }

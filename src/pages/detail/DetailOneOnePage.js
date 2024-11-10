@@ -13,6 +13,7 @@ const DetailOneOnePage = () => {
   });
   const { OneOneCode } = useParams();
   const [detailView, setDetailView] = useState(null);
+  const [detailComment, setDetailComment] = useState(false);
   const [oneOneInquiryCodeComment, setOneOneInquiryCodeComment] =
     useState(null);
   const { member, userMember } = useAuth();
@@ -61,6 +62,7 @@ const DetailOneOnePage = () => {
       alert("댓글을 작성해주세요");
     } else {
       await CreateComment(comment);
+      PageViewComment();
     }
   };
   // 핸들러
@@ -90,50 +92,63 @@ const DetailOneOnePage = () => {
       </div>
       {/*댓글작성보이기 */}
       {oneOneInquiryCodeComment !== null && oneOneInquiryCodeComment !== "" ? (
-        <div id="detailOneOnePageUserComment">
-          <div id="detailOneOnePageUserCommentH1">
-            <div>{oneOneInquiryCodeComment?.userTable?.userName}</div>
-            <div>
-              {oneOneInquiryCodeComment?.oneOneInquiryCommentCreated
-                .replace("T", " ")
-                .substr(0, 16)}
-            </div>
-          </div>
-          <div id="detailOneOnePageUserCommentText">
-            <div>{oneOneInquiryCodeComment?.oneOneInquiryCommentText}</div>
-          </div>
-        </div>
+        <>
+          {!detailComment ? (
+            <>
+              {" "}
+              <div id="detailOneOnePageUserComment">
+                <div id="detailOneOnePageUserCommentH1">
+                  <div>{oneOneInquiryCodeComment?.userTable?.userName}</div>
+                  <div>
+                    {oneOneInquiryCodeComment?.oneOneInquiryCommentCreated
+                      .replace("T", " ")
+                      .substr(0, 16)}
+                  </div>
+                </div>
+                <div id="detailOneOnePageUserCommentText">
+                  <div>
+                    {oneOneInquiryCodeComment?.oneOneInquiryCommentText}
+                  </div>
+                </div>
+              </div>{" "}
+              <div>
+                <button onClick={allViewBtn}>목록보기</button>
+                <button>수정하기</button>
+              </div>
+            </>
+          ) : (
+            <div></div>
+          )}
+        </>
       ) : (
         <></>
       )}
 
       {/*댓글작성부분 */}
-
       <div id="detailOneOnePageComment">
         {member?.userManager == 3 && oneOneInquiryCodeComment === "" ? (
-          <div>
-            {/* <div contenteditable="true" placeholder="답글"></div> */}
-            <textarea
-              id="detailOneOnePageCommentText"
-              ref={inputRef}
-              type="text"
-              value={comment.oneOneInquiryCommentText}
-              onChange={handleChange}
-              placeholder="답글 작성하기"
-            ></textarea>
-          </div>
+          <>
+            <div>
+              {/* <div contenteditable="true" placeholder="답글"></div> */}
+              <textarea
+                id="detailOneOnePageCommentText"
+                ref={inputRef}
+                type="text"
+                value={comment.oneOneInquiryCommentText}
+                onChange={handleChange}
+                placeholder="답글 작성하기"
+              ></textarea>
+            </div>
+            <div>
+              <button onClick={allViewBtn}>목록보기</button>
+              {oneOneInquiryCodeComment === "" ||
+              oneOneInquiryCodeComment === null ||
+              oneOneInquiryCodeComment === undefined ? (
+                <button onClick={commentBtn}>답글쓰기</button>
+              ) : null}
+            </div>
+          </>
         ) : null}
-
-        <div>
-          <button onClick={allViewBtn}>목록보기</button>
-          {oneOneInquiryCodeComment === "" ||
-          oneOneInquiryCodeComment === null ||
-          oneOneInquiryCodeComment === undefined ? (
-            <button onClick={commentBtn}>답글쓰기</button>
-          ) : null}
-
-          <button>수정하기</button>
-        </div>
       </div>
     </div>
   );

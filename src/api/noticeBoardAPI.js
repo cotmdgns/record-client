@@ -13,3 +13,8 @@ export const createNoticeBoard = async (data) => {
 export const viewBoard = async () => {
   return await instance.get("viewBoard");
 };
+
+// 디테일 정보 가져오기
+export const detailViewNoticeBoard = async (code) => {
+  return await instance.get("detailViewNoticeBoard/" + code);
+};

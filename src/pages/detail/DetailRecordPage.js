@@ -9,10 +9,8 @@ import {
   createShoppingSaveOrder,
 } from "../../api/shoppingSave";
 import { useSaveListAuth } from "../../contexts/UserSaveListContext";
-import { RiShoppingBag4Line } from "react-icons/ri";
-import { FaShoppingCart } from "react-icons/fa";
 
-const DetailLpPage = () => {
+const DetailRecordPage = () => {
   let a = new Date();
   const aaa = 2;
   a.setDate(a.getDate() + aaa);
@@ -42,7 +40,7 @@ const DetailLpPage = () => {
     const result = await createShoppingSave({
       productCode: productCode,
       userCode: member?.userCode,
-      productType: "LP",
+      productType: "레코드",
     });
     if (result.status === 200) {
       alert("추가 되었습니다!");
@@ -56,7 +54,7 @@ const DetailLpPage = () => {
     const result = await deleteShoppingSave({
       productCode: productCode,
       userCode: member?.userCode,
-      productType: "LP",
+      productType: "레코드",
     });
     if (result.status === 200) {
       alert("삭제되었습니다!.");
@@ -68,10 +66,8 @@ const DetailLpPage = () => {
   // 쇼핑 결제하기
   const CreateCode = 1;
   const productOrder = () => {
-    if (window.confirm("결제하시겠습니까?")) {
-      CreateSaveOrder();
-      navigate("/createOrder", { state: { CreateCode } });
-    }
+    CreateSaveOrder();
+    navigate("/createOrder", { state: { CreateCode } });
   };
 
   const CreateSaveOrder = async () => {
@@ -104,60 +100,32 @@ const DetailLpPage = () => {
             </div>
             <div id="detailText">
               <div id="detailTextName">{detail.productName}</div>
-              <div id="detailTextBody">
+              <div>노래 정보 : {detail.productExplanation}</div>
+              <div>가격 : {detail.productPrice}</div>
+              <div>남은 수량 : {detail.productQuantity}</div>
+              <div>
+                <button></button>
+              </div>
+              <div>
+                <div>배송안내 : </div>
                 <div>
-                  <div id="detailTextExplanation">
-                    <div>노래 정보 : {detail.productExplanation}</div>
-                  </div>
-                  <div id="detailTextAddress1">
-                    <div id="detailTextAddressDiv1">
-                      택배배송 | 무료배송 CJ 대한통운(오네)
-                    </div>
-                    <div id="detailTextAddressDiv2">
-                      제주 추가 5000원, 제주 외 도서지역 추가 7000원 / 택배사
-                      물류상황에 따라 CJ택배 또는 롯데택배로 출고 될 수
-                      있습니다.
-                    </div>
-                  </div>
-                  <div id="detailTextAddress2">
-                    배송안내 :{" "}
-                    {a.getMonth() +
-                      1 +
-                      "/" +
-                      a.getDate() +
-                      "(" +
-                      days[a.getDay()] +
-                      ")"}
-                    발송예정(예약판매) 배송비 : 무료 배송비 안내 예정일 이후
-                    1~2일 이내 수령
-                  </div>
+                  {a.getMonth() +
+                    1 +
+                    "/" +
+                    a.getDate() +
+                    "(" +
+                    days[a.getDay()] +
+                    ")"}
+                  발송예정(예약판매) 배송비 : 무료 배송비 안내 예정일 이후 1~2일
+                  이내 수령
                 </div>
               </div>
-              <div id="detailTextPrice">
-                <div id="detailTextQuantity">
-                  남은 수량 : {detail.productQuantity}
-                </div>
-                <div>
-                  가격 : <span>{detail.productPrice}</span>
-                </div>
-              </div>
-              <div id="detailbutton">
-                {detail.pageCheck ? (
-                  <button id="detailbuttonDelete" onClick={productDelete}>
-                    <RiShoppingBag4Line />
-                    장바구니삭제
-                  </button>
-                ) : (
-                  <button id="detailbuttonPut" onClick={productSave}>
-                    <RiShoppingBag4Line />
-                    장바구니추가
-                  </button>
-                )}
-                <button id="detailbuttonCreate" onClick={productOrder}>
-                  <FaShoppingCart />
-                  결제하기
-                </button>
-              </div>
+              {detail.pageCheck ? (
+                <button onClick={productDelete}>장바구니삭제</button>
+              ) : (
+                <button onClick={productSave}>장바구니추가</button>
+              )}
+              <button onClick={productOrder}>결제하기</button>
             </div>
           </div>
           <div className="quill" id="detailPage">
@@ -173,7 +141,7 @@ const DetailLpPage = () => {
     </>
   );
 };
-export default DetailLpPage;
+export default DetailRecordPage;
 
 // 이코드로
 

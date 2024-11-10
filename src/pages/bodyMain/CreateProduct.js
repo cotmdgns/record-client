@@ -73,6 +73,10 @@ const CreateProduct = () => {
     const x = e;
   };
 
+  const style = {
+    backgroundColor: "#51b6a0",
+  };
+
   // 퀼 에디터
   const formats: string[] = [
     "header",
@@ -105,122 +109,133 @@ const CreateProduct = () => {
   );
 
   return (
-    <div id="createProductBody">
-      {/*LP추가*/}
-      <div id="createProduct">
-        {/* 인풋 영역 */}
-        <div id="FreeView">
-          {/* 이미지 영역 */}
-          <div id="FreeViewImgs">
-            <div id="FreeViewImg">
-              <img
-                src={
-                  !lpImgPre || lpImgPre.length === 0
-                    ? "/free-icon-no-pictures.png"
-                    : lpImgPre[0]
-                }
-              />
-            </div>
-            <div id="createFreeViewBoxs">
-              {/*클릭했을때 프리뷰 변경*/}
-              {lpImgPre.map((pre, index) => (
-                <div key={index} id="createFreeViewBox">
+    <>
+      <div id="createProductBodyH1">관리자 페이지</div>
+      <div id="createProductBodyBack">
+        <div id="createProductBody">
+          {/*LP추가*/}
+          <div id="createProduct">
+            {/* 인풋 영역 */}
+            <div id="FreeView">
+              {/* 이미지 영역 */}
+              <div id="FreeViewImgs">
+                <div id="FreeViewImg">
                   <img
-                    id="createFreeView"
-                    src={pre}
-                    alt={`preview ${index}`}
-                    onClick={a}
+                    src={
+                      !lpImgPre || lpImgPre.length === 0
+                        ? "/free-icon-no-pictures.png"
+                        : lpImgPre[0]
+                    }
                   />
                 </div>
-              ))}
+                <div id="createFreeViewBoxs">
+                  {/*클릭했을때 프리뷰 변경*/}
+                  {lpImgPre.map((pre, index) => (
+                    <div key={index} id="createFreeViewBox">
+                      <img
+                        id="createFreeView"
+                        src={pre}
+                        alt={`preview ${index}`}
+                        onClick={a}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/*LP타입은 default 값으로 주기*/}
+              <div id="createProducts">
+                <div id="createProductBox">
+                  <h1 id="createProductH1">LP,레코드 생성</h1>
+                  <div id="createProductDiv">*양식에 맞게 입력해주세요*</div>
+                </div>
+                <Input
+                  id="createProduct"
+                  label="제목"
+                  type="text"
+                  value={lpProduct.productName}
+                  change={(e) =>
+                    setLpProduct({ ...lpProduct, productName: e.target.value })
+                  }
+                />
+                <Input
+                  id="createProduct"
+                  label="가격"
+                  type="text"
+                  value={lpProduct.productPrice}
+                  change={(e) =>
+                    setLpProduct({ ...lpProduct, productPrice: e.target.value })
+                  }
+                />
+                <Input
+                  id="createProduct"
+                  label="정보들"
+                  type="text"
+                  value={lpProduct.productExplanation}
+                  change={(e) =>
+                    setLpProduct({
+                      ...lpProduct,
+                      productExplanation: e.target.value,
+                    })
+                  }
+                />
+                <Input
+                  id="createProduct"
+                  label="수량 "
+                  type="text"
+                  value={lpProduct.productQuantity}
+                  change={(e) =>
+                    setLpProduct({
+                      ...lpProduct,
+                      productQuantity: e.target.value,
+                    })
+                  }
+                />
+                <div id="createProductButtons">
+                  <div id="createProductButton">
+                    <button
+                      onClick={btnLp}
+                      style={lpProduct.productType == "LP" ? style : null}
+                    >
+                      LP
+                    </button>
+                    <button
+                      onClick={btnRecord}
+                      style={lpProduct.productType == "레코드" ? style : null}
+                    >
+                      레코드
+                    </button>
+                  </div>
+                  <input
+                    label="이미지 생성 : "
+                    type="file"
+                    accept="image/*"
+                    onChange={imgs}
+                    multiple
+                  />
+                </div>
+                {/*이것만 컴포넌트 뺀건 멀티플때문에*/}
+              </div>
             </div>
-          </div>
-          {/*LP타입은 default 값으로 주기*/}
-          <div id="createProducts">
-            <div id="createProductBox">
-              <h1 id="createProductH1">LP,레코드 생성</h1>
-              <div id="createProductDiv">*양식에 맞게 입력해주세요*</div>
-            </div>
-            <Input
-              id="createProduct"
-              label="LP 제목"
-              type="text"
-              value={lpProduct.productName}
-              change={(e) =>
-                setLpProduct({ ...lpProduct, productName: e.target.value })
-              }
-            />
-            <Input
-              id="createProduct"
-              label="LP 가격"
-              type="text"
-              value={lpProduct.productPrice}
-              change={(e) =>
-                setLpProduct({ ...lpProduct, productPrice: e.target.value })
-              }
-            />
-            <Input
-              id="createProduct"
-              label="LP 정보들"
-              type="text"
-              value={lpProduct.productExplanation}
-              change={(e) =>
-                setLpProduct({
-                  ...lpProduct,
-                  productExplanation: e.target.value,
-                })
-              }
-            />
-            <Input
-              id="createProduct"
-              label="LP 수량 "
-              type="text"
-              value={lpProduct.productQuantity}
-              change={(e) =>
-                setLpProduct({ ...lpProduct, productQuantity: e.target.value })
-              }
-            />
             <div>
-              <button onClick={btnLp}>LP</button>
-              <button onClick={btnRecord}>레코드</button>
+              <div id="toolBar">
+                <ReactModule />
+              </div>
+              <ReactQuill
+                theme="snow"
+                modules={modules}
+                formats={formats}
+                style={{ height: "1000px" }}
+                value={lpProduct.productLongText}
+                onChange={QuillongText}
+              />
             </div>
-            {/*이것만 컴포넌트 뺀건 멀티플때문에*/}
-            <input
-              label="이미지 생성 : "
-              type="file"
-              accept="image/*"
-              onChange={imgs}
-              multiple
-            />
+            <div>
+              <button onClick={createFile}>파일 전송</button>
+            </div>
           </div>
         </div>
-        <div>
-          <div id="toolBar">
-            <ReactModule />
-          </div>
-          <ReactQuill
-            theme="snow"
-            modules={modules}
-            formats={formats}
-            style={{ height: "1000px" }}
-            value={lpProduct.productLongText}
-            onChange={QuillongText}
-          />
-        </div>
-        <div>
-          <button onClick={createFile}>파일 전송</button>
-        </div>
       </div>
-
-      {/*운영자 추가*/}
-      <div>
-        <div>운영자 명단</div>
-      </div>
-      {/*회원 추가*/}
-      <div>
-        <div>회원 명단</div>
-      </div>
-    </div>
+    </>
   );
 };
 export default CreateProduct;

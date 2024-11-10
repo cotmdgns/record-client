@@ -1,8 +1,20 @@
+$color: #51b6a0;
+#createProductBodyH1 {
+  width: 1200px;
+  margin: auto;
+  font-size: 40px;
+  font-weight: bold;
+  padding-bottom: 30px;
+}
+
+#createProductBodyBack {
+  background-color: rgb(245, 245, 245);
+  padding: 50px;
+}
 #createProductBody {
   display: flex;
   flex-direction: column;
-  padding: 30px 0;
-  background-color: antiquewhite;
+  background-color: rgb(255, 255, 255);
   #FreeView {
     display: flex;
     //이미지
@@ -34,9 +46,26 @@
       }
     }
     // 상품 정보란
+    #createProduct {
+      margin: 5px 30px 5px 30px;
+      padding: 10px 0;
+      label {
+        display: block;
+        padding-bottom: 7px;
+        color: rgb(0, 0, 0);
+        font-size: 15px;
+      }
+      input {
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        width: 100%;
+        background-color: rgb(233, 233, 233);
+      }
+    }
     #createProducts {
       width: 100%;
-      background-color: bisque;
+      background-color: #ffffff;
       margin: 10px;
 
       #createProductBox {
@@ -46,21 +75,22 @@
         #createProductH1 {
           font-size: 40px;
           font-weight: bold;
-          padding-bottom: 10px;
+          padding: 20px 0px;
         }
         #createProductDiv {
-          padding-bottom: 50px;
           font-size: 14px;
         }
       }
-      #createProduct {
-        padding: 10px 0;
-        label {
-          display: block;
-          padding: 5px;
+      #createProductButtons {
+        padding: 15px 30px;
+        #createProductButton {
+          display: flex;
         }
-        input {
+        button {
           width: 100%;
+          height: 40px;
+          border: none;
+          margin-bottom: 10px;
         }
       }
     }

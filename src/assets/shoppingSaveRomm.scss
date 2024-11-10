@@ -1,0 +1,70 @@
+$color: #51b6a0;
+
+#shoppingSaveRoomH1 {
+  font-size: 40px;
+  font-weight: bold;
+  padding-bottom: 30px;
+  width: 1200px;
+  margin: auto;
+}
+#shoppingSaveRoomCreate {
+  width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: end;
+  button {
+    border: none;
+    background-color: $color;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 10px 20px 0px 0px;
+  }
+}
+#shoppingSaveRoomBack {
+  background-color: rgb(243, 243, 243);
+  #shoppingSaveRoom {
+    padding: 20px 20px 1px 20px;
+    #shoppingSaveRoomBody {
+      background-color: white;
+      margin-bottom: 20px;
+      display: flex;
+      #shoppingSaveRoomImg {
+        width: 120px;
+        height: 120px;
+        padding: 20px;
+        #createOrderImg {
+          width: 100px;
+          height: 100px;
+        }
+      }
+
+      #shoppingSaveRoomText {
+        padding: 20px;
+        width: 100%;
+        #shoppingSaveRoomTextH1 {
+          display: flex;
+          padding-bottom: 10px;
+          div {
+            padding-right: 50px;
+          }
+        }
+        #shoppingSaveRoomTextBodyDiv {
+          display: flex;
+          #shoppingSaveRoomTextBodyDivDiv {
+            width: 100%;
+            div {
+              padding-bottom: 11px;
+            }
+          }
+          #shoppingSaveRoomTextBodyButton {
+            display: flex;
+            width: 100px;
+            flex-direction: column;
+            justify-content: end;
+            padding: 20px 0px 0px 20px;
+          }
+        }
+      }
+    }
+  }
+}
