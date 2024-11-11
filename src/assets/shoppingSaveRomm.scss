@@ -8,7 +8,7 @@ $color: #51b6a0;
   margin: auto;
 }
 #shoppingSaveRoomCreate {
-  width: 1200px;
+  max-width: 1200px;
   margin: auto;
   display: flex;
   justify-content: end;
@@ -17,7 +17,8 @@ $color: #51b6a0;
     background-color: $color;
     border-radius: 5px;
     padding: 10px 20px;
-    margin: 10px 20px 0px 0px;
+    margin: 10px 40px 0px 0px;
+    cursor: pointer;
   }
 }
 #shoppingSaveRoomBack {
@@ -25,25 +26,31 @@ $color: #51b6a0;
   #shoppingSaveRoom {
     padding: 20px 20px 1px 20px;
     #shoppingSaveRoomBody {
-      background-color: white;
+      background-color: rgb(255, 255, 255);
       margin-bottom: 20px;
       display: flex;
+      border-radius: 5px;
       #shoppingSaveRoomImg {
         width: 120px;
         height: 120px;
         padding: 20px;
         #createOrderImg {
-          width: 100px;
-          height: 100px;
+          width: 100%;
+          height: 100%;
         }
       }
 
       #shoppingSaveRoomText {
-        padding: 20px;
+        padding: 15px;
         width: 100%;
         #shoppingSaveRoomTextH1 {
+          background-color: $color;
+          border-radius: 5px;
           display: flex;
-          padding-bottom: 10px;
+          padding: 10px;
+          margin-bottom: 10px;
+          color: white;
+          font-weight: bold;
           div {
             padding-right: 50px;
           }
@@ -54,6 +61,7 @@ $color: #51b6a0;
             width: 100%;
             div {
               padding-bottom: 11px;
+              font-size: 11px;
             }
           }
           #shoppingSaveRoomTextBodyButton {
@@ -62,9 +70,26 @@ $color: #51b6a0;
             flex-direction: column;
             justify-content: end;
             padding: 20px 0px 0px 20px;
+            button {
+              border: none;
+              border-radius: 5px;
+              padding: 7px 0px;
+              font-size: 10px;
+              cursor: pointer;
+            }
           }
         }
       }
     }
   }
+}
+#shoppingSaveRoomNull {
+  max-width: 1200px;
+  height: 300px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
 }

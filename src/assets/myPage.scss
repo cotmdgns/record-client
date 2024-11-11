@@ -1,20 +1,26 @@
+// 대표 색깔
+$color: #51b6a0;
+#myPageBodyBack {
+  background-color: beige;
+}
 #myPageBody {
   display: flex;
   height: 100%;
-  background-color: beige;
-  padding: 50px;
+
+  padding: 50px 0px;
   // 유저 이미지
   #myPageBodyImgBox {
     display: flex;
     flex-direction: column;
     background-color: white;
     height: 100%;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 20px;
+    border-radius: 10px;
     #myPageImg {
       width: 250px;
       height: 250px;
-      border-radius: 50%;
+      border-radius: 5%;
+      margin: 10px 0px;
     }
   }
 
@@ -24,28 +30,84 @@
     // 주문내역 바디
     width: 100%;
     #orderInquiryBody {
-      background-color: red;
       // 바디 안쪽
       #orderInquiryBodyOrder {
         width: 100%;
+        padding: 30px;
         // 바디 제목
         #orderInquiryBodyOrderH1 {
-          font-size: 40px;
+          font-size: 35px;
           font-weight: bold;
-          padding-bottom: 50px;
         }
         // 안쪽 product
         #orderInquiryProductOrder {
-          background-color: yellow;
           // 상태코드 정보란
           #mapageOrderProduct {
+            width: 100%;
+            height: 100%;
             #mapageOrderProductStateH1 {
-              font-size: 30px;
+              font-size: 20px;
               font-weight: bold;
-              padding-bottom: 20px;
+              padding: 10px;
             }
-            #mapageOrderProductState {
-              background-color: gray;
+            #mapageOrderProductMap {
+              height: 100%;
+              background-color: rgb(243, 243, 243);
+              border-radius: 5px;
+              margin: 10px;
+              padding: 10px;
+              #mapageOrderProductState {
+                display: flex;
+                font-size: 13px;
+
+                #mapageOrderProductStateImg {
+                  width: 100px;
+                  height: 100px;
+                  margin-right: 10px;
+                }
+              }
+              #mapageOrderProductStateBox {
+                width: 100%;
+                #mapageOrderProductStateBoxH1 {
+                  display: flex;
+                  background-color: $color;
+                  border-radius: 5px;
+                  width: 100%;
+                  padding: 7px;
+                  margin-bottom: 5px;
+                  color: white;
+                  font-weight: bold;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  div {
+                    padding-right: 10px;
+                    display: flex;
+                  }
+                  #mapageOrderProductStateBoxH1Name {
+                    padding-right: 5px;
+                  }
+                  #mapageOrderProductStateBoxH1Address {
+                    font-size: 8px;
+                    padding-right: 0px;
+                  }
+                }
+                #mapageOrderProductStateBoxBdoy {
+                  font-size: 14px;
+                  color: grey;
+                  display: flex;
+                  justify-content: space-between;
+                }
+                #mapageOrderProductStateBoxFooter {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: end;
+                  padding-top: 20px;
+                  line-height: 15px;
+                }
+                #mapageOrderProductStateBoxFooterPrice {
+                }
+              }
             }
           }
         }
@@ -54,7 +116,112 @@
   }
 }
 #OnePage {
-  font-size: 15px;
+  font-size: 14px;
   #OnePageProfile {
+    padding: 12px;
   }
+  #myPageButton {
+    display: flex;
+    button {
+      width: 100%;
+      border: none;
+      padding: 3px 10px;
+      border-radius: 5%;
+      margin: 2px;
+      background-color: $color;
+      color: white;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #419784;
+    }
+  }
+}
+#TwoPage {
+  font-size: 14px;
+  #TwoPageInput {
+    padding: 6px 0px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  #TwoPageInput:hover {
+    background-color: rgb(218, 218, 218);
+  }
+  #TwoPageButton {
+    display: flex;
+    button {
+      width: 100%;
+      border: none;
+      padding: 3px 10px;
+      border-radius: 5%;
+      margin: 2px;
+      background-color: $color;
+      color: white;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #419784;
+    }
+  }
+}
+
+#myPageBodyUpdate {
+  background-color: white;
+  border-radius: 5px;
+  height: 100%;
+  padding: 30px;
+  #myPageBodyUpdateH1 {
+    font-size: 30px;
+    font-weight: bold;
+    background-color: rgb(168, 168, 168);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  #myPageBodyUpdateBox {
+    padding: 10px;
+    #myPageBodyUpdateBoxH1 {
+      font-size: 18px;
+      font-weight: bold;
+      color: $color;
+      padding: 10px 0px;
+    }
+    #myPageBodyUpdateBoxBody {
+      input {
+        border: 1px solid rgb(231, 231, 231);
+        padding: 10px;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      button {
+        border-radius: 5px;
+        border: none;
+        background-color: #51b6a0;
+        padding: 5px 10px;
+        color: white;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #419784;
+      }
+    }
+  }
+}
+
+#userOrderNull {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(243, 243, 243);
+  margin: 0px 10px 10px 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: bold;
 }

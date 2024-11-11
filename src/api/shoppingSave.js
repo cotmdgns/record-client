@@ -17,6 +17,7 @@ export const deleteShoppingSave = async (data) => {
 ///////////// ( 바로 결제페이지 들어갈떄 상황 )2
 // 결제 페이지 넘어갈때 생성하기
 export const createShoppingSaveOrder = async (data) => {
+  console.log("뿅" + data);
   return await instance.post("createShoppingSaveOrder", data);
 };
 // 결제페이지 들어가면 해당 정보 가져오기
@@ -24,6 +25,7 @@ export const createShoppingSaveOrderView = async (code) => {
   try {
     return await instance.get("createShoppingSaveOrderView/" + code);
   } catch (error) {
+    console.log(error);
     alert("정상적인 접근방식이 아닙니다.");
   }
 };

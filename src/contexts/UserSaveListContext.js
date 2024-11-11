@@ -15,7 +15,7 @@ export const UserSaveListProvider = ({ children = null }) => {
     }
   };
 
-  useEffect(() => {}, []);
+  // 비우는 기능
 
   useEffect(() => {
     if (member?.userCode) {

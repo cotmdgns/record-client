@@ -23,14 +23,15 @@ $color: #51b6a0;
       font-size: 30px;
       font-weight: bold;
       padding: 40px 40px 10px 40px;
+      height: 140px;
     }
     #detailTextBody {
       padding: 20px 40px;
       #detailTextExplanation {
-        height: 170px;
+        height: 140px;
       }
       #detailTextAddress1 {
-        font-size: 15px;
+        font-size: 13px;
         padding: 5px 0px;
         #detailTextAddressDiv1 {
           padding-bottom: 10px;
@@ -41,6 +42,7 @@ $color: #51b6a0;
         }
       }
       #detailTextAddress2 {
+        font-size: 12px;
       }
     }
     #detailTextPrice {

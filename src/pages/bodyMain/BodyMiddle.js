@@ -145,16 +145,6 @@ const BodyMiddle = () => {
             </button>
           </div>
         </div>
-        <div>
-          <div id="bodyMainCreate">
-            <img
-              src="http://192.168.10.51:8084/ImageMain/VPT-2000-BLK-ATE-LIFE-3_600x600.jpg"
-              alt="Hero Lifestyle"
-            />
-            <div>여기는 글씨?</div>
-          </div>
-          <div>여기는 제작</div>
-        </div>
       </div>
     </>
   );

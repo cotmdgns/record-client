@@ -149,222 +149,345 @@ const MyPage = () => {
 
   return (
     <>
-      <div id="myPageBody" key={member?.userCode}>
-        <div id="myPageBodyImgBox">
-          {preview === "" && member !== null ? (
-            <img
-              src={
-                "http://192.168.10.51:8084/userFolder/" +
-                member?.userId +
-                "/userProfile/" +
-                member?.userImg
-              }
-              id="myPageImg"
-            />
-          ) : (
-            <img src={preview} id="myPageImg" />
-            // <img src={preview} id="myPageImg"></img>
-          )}
-          {page === 2 ? (
-            <div id="">
-              <div>프로필 이미지 변경하기</div>
-              <div>
-                <label>
-                  이미지 업로드
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    change={imgPreview}
-                    styleInput={{ display: "none" }}
-                  />
-                </label>
-              </div>
-              <button onClick={imgUpdataBtn}>수정하기</button>
-            </div>
-          ) : (
-            <div id="OnePage">
-              <div id="OnePageProfile">
-                <div>이름 : {member?.userName}</div>
-                <div>성별 : {member?.userGender}</div>
-                <div>이메일 : {member?.userEmail}</div>
-                {/* <div>휴대번호 {member.userPhone}</div> */}
-                <div>생년월일 : {member?.userBirthdayData}</div>
-              </div>
-              <div id="myPageButton">
-                <button onClick={memberUpdate}>수정하기</button>
-                <button onClick={memberDelete}>회원탈퇴</button>
-              </div>
-            </div>
-          )}
-        </div>
-        <div id="myPageBodyInForMation">
-          {page === 1 ? (
-            <div id="orderInquiryBody">
-              <div id="orderInquiryBodyOrder">
-                <h1 id="orderInquiryBodyOrderH1">내 주문 내역</h1>
-                <div id="orderInquiryProductOrder">
-                  {/* 조인된 값이 없을경우엔 "아무것도 없다는걸 알려주기" */}
-                  {/* <div id="mapageOrderProductState">
-                    {userOrder.length === 0 && <divg>gdgd</divg>}
-                  </div> */}
-                  {/* 조인된 값이 있을경우엔 map이 정상적으로 작동됨 */}
-                  <div id="mapageOrderProduct">
-                    <h1 id="mapageOrderProductStateH1">주문 확인중</h1>
-                    {userOrder
-                      .filter((order) => order.orderStateCode === 1)
-                      .map((order, index) => (
-                        <div key={order.orderCode || index}>
-                          {order.orderStateCode === 1 && (
-                            <div id="mapageOrderProductState">
-                              <div>
-                                <div>
-                                  이미지 : {order.productImg.productImgAddress}
-                                </div>
-                                <div>
-                                  노래 제목 정보 :
-                                  {order.product.productExplanation}
-                                </div>
-                                <div>
-                                  노래 제목 : {order.product.productName}
-                                </div>
-                                <div>가격 : {order.product.productPrice}</div>
-                                <div>종류 : {order.product.productType}</div>
-                                <div>주문날짜 : {order.userOrderCreated}</div>
-                                <div>
-                                  해당 주소 : {order.address.zonecode},
-                                  {order.address.jibunAddress},
-                                  {order.address.roadAddress}
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                  </div>
-                  <div id="mapageOrderProduct">
-                    <h1 id="mapageOrderProductStateH1">주문 배송중</h1>
-                    {userOrder
-                      .filter((order) => order.orderStateCode === 2)
-                      .map((order, index) => (
-                        <div key={order.orderCode || index}>
-                          {order.orderStateCode === 2 && (
-                            <div id="mapageOrderProductState">
-                              <div>
-                                <div>상태코드 : {order.orderStateCode}</div>
-                                <div>코드 : {order.product.productCode}</div>
-                                <div>이밎 : {order.product.productImg}</div>
-                                <div>
-                                  노래 제목 정보 :
-                                  {order.product.productExplanation}
-                                </div>
-                                <div>
-                                  노래 제목 : {order.product.productName}
-                                </div>
-                                <div>가격 : {order.product.productPrice}</div>
-                                <div>종류 : {order.product.productType}</div>
-                                <div>생성날짜 : {order.userOrderCreated}</div>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                  </div>
-                  <div id="mapageOrderProduct">
-                    <h1 id="mapageOrderProductStateH1">주문 완료</h1>
-                    {userOrder
-                      .filter((order) => order.orderStateCode === 3)
-                      .map((order, index) => (
-                        <div key={order.orderCode || index}>
-                          {order.orderStateCode === 3 && (
-                            <div id="mapageOrderProductState">
-                              <div>
-                                <div>상태코드 : {order.orderStateCode}</div>
-                                <div>코드 : {order.product.productCode}</div>
-                                <div>이밎 : {order.product.productImg}</div>
-                                <div>
-                                  노래 제목 정보 :
-                                  {order.product.productExplanation}
-                                </div>
-                                <div>
-                                  노래 제목 : {order.product.productName}
-                                </div>
-                                <div>가격 : {order.product.productPrice}</div>
-                                <div>종류 : {order.product.productType}</div>
-                                <div>생성날짜 : {order.userOrderCreated}</div>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : page === 2 ? (
-            <div id="myPageBodyUpdate">
-              <div>마이 페이지 수정</div>
-              <div id="">
-                <div>비밀번호 수정</div>
-                <div>
-                  <Input
-                    placeholder="현재 비밀번호"
-                    type="password"
-                    value={pwdDefualt}
-                    change={(e) => setPwdDefualt(e.target.value)}
-                  />
-                  <Input
-                    placeholder="새 비밀번호"
-                    type="password"
-                    value={pwdUpdata}
-                    change={(e) => setPwdUpdata(e.target.value)}
-                  />
-                  <Input
-                    placeholder="새 비밀번호 확인"
-                    type="password"
-                    value={pwdUpdataTrue}
-                    change={(e) => setPwdUpdataTrue(e.target.value)}
-                  />
-                  <button id="myPageButton" onClick={pwdBtn}>
-                    수정하기
-                  </button>
-                </div>
-              </div>
-              <div id="">
-                <div>이메일 등록하기</div>
-                <div>
-                  <Input
-                    placeholder="이메일 등록하기"
-                    type="text"
-                    value={emailUpdata}
-                    change={(e) => setEmailUpdata(e.target.value)}
-                  />
-                  <button id="myPageButton" onClick={emailBtn}>
-                    수정하기
-                  </button>
-                </div>
-              </div>
-              <div>
-                <Address />
-                <button onClick={memberUpdateBack}>수정하기</button>
-              </div>
-              <button onClick={memberUpdateBack}>뒤로가기</button>
-            </div>
-          ) : (
-            <div>
-              <Input
-                label="현재 비밀번호 : "
-                type="password"
-                value={checkPwd}
-                change={(e) => setCheckPwd(e.target.value)}
+      <div id="myPageBodyBack">
+        <div id="myPageBody" key={member?.userCode}>
+          <div id="myPageBodyImgBox">
+            {preview === "" && member !== null ? (
+              <img
+                src={
+                  "http://192.168.10.51:8084/userFolder/" +
+                  member?.userId +
+                  "/userProfile/" +
+                  member?.userImg
+                }
+                id="myPageImg"
               />
-              <button id="myPageButton" onClick={memberDeleteSuccess}>
-                탈퇴하기
-              </button>
-              <button id="myPageButton" onClick={memberDeleteBack}>
-                뒤로가기
-              </button>
-            </div>
-          )}
+            ) : (
+              <img src={preview} id="myPageImg" />
+            )}
+            {page === 2 ? (
+              <div id="TwoPage">
+                <div id="TwoPageInput">
+                  <label>
+                    프로필 이미지 변경하기
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      change={imgPreview}
+                      styleInput={{ display: "none" }}
+                    />
+                  </label>
+                </div>
+                <div id="TwoPageButton">
+                  <button onClick={imgUpdataBtn}>수정하기</button>
+                  <button onClick={memberUpdateBack}>뒤로가기</button>
+                </div>
+              </div>
+            ) : (
+              <div id="OnePage">
+                <div id="OnePageProfile">
+                  <div>이름 : {member?.userName}</div>
+                  <div>성별 : {member?.userGender}</div>
+                  <div>이메일 : {member?.userEmail}</div>
+                  <div>생년월일 : {member?.userBirthdayData}</div>
+                </div>
+                <div id="myPageButton">
+                  <button onClick={memberUpdate}>수정하기</button>
+                  <button onClick={memberDelete}>회원탈퇴</button>
+                </div>
+              </div>
+            )}
+          </div>
+          <div id="myPageBodyInForMation">
+            {page === 1 ? (
+              <div id="orderInquiryBody">
+                <div id="orderInquiryBodyOrder">
+                  <h1 id="orderInquiryBodyOrderH1">내 주문 내역</h1>
+                  <div id="orderInquiryProductOrder">
+                    <div id="mapageOrderProduct">
+                      <h1 id="mapageOrderProductStateH1">주문 확인중</h1>
+                      {userOrder.filter((order) => order.orderStateCode === 1)
+                        .length != 0 ? (
+                        userOrder
+                          .filter((order) => order.orderStateCode === 1)
+                          .map((order, index) => (
+                            <div
+                              id="mapageOrderProductMap"
+                              key={order.orderCode || index}
+                            >
+                              {order.orderStateCode === 1 && (
+                                <div id="mapageOrderProductState">
+                                  <img
+                                    id="mapageOrderProductStateImg"
+                                    src={
+                                      "http://192.168.10.51:8084/Product/" +
+                                      order?.product.productType +
+                                      "/" +
+                                      order?.product.productCode +
+                                      "/" +
+                                      order?.productImg.productImgAddress
+                                    }
+                                  />
+                                  <div id="mapageOrderProductStateBox">
+                                    <div id="mapageOrderProductStateBoxH1">
+                                      <div>
+                                        {" "}
+                                        <div>{order.product.productType}</div>
+                                        <div id="mapageOrderProductStateBoxH1Name">
+                                          노래 제목 :{" "}
+                                          {order.product.productName}
+                                        </div>
+                                      </div>
+                                      <div id="mapageOrderProductStateBoxH1Address">
+                                        {order.userOrderCreated}
+                                      </div>
+                                    </div>
+                                    <div id="mapageOrderProductStateBoxBdoy">
+                                      <div>
+                                        {order.product.productExplanation}
+                                      </div>
+                                    </div>
+                                    <div id="mapageOrderProductStateBoxFooter">
+                                      <div>
+                                        {" "}
+                                        <div>
+                                          주소 : {"["}
+                                          {order.address.zonecode}
+                                          {"] "}
+                                          {order.address.jibunAddress}
+                                          {", "}
+                                          {order.address.roadAddress}
+                                        </div>
+                                        <div>
+                                          상세설명 :{" "}
+                                          {order.address.addressDetail}
+                                        </div>
+                                      </div>
+
+                                      <div id="mapageOrderProductStateBoxFooterPrice">
+                                        {order.product.productPrice}원
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          ))
+                      ) : (
+                        <div id="userOrderNull">정보가 없습니다😂</div>
+                      )}
+                    </div>
+
+                    <div id="mapageOrderProduct">
+                      <h1 id="mapageOrderProductStateH1">주문 배송중</h1>
+                      {userOrder.filter((order) => order.orderStateCode === 2)
+                        .length != 0 ? (
+                        userOrder
+                          .filter((order) => order.orderStateCode === 2)
+                          .map((order, index) => (
+                            <div
+                              id="mapageOrderProductMap"
+                              key={order.orderCode || index}
+                            >
+                              {order.orderStateCode === 2 && (
+                                <div id="mapageOrderProductState">
+                                  <img
+                                    id="mapageOrderProductStateImg"
+                                    src={
+                                      "http://192.168.10.51:8084/Product/" +
+                                      order?.product.productType +
+                                      "/" +
+                                      order?.product.productCode +
+                                      "/" +
+                                      order?.productImg.productImgAddress
+                                    }
+                                  />
+                                  <div id="mapageOrderProductStateBox">
+                                    <div id="mapageOrderProductStateBoxH1">
+                                      <div>
+                                        {" "}
+                                        <div>{order.product.productType}</div>
+                                        <div id="mapageOrderProductStateBoxH1Name">
+                                          노래 제목 :{" "}
+                                          {order.product.productName}
+                                        </div>
+                                      </div>
+                                      <div id="mapageOrderProductStateBoxH1Address">
+                                        {order.userOrderCreated}
+                                      </div>
+                                    </div>
+                                    <div id="mapageOrderProductStateBoxBdoy">
+                                      <div>
+                                        {order.product.productExplanation}
+                                      </div>
+                                    </div>
+                                    <div id="mapageOrderProductStateBoxFooter">
+                                      <div>
+                                        {" "}
+                                        <div>
+                                          주소 : {"["}
+                                          {order.address.zonecode}
+                                          {"] "}
+                                          {order.address.jibunAddress}
+                                          {", "}
+                                          {order.address.roadAddress}
+                                        </div>
+                                        <div>
+                                          상세설명 :{" "}
+                                          {order.address.addressDetail}
+                                        </div>
+                                      </div>
+
+                                      <div id="mapageOrderProductStateBoxFooterPrice">
+                                        {order.product.productPrice}원
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          ))
+                      ) : (
+                        <div id="userOrderNull">정보가 없습니다😂</div>
+                      )}
+                    </div>
+                    <div id="mapageOrderProduct">
+                      <h1 id="mapageOrderProductStateH1">주문 완료</h1>
+                      {userOrder.filter((order) => order.orderStateCode === 3)
+                        .length != 0 ? (
+                        userOrder
+                          .filter((order) => order.orderStateCode === 3)
+                          .map((order, index) => (
+                            <div
+                              id="mapageOrderProductMap"
+                              key={order.orderCode || index}
+                            >
+                              {order.orderStateCode === 3 && (
+                                <div id="mapageOrderProductState">
+                                  <img
+                                    id="mapageOrderProductStateImg"
+                                    src={
+                                      "http://192.168.10.51:8084/Product/" +
+                                      order?.product.productType +
+                                      "/" +
+                                      order?.product.productCode +
+                                      "/" +
+                                      order?.productImg.productImgAddress
+                                    }
+                                  />
+                                  <div id="mapageOrderProductStateBox">
+                                    <div id="mapageOrderProductStateBoxH1">
+                                      <div>
+                                        {" "}
+                                        <div>{order.product.productType}</div>
+                                        <div id="mapageOrderProductStateBoxH1Name">
+                                          노래 제목 :{" "}
+                                          {order.product.productName}
+                                        </div>
+                                      </div>
+                                      <div id="mapageOrderProductStateBoxH1Address">
+                                        {order.userOrderCreated}
+                                      </div>
+                                    </div>
+                                    <div id="mapageOrderProductStateBoxBdoy">
+                                      <div>
+                                        {order.product.productExplanation}
+                                      </div>
+                                    </div>
+                                    <div id="mapageOrderProductStateBoxFooter">
+                                      <div>
+                                        {" "}
+                                        <div>
+                                          주소 : {"["}
+                                          {order.address.zonecode}
+                                          {"] "}
+                                          {order.address.jibunAddress}
+                                          {", "}
+                                          {order.address.roadAddress}
+                                        </div>
+                                        <div>
+                                          상세설명 :{" "}
+                                          {order.address.addressDetail}
+                                        </div>
+                                      </div>
+
+                                      <div id="mapageOrderProductStateBoxFooterPrice">
+                                        {order.product.productPrice}원
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          ))
+                      ) : (
+                        <div id="userOrderNull">정보가 없습니다😂</div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : page === 2 ? (
+              <div id="myPageBodyUpdate">
+                <div id="myPageBodyUpdateH1">마이 페이지 수정</div>
+                <div id="myPageBodyUpdateBox">
+                  <div id="myPageBodyUpdateBoxH1">비밀번호 수정</div>
+                  <div id="myPageBodyUpdateBoxBody">
+                    <Input
+                      placeholder="현재 비밀번호"
+                      type="password"
+                      value={pwdDefualt}
+                      change={(e) => setPwdDefualt(e.target.value)}
+                    />
+                    <Input
+                      placeholder="새 비밀번호"
+                      type="password"
+                      value={pwdUpdata}
+                      change={(e) => setPwdUpdata(e.target.value)}
+                    />
+                    <Input
+                      placeholder="새 비밀번호 확인"
+                      type="password"
+                      value={pwdUpdataTrue}
+                      change={(e) => setPwdUpdataTrue(e.target.value)}
+                    />
+                    <button id="myPageButton" onClick={pwdBtn}>
+                      수정하기
+                    </button>
+                  </div>
+                </div>
+                <div id="myPageBodyUpdateBox">
+                  <div id="myPageBodyUpdateBoxH1">이메일 등록하기</div>
+                  <div id="myPageBodyUpdateBoxBody">
+                    <Input
+                      placeholder="이메일 등록하기"
+                      type="text"
+                      value={emailUpdata}
+                      change={(e) => setEmailUpdata(e.target.value)}
+                    />
+                    <button id="myPageButton" onClick={emailBtn}>
+                      수정하기
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <Input
+                  label="현재 비밀번호 : "
+                  type="password"
+                  value={checkPwd}
+                  change={(e) => setCheckPwd(e.target.value)}
+                />
+                <button id="myPageButton" onClick={memberDeleteSuccess}>
+                  탈퇴하기
+                </button>
+                <button id="myPageButton" onClick={memberDeleteBack}>
+                  뒤로가기
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>

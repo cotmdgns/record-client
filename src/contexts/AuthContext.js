@@ -8,7 +8,6 @@ export const AuthProvider = ({ children }) => {
   const [id, setId] = useState(localStorage.getItem("id"));
   const [name, setName] = useState(localStorage.getItem("name"));
   const [member, setMember] = useState(null);
-
   const userMember = async () => {
     const result = await idCheck(id);
     setMember(result.data);
@@ -35,7 +34,8 @@ export const AuthProvider = ({ children }) => {
     setId(null);
     setName(null);
     setMember(null);
-    alert("로그아웃 됬습니다");
+    alert("로그아웃 됐습니다");
+    window.location.href = "/";
   };
 
   // 회원탈퇴했을때

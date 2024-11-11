@@ -11,7 +11,7 @@ const Header = () => {
   const [toggleSingUp, setToggleSingUp] = useState(false);
   // 로그아웃
   const { logout, nullCheck, member } = useAuth();
-  const { orderList } = useSaveListAuth();
+  const { orderList, productSaveList } = useSaveListAuth();
   const navigate = useNavigate();
 
   // 로그인

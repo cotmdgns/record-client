@@ -64,12 +64,12 @@ const DetailLpPage = () => {
       productSaveList();
     }
   };
-
+  ////////////////////////////////////
   // 쇼핑 결제하기
   const CreateCode = 1;
-  const productOrder = () => {
+  const productOrder = async () => {
     if (window.confirm("결제하시겠습니까?")) {
-      CreateSaveOrder();
+      await CreateSaveOrder();
       navigate("/createOrder", { state: { CreateCode } });
     }
   };
@@ -80,7 +80,7 @@ const DetailLpPage = () => {
       userCode: member?.userCode,
     });
   };
-
+  ////////////////////////////////////
   useEffect(() => {
     if (member !== null) detailPage();
   }, [member]);
@@ -125,9 +125,9 @@ const DetailLpPage = () => {
                       1 +
                       "/" +
                       a.getDate() +
-                      "(" +
+                      " (" +
                       days[a.getDay()] +
-                      ")"}
+                      ") "}
                     발송예정(예약판매) 배송비 : 무료 배송비 안내 예정일 이후
                     1~2일 이내 수령
                   </div>
@@ -138,7 +138,7 @@ const DetailLpPage = () => {
                   남은 수량 : {detail.productQuantity}
                 </div>
                 <div>
-                  가격 : <span>{detail.productPrice}</span>
+                  가격 : <span>{detail.productPrice}</span> 원
                 </div>
               </div>
               <div id="detailbutton">

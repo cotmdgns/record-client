@@ -63,7 +63,7 @@ const CreateProduct = () => {
     await CreateLpRecordProduct(formDataLp);
 
     alert("추가되었습니다");
-    navigate("/");
+    // navigate("/");
   };
   // 이거는 미리보기 변경할수있는 기능
   useEffect(() => {

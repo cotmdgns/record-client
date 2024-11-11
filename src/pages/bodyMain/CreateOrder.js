@@ -12,9 +12,11 @@ import {
 import "../../assets/createOrder.scss";
 import AddressModal from "../../components/AddressModal";
 import { allAddress, viewAddress } from "../../api/addressAPI";
+import { useSaveListAuth } from "../../contexts/UserSaveListContext";
 
 let primryKey = 0;
 const CreateOrder = () => {
+  const { productSaveList } = useSaveListAuth();
   const navigate = useNavigate();
   const { member } = useAuth();
   const location = useLocation();
@@ -114,6 +116,7 @@ const CreateOrder = () => {
       address: primryKey,
     });
     alert("결제가 완료되었습니다.");
+    productSaveList();
     navigate("/");
   };
   useEffect(() => {
@@ -145,7 +148,7 @@ const CreateOrder = () => {
     const result = await viewOrderPrice(member?.userCode);
     setOrderPrice(result.data);
   };
-
+  console.log(viewProduct);
   useEffect(() => {
     if (member != null) {
       if (CreateCode == 2) {
@@ -163,6 +166,7 @@ const CreateOrder = () => {
       addressCode: primryKey,
     });
     alert("결제가 완료되었습니다.");
+    productSaveList();
     navigate("/");
   };
   const createBackBtn = () => {
@@ -221,7 +225,7 @@ const CreateOrder = () => {
                   "/" +
                   viewProduct?.product.productCode +
                   "/" +
-                  viewProduct?.product.productImg
+                  viewProduct?.productImg
                 }
               />
             </div>
