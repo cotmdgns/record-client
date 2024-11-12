@@ -72,9 +72,9 @@ const Signup = ({ close, loginPage }) => {
     //비밀번호 체크
     if (member.userPwd !== "") {
       if (memberPwd.test(member.userPwd)) {
-        setPwd("비밀번호 합격");
+        setPwd("OK");
       } else {
-        setPwd("비밀번호 아직 안됨");
+        setPwd("대소문자,숫자와 특수문자 하나씩 입력 및 8자 이상으로 해주세요");
       }
     } else {
       setPwd("");
@@ -85,7 +85,7 @@ const Signup = ({ close, loginPage }) => {
     //폰 체크
     if (member.userPhone !== "") {
       if (memberPhone.test(member.userPhone)) {
-        setphone("폰 합격");
+        setphone("OK");
       } else {
         setphone("폰 다시 입력해주세요");
       }
@@ -101,9 +101,9 @@ const Signup = ({ close, loginPage }) => {
         member.userBirthdayData.length < 6 ||
         !memberBirth.test(member.userBirthdayData)
       ) {
-        setbirthdayData("생년월일 ㄴㄴ 불합격");
+        setbirthdayData("생년월일 양식에 맞지않습니다");
       } else {
-        setbirthdayData("생년월일 ㅇㅋ 합격");
+        setbirthdayData("OK");
       }
     } else {
       setbirthdayData("");
@@ -113,9 +113,9 @@ const Signup = ({ close, loginPage }) => {
   useEffect(() => {
     if (member.userEmail !== "") {
       if (memberEmail.test(member.userEmail)) {
-        setEmail("맞는듯?");
+        setEmail("OK");
       } else {
-        setEmail("아닌듯???");
+        setEmail("이메일 양식에 맞지않습니다");
       }
     }
   }, [member.userEmail]);
@@ -144,7 +144,7 @@ const Signup = ({ close, loginPage }) => {
       member.userGender !== ""
     ) {
       signup(member);
-      alert("회원가입 하셨습니다 ㅊㅊ");
+      alert("회원가입 하셨습니다");
       close();
     } else {
       alert("제대로 입력하지 않았습니다.");

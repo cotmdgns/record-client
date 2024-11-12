@@ -5,7 +5,6 @@ import "../../assets/orderInquiry.scss";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import Input from "../../components/Input";
-import Address from "../../components/address";
 import { userId } from "../../api/orderInquiry";
 
 const MyPage = () => {

@@ -61,9 +61,8 @@ const CreateProduct = () => {
       formDataLp.append("productImg", file);
     }
     await CreateLpRecordProduct(formDataLp);
-
     alert("추가되었습니다");
-    // navigate("/");
+    navigate("/");
   };
   // 이거는 미리보기 변경할수있는 기능
   useEffect(() => {
@@ -229,8 +228,10 @@ const CreateProduct = () => {
                 onChange={QuillongText}
               />
             </div>
-            <div>
-              <button onClick={createFile}>파일 전송</button>
+            <div id="createProductButton2">
+              <button id="createProductBtn" onClick={createFile}>
+                상품 만들기
+              </button>
             </div>
           </div>
         </div>

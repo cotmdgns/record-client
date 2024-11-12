@@ -81,6 +81,7 @@ $color: #51b6a0;
           font-size: 14px;
         }
       }
+
       #createProductButtons {
         padding: 15px 30px;
         #createProductButton {
@@ -94,5 +95,20 @@ $color: #51b6a0;
         }
       }
     }
+  }
+}
+#createProductButton2 {
+  padding: 10px;
+  #createProductBtn {
+    width: 100%;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #51b6a0;
+    color: white;
+    border-radius: 5px;
+  }
+  #createProductBtn:hover {
+    background-color: #3b8777;
   }
 }
