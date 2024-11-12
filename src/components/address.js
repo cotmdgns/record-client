@@ -77,9 +77,7 @@ const AddressSearch = ({ putAddressView }) => {
     const result = await allAddress(member?.userCode);
     setAllView(result.data);
   };
-  // useEffect(() => {
-  //   console.log(allView);
-  // }, []);
+
   useEffect(() => {
     if (member?.userCode != null) {
       allAddressView();
@@ -115,6 +113,11 @@ const AddressSearch = ({ putAddressView }) => {
     }
   };
 
+  const style = {
+    backgroundColor: "#51b6a0",
+    color: "white",
+  };
+
   const addressUserState = (data) => {
     switch (data) {
       case 1:
@@ -134,28 +137,37 @@ const AddressSearch = ({ putAddressView }) => {
     <div>
       {modalPage === 1 && (
         <div>
+          <button id="createBtn" onClick={openAddressSearch}>
+            + 배송지 신규입력
+          </button>
           {allView.map((address) => (
-            <div key={address.addressCode}>
+            <div id="addressModalChildrenBox" key={address.addressCode}>
               {address.addressUserStartCode == 0 && (
-                <>
-                  <div>도로명 : {address.zonecode}</div>
-                  <div>
-                    주소 : {address.jibunAddress} ( {address.roadAddress} )
+                <div id="addressModalChildren">
+                  <div id="addressModalChildrenZonecode">
+                    {address.zonecode}
                   </div>
-                  <div>전화번호 : {address.addressPhone}</div>
-                  <div>상세정보 : {address.addressDetail}</div>
-                  <div>
+                  <div id="addressModalChildrenHome">
                     배송지 : {addressUserState(address.addressUserState)}
                   </div>
-                  <button onClick={() => putData(address)}>변경하기</button>
-                  <button onClick={() => deleteData(address.addressCode)}>
-                    삭제하기
-                  </button>
-                </>
+                  <div id="addressModalChildrenAddress">
+                    <div>
+                      주소 : {address.jibunAddress} ( {address.roadAddress} )
+                    </div>
+                    <div>상세정보 : {address.addressDetail}</div>
+                    <div>전화번호 : {address.addressPhone}</div>
+                  </div>
+
+                  <div id="addressModalChildrenButton">
+                    <button onClick={() => putData(address)}>변경하기</button>
+                    <button onClick={() => deleteData(address.addressCode)}>
+                      삭제하기
+                    </button>
+                  </div>
+                </div>
               )}
             </div>
           ))}
-          <button onClick={openAddressSearch}>추가</button>
         </div>
       )}
       {modalPage === 2 && (
@@ -171,34 +183,41 @@ const AddressSearch = ({ putAddressView }) => {
         </>
       )}
       {modalPage === 3 && (
-        <div>
-          <div>입력한 정보를 확인 후 저장해주세요</div>
-          <div>상세 주소</div>
-          <div>
+        <div id="addressModalPage">
+          <div id="addressModalPageH1">입력한 정보를 확인 후 저장해주세요</div>
+          <div id="addressModalPageH2">상세 주소</div>
+          <div id="addressModalPageDiv">
+            <div>우편번호</div>
             <input
               type="text"
               value={addr.zonecode}
               placeholder="우편번호"
               readOnly
+              disabled
             />
           </div>
-          <div>
+          <div id="addressModalPageDiv">
+            <div>도로명주소</div>
             <input
               type="text"
               value={addr.roadAddress}
               placeholder="도로명주소"
               readOnly
+              disabled
             />
           </div>
-          <div>
+          <div id="addressModalPageDiv">
+            <div>지번주소</div>
             <input
               type="text"
               value={addr.jibunAddress}
               placeholder="지번주소"
               readOnly
+              disabled
             />
           </div>
-          <div>
+          <div id="addressModalPageDiv">
+            <div>전화번호</div>
             <input
               type="text"
               value={addr.addressPhone}
@@ -208,7 +227,8 @@ const AddressSearch = ({ putAddressView }) => {
               }
             />
           </div>
-          <div>
+          <div id="addressModalPageDiv">
+            <div>상세주소</div>
             <input
               type="text"
               value={addr.addressDetail}
@@ -219,15 +239,42 @@ const AddressSearch = ({ putAddressView }) => {
             />
           </div>
 
-          <div>
-            <div onClick={addressStateBtn}>집</div>
-            <div onClick={addressStateBtn}>회사</div>
-            <div onClick={addressStateBtn}>학교</div>
-            <div onClick={addressStateBtn}>친구</div>
-            <div onClick={addressStateBtn}>가족</div>
+          <div id="addressModalPageHome">
+            <div
+              onClick={addressStateBtn}
+              style={addr.addressUserState == 1 ? style : null}
+            >
+              집
+            </div>
+            <div
+              onClick={addressStateBtn}
+              style={addr.addressUserState == 2 ? style : null}
+            >
+              회사
+            </div>
+            <div
+              onClick={addressStateBtn}
+              style={addr.addressUserState == 3 ? style : null}
+            >
+              학교
+            </div>
+            <div
+              onClick={addressStateBtn}
+              style={addr.addressUserState == 4 ? style : null}
+            >
+              친구
+            </div>
+            <div
+              onClick={addressStateBtn}
+              style={addr.addressUserState == 5 ? style : null}
+            >
+              가족
+            </div>
           </div>
 
-          <button onClick={createBtn}>추가히기</button>
+          <button id="addressModalPagebutton" onClick={createBtn}>
+            추가히기
+          </button>
         </div>
       )}
     </div>

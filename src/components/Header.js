@@ -11,7 +11,7 @@ const Header = () => {
   const [toggleSingUp, setToggleSingUp] = useState(false);
   // 로그아웃
   const { logout, nullCheck, member } = useAuth();
-  const { orderList, productSaveList } = useSaveListAuth();
+  const { orderList, productSaveList } = useSaveListAuth("");
   const navigate = useNavigate();
 
   // 로그인
@@ -108,7 +108,7 @@ const Header = () => {
           )}
 
           <button id="headerBoxRightShoppingSave" onClick={shoppingSave}>
-            장바구니 <div>{orderList}</div>
+            장바구니 {orderList != "" ? <div>{orderList}</div> : null}
           </button>
 
           <button
