@@ -62,13 +62,56 @@
   #oneOneInquiryWritingH1 {
     font-size: 25px;
     font-weight: bold;
-    padding: 30px 10px;
+    padding: 10px;
+  }
+  #oneOneInquiryWritingBox {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid #51b6a0;
+    font-size: 11px;
   }
 }
+#oneOneInquiryWritingButton {
+  border: none;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  padding: 5px 20px;
+  font-size: 11px;
 
-#oneOneInquiryTextarea {
-  width: 100%;
-  height: 200px;
+  border-radius: 5px;
+  background-color: rgb(225, 225, 225);
+  cursor: pointer;
+}
+#oneOneInquiryWritingButton:hover {
+  background-color: rgb(211, 211, 211);
+}
+#oneOneInquiryWritingText {
+  background-color: rgb(232, 232, 232);
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 11px;
+  #inputText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    label {
+      width: 70px;
+    }
+    input {
+      width: 100%;
+      padding: 2px;
+      border: none;
+    }
+  }
+
+  #oneOneInquiryTextarea {
+    width: 100%;
+    height: 200px;
+    border: none;
+  }
 }
 
 // 디테일 페이지
@@ -121,4 +164,16 @@
       overflow: hidden;
     }
   }
+}
+
+#detailBtn {
+  border: none;
+  padding: 5px 10px;
+  font-size: 11px;
+  margin: 2px;
+  border-radius: 5px;
+  background-color: #e1e1e1;
+}
+#detailBtn:hover {
+  background-color: #bfbfbf;
 }

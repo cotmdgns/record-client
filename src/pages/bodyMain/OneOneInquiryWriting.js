@@ -22,22 +22,35 @@ const OneOneInquiryWriting = () => {
     const result = e.target.files[0];
     setOneOneInquiry({ ...oneOneInquiry, oneOneInquiryFile: result });
   };
+  const [click, setClick] = useState(false);
+  const clickBth = () => {
+    setClick(true);
+  };
+
+  const style = {
+    backgroundColor: "#51b6a0",
+    color: "white",
+  };
   const oneOneBtn = async () => {
     const formdate = new FormData();
     formdate.append("userCode", member.userCode);
     formdate.append("oneOneInquiryH1", oneOneInquiry.oneOneInquiryH1);
     formdate.append("oneOneInquiryText", oneOneInquiry.oneOneInquiryH1);
-    formdate.append("oneOneInquiryFile", oneOneInquiry.oneOneInquiryFile);
-    const result = await createOneOneInquiry(formdate);
-    if (result.status === 200) {
-      alert("정상적으로 작성되었습니다.");
-      navigate("/oneOneInquiry");
+    if (click) {
+      const result = await createOneOneInquiry(formdate);
+      if (result.status === 200) {
+        alert("정상적으로 작성되었습니다.");
+        navigate("/oneOneInquiry");
+      }
+    } else {
+      alert("확인 버튼을 눌러주세요");
     }
   };
+
   return (
     <div id="oneOneInquiryWriting">
       <div id="oneOneInquiryWritingH1">1:1 문의하기</div>
-      <div>
+      <div id="oneOneInquiryWritingBox">
         <div>
           개인정보 수집 및 이용 동의 <p>(필수)</p>
         </div>
@@ -58,11 +71,19 @@ const OneOneInquiryWriting = () => {
             위의 개인정보 수집 및 이용에 동의합니다. (확인 후 문의가
             가능합니다.)
           </div>
-          <button>확인</button>
         </div>
       </div>
-      <div>
+      <button
+        id="oneOneInquiryWritingButton"
+        style={click ? style : null}
+        onClick={clickBth}
+      >
+        확인
+      </button>
+
+      <div id="oneOneInquiryWritingText">
         <Input
+          id="inputText"
           label="문의 제목* : "
           type="text"
           value={oneOneInquiry.oneOneInquiryH1}
@@ -74,7 +95,6 @@ const OneOneInquiryWriting = () => {
           }
         />
         <div>
-          <div>문의 내용* :</div>
           <textarea
             id="oneOneInquiryTextarea"
             value={oneOneInquiry.oneOneInquiryText}
@@ -89,18 +109,10 @@ const OneOneInquiryWriting = () => {
             문자 수 제한 : {oneOneInquiry.oneOneInquiryText.length} / 500
           </div>
         </div>
-        <div>
-          <div>문의 파일 : </div>
-          <input
-            label="이미지 생성 : "
-            type="file"
-            accept="image/*"
-            onChange={img}
-            multiple
-          />
-        </div>
       </div>
-      <button onClick={oneOneBtn}>문의 하기</button>
+      <button id="oneOneInquiryWritingButton" onClick={oneOneBtn}>
+        문의 하기
+      </button>
     </div>
   );
 };

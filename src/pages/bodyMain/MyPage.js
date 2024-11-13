@@ -471,19 +471,40 @@ const MyPage = () => {
                 </div>
               </div>
             ) : (
-              <div>
+              <div id="myPageDelete">
+                <div id="myPageDeleteBox">
+                  <div>
+                    1. 사용하고 계시는 아이디는 재사용 및 복구가 불가능합니다.
+                    탈퇴 시 해당 아이디는 즉시 탈퇴 처리 되며, 탈퇴한 아이디는
+                    본인과 타인 모두 재사용 및 복구가 불가 하오니 신중하게
+                    선택하시기 바랍니다.
+                  </div>
+                  <div>
+                    2. 탈퇴 후 회원정보는 모두 삭제됩니다. 탈퇴 시 아이디를
+                    제외한 회원정보는 모두 삭제되며, 삭제된 데이터는 복구되지
+                    않습니다.
+                  </div>
+                  <div>
+                    3. 탈퇴 후에도 게시판에 등록한 게시물은 그대로 남아
+                    있습니다. 홈페이지에 올린 게시글 및 댓글은 탈퇴 시 자동
+                    삭제되지 않고 그대로 남아 있으므로, 삭제를 원하는 게시글이
+                    있다면 반드시 탈퇴 전 삭제하시기 바랍니다.
+                  </div>
+                  <div>
+                    4. 회원 탈퇴(데이터 삭제)를 원하시면 아래로 연락주시기
+                    바랍니다.
+                  </div>
+                </div>
                 <Input
                   label="현재 비밀번호 : "
                   type="password"
                   value={checkPwd}
                   change={(e) => setCheckPwd(e.target.value)}
                 />
-                <button id="myPageButton" onClick={memberDeleteSuccess}>
-                  탈퇴하기
-                </button>
-                <button id="myPageButton" onClick={memberDeleteBack}>
-                  뒤로가기
-                </button>
+                <div id="myPageButton">
+                  <button onClick={memberDeleteSuccess}>탈퇴하기</button>
+                  <button onClick={memberDeleteBack}>뒤로가기</button>
+                </div>
               </div>
             )}
           </div>

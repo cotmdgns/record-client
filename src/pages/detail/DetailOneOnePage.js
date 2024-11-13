@@ -112,8 +112,10 @@ const DetailOneOnePage = () => {
                 </div>
               </div>{" "}
               <div>
-                <button onClick={allViewBtn}>목록보기</button>
-                <button>수정하기</button>
+                <button id="detailBtn" onClick={allViewBtn}>
+                  목록보기
+                </button>
+                <button id="detailBtn">수정하기</button>
               </div>
             </>
           ) : (
@@ -140,11 +142,15 @@ const DetailOneOnePage = () => {
               ></textarea>
             </div>
             <div>
-              <button onClick={allViewBtn}>목록보기</button>
+              <button id="detailBtn" onClick={allViewBtn}>
+                목록보기
+              </button>
               {oneOneInquiryCodeComment === "" ||
               oneOneInquiryCodeComment === null ||
               oneOneInquiryCodeComment === undefined ? (
-                <button onClick={commentBtn}>답글쓰기</button>
+                <button id="detailBtn" onClick={commentBtn}>
+                  답글쓰기
+                </button>
               ) : null}
             </div>
           </>
