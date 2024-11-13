@@ -165,7 +165,7 @@ const CreateOrder = () => {
     // } else {
     await CreateProductOrders({
       userCode: member?.userCode,
-      productCode: productCodes,
+      productCodes: productCodes,
       addressCode: primryKey,
     });
     alert("결제가 완료되었습니다.");

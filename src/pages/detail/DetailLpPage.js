@@ -42,7 +42,6 @@ const DetailLpPage = () => {
     const result = await createShoppingSave({
       productCode: productCode,
       userCode: member?.userCode,
-      productType: "LP",
     });
     if (result.status === 200) {
       alert("추가 되었습니다!");
@@ -56,7 +55,6 @@ const DetailLpPage = () => {
     const result = await deleteShoppingSave({
       productCode: productCode,
       userCode: member?.userCode,
-      productType: "LP",
     });
     if (result.status === 200) {
       alert("삭제되었습니다!.");
