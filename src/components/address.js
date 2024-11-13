@@ -8,7 +8,7 @@ import {
 } from "../api/addressAPI";
 import { useAuth } from "../contexts/AuthContext";
 
-const AddressSearch = ({ putAddressView }) => {
+const AddressSearch = ({ putAddressView, allMemberAddressList }) => {
   const { member } = useAuth();
   const [modalPage, setModalPage] = useState(1);
   const [addr, setAddr] = useState({
@@ -88,6 +88,7 @@ const AddressSearch = ({ putAddressView }) => {
   const createBtn = async () => {
     if (member?.userCode != null) {
       const reulst = await createAddress(addr);
+      await allMemberAddressList();
       setAllView(reulst.data);
       setModalPage(1);
     }

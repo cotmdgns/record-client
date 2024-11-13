@@ -42,7 +42,6 @@ const MyPage = () => {
   useEffect(() => {
     userOrderTable();
     maPageMember();
-    console.log(userOrder);
   }, []);
 
   useEffect(() => {
@@ -142,7 +141,7 @@ const MyPage = () => {
       await userImgUpDatePut(formData);
       alert("변경되었습니다!");
     } else {
-      alert("사진은 삽입해주세요.");
+      alert("사진을 삽입해주세요.");
     }
   };
 
