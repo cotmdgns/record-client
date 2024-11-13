@@ -23,12 +23,13 @@ const CreateProduct = () => {
   const imgs = (e) => {
     // 모두 콘솔로 저장되면서 값보내지는거 확인됨
     // 서버에 저장할거
-    const selectedFile = e.target.files;
-    setLpProduct({ ...lpProduct, productImg: selectedFile });
+    const files = e.target.files;
+    setLpProduct((prevState) => ({
+      ...prevState,
+      productImg: files.length > 0 ? Array.from(files) : [], // 파일이 있을 경우 배열로 설정
+    }));
     // 프리뷰로 보낼꺼
-    const lpUrl = Array.from(selectedFile).map((file) =>
-      URL.createObjectURL(file)
-    );
+    const lpUrl = Array.from(files).map((file) => URL.createObjectURL(file));
     setLpImgPre(lpUrl);
   };
   // 실험용 구간
@@ -57,12 +58,32 @@ const CreateProduct = () => {
     formDataLp.append("productLongtext", lpProduct.productLongText);
 
     // 배열이긴하나 한번에 못받아서 포문돌려서 하나씩 보내줘야함
-    for (const file of lpProduct.productImg) {
-      formDataLp.append("productImg", file);
+    if (
+      Array.isArray(lpProduct.productImg) &&
+      lpProduct.productImg.length > 0
+    ) {
+      for (const file of lpProduct.productImg) {
+        formDataLp.append("productImg", file);
+      }
+    } else {
+      alert("이미지를 추가해주세요.");
+      return;
     }
-    await CreateLpRecordProduct(formDataLp);
-    alert("추가되었습니다");
-    navigate("/");
+    if (
+      lpProduct.productType !== "" &&
+      lpProduct.productName !== "" &&
+      lpProduct.productPrice !== "" &&
+      lpProduct.productExplanation !== "" &&
+      lpProduct.productQuantity !== "" &&
+      lpProduct.productLongText !== "" &&
+      lpProduct.productImg !== null
+    ) {
+      await CreateLpRecordProduct(formDataLp);
+      alert("추가되었습니다");
+      navigate("/");
+    } else {
+      alert("재대로 입력되지않습니다");
+    }
   };
   // 이거는 미리보기 변경할수있는 기능
   useEffect(() => {

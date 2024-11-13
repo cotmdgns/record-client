@@ -22,15 +22,6 @@ const CreateOrder = () => {
   const { member } = useAuth();
   const location = useLocation();
   const { CreateCode } = location.state || {};
-  // 버튼 상태 관리하기
-  // const [activeButton, setActiveButton] = useState(null);
-  // //////////////////////////////////////////////////////////// ( 주소 관리 )
-  // const [allView, setAllView] = useState([]);
-  // const [addressState, setAddressState] = useState({
-  //   userCode: "",
-  //   addressUserState: "",
-  // });
-
   ////////// ( 주소 api 모달창 )
   const [modalAddress, setModalAddress] = useState(false); // boolean으로 모달창 나올지안나올지 확인
   const close = () => {
@@ -110,11 +101,18 @@ const CreateOrder = () => {
     navigate(`/mainLpPage/detailLpPage/${viewProduct?.product.productCode}`);
   };
   // 결제하기 버튼 눌렀을 떄 상황
+  // useEffect(()=>{
+
+  // },[member,viewProduct,primryKey])
+
   const createOrderBtn = async () => {
+    console.log(member?.userCode);
+    console.log(viewProduct?.product.productCode);
+    console.log(primryKey);
     await CreateProductOrder({
       userCode: member?.userCode,
-      productCodes: viewProduct?.product.productCode,
-      address: primryKey,
+      productCode: viewProduct?.product.productCode,
+      addressCode: primryKey,
     });
     alert("결제가 완료되었습니다.");
     productSaveList();
@@ -162,6 +160,9 @@ const CreateOrder = () => {
   const productCodes =
     userSaveProduct?.map((product) => product.product.productCode) || [];
   const createBtn = async () => {
+    // if (primryKey != 1) {
+    //   alert("주소를 입력해주세요.");
+    // } else {
     await CreateProductOrders({
       userCode: member?.userCode,
       productCode: productCodes,
@@ -170,6 +171,7 @@ const CreateOrder = () => {
     alert("결제가 완료되었습니다.");
     productSaveList();
     navigate("/");
+    // }
   };
   const createBackBtn = () => {
     alert("결제가 취소되었습니다.");
@@ -184,7 +186,19 @@ const CreateOrder = () => {
           <div id="createOrderAddressBox">
             <div id="createOrderH1Page">배송지 선택하기</div>
             {addressData.length === 0 ? (
-              <div>정보가 없으면 결제를 하실 수 없습니다.</div>
+              <>
+                <div id="createOrderNullPages">
+                  <div>정보가 없으면 결제를 하실 수 없습니다.</div>
+                </div>
+                <div id="createOrderNullPagesButton">
+                  <button
+                    id="createOrderNullPagesButtonBtn"
+                    onClick={addressBtn}
+                  >
+                    추가
+                  </button>
+                </div>
+              </>
             ) : (
               <div id="addressView">
                 {addressData.map((data) => (
@@ -214,7 +228,9 @@ const CreateOrder = () => {
                           <div id="addressViewDetail">
                             상세정보 : {data.addressDetail}
                           </div>
-                          <button onClick={addressBtn}>변경</button>
+                          <div>
+                            <button onClick={addressBtn}>변경</button>
+                          </div>
                         </div>
                       </div>
                     )}
@@ -224,7 +240,11 @@ const CreateOrder = () => {
             )}
           </div>
           {modalAddress ? (
-            <AddressModal close={close} putAddressView={putAddressView} />
+            <AddressModal
+              close={close}
+              putAddressView={putAddressView}
+              allMemberAddressList={allMemberAddressList}
+            />
           ) : null}
 
           {/* 모달창이 뜨면서 그 안에서 주소 api가 나오고  */}

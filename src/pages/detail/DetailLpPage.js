@@ -65,6 +65,12 @@ const DetailLpPage = () => {
     }
   };
   ////////////////////////////////////
+  const CreateSaveOrder = async () => {
+    await createShoppingSaveOrder({
+      productCode: productCode,
+      userCode: member?.userCode,
+    });
+  };
   // 쇼핑 결제하기
   const CreateCode = 1;
   const productOrder = async () => {
@@ -74,12 +80,6 @@ const DetailLpPage = () => {
     }
   };
 
-  const CreateSaveOrder = async () => {
-    await createShoppingSaveOrder({
-      productCode: productCode,
-      userCode: member?.userCode,
-    });
-  };
   ////////////////////////////////////
   useEffect(() => {
     if (member !== null) detailPage();
